@@ -6,15 +6,11 @@ using System.Threading.Tasks;
 
 namespace SunridgeHOA.Models
 {
-    public class Lots
+    public class Lot
     {
         public int ID { get; set; }
 
-        [ForeignKey("AddressID")]
-        public virtual int AddressID { get; set; }
 
-        [ForeignKey("OwnerID")]
-        public virtual int OwnerID { get; set; }
 
         public string LotNumber { get; set; }
 
@@ -25,5 +21,17 @@ namespace SunridgeHOA.Models
         public string LastModifiedBy { get; set; }
 
         public DateTime LastModifiedDate { get; set; }
+
+        // Navigation Properties
+        [ForeignKey("InventoryItem")] public int InventoryID { get; set; }
+        public virtual ICollection<InventoryItem> InventoryItems { get; set; }
+
+        [ForeignKey("AddressID")]
+        public int AddressID { get; set; }
+        public virtual Addresses Addresses { get; set; }
+
+        [ForeignKey("OwnerID")]
+        public int OwnerID { get; set; }
+        public virtual Owner Owner { get; set; }
     }
 }

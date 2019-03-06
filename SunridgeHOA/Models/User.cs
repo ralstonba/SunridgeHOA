@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace SunridgeHOA.Models
 {
-    public class Users
+    public class User
     {
         public int ID { get; set; }
 
