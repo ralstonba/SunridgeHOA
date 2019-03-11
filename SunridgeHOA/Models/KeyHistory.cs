@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace SunridgeHOA.Models
 {
-    public class KeyHistories
+    public class KeyHistory
     {
         [ForeignKey("KeyID")]
         public virtual int KeyID { get; set; }
@@ -14,6 +15,7 @@ namespace SunridgeHOA.Models
         [ForeignKey("OwnerID")]
         public virtual int OwnerID { get; set; }
 
+        [Key]
         public int ID { get; set; }
 
         public string Status { get; set; }

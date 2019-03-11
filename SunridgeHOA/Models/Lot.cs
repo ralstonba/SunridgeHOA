@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,9 +9,8 @@ namespace SunridgeHOA.Models
 {
     public class Lot
     {
+        [Key]
         public int ID { get; set; }
-
-
 
         public string LotNumber { get; set; }
 
@@ -28,7 +28,7 @@ namespace SunridgeHOA.Models
 
         [ForeignKey("AddressID")]
         public int AddressID { get; set; }
-        public virtual Addresses Addresses { get; set; }
+        public virtual Address Addresses { get; set; }
 
         [ForeignKey("OwnerID")]
         public int OwnerID { get; set; }

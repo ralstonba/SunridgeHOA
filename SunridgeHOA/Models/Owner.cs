@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,11 +10,12 @@ namespace SunridgeHOA.Models
     public class Owner
     {
         [ForeignKey("AddressID")]
-        public virtual Addresses AddressID { get; set; }
+        public virtual Address AddressID { get; set; }
 
         [ForeignKey("CoOwnerID")]
-        public virtual Addresses CoOwnerID { get; set; }
+        public virtual Address CoOwnerID { get; set; }
 
+        [Key]
         public int ID { get; set; }
 
         public bool IsPrimary { get; set; }

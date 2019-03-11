@@ -1,33 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace SunridgeHOA.Models
 {
-    public class Transactions
+    public class OwnerContactType
     {
-        [ForeignKey("LotID")]
-        public virtual int LotID { get; set; }
 
         [ForeignKey("OwnerID")]
         public virtual int OwnerID { get; set; }
 
-        [ForeignKey("TransactionTypeID")]
-        public virtual int TransactionTypeID { get; set; }
+        [ForeignKey("ContactID")]
+        public virtual int ContactID { get; set; }
 
+        [Key]
         public int ID { get; set; }
 
-        public string Description { get; set; }
-
-        public float Amount { get; set; }
-
-        public DateTime DateAdded { get; set; }
-
-        public DateTime DatePaid { get; set; }
-
-        public string Status { get; set; }
+        public string ContactValue { get; set; }
 
         public bool IsArchive { get; set; }
 
