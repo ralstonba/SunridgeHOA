@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SunridgeHOA.Models
 {
-    public class Owners
+    public class Owner
     {
         [ForeignKey("AddressID")]
         public virtual Addresses AddressID { get; set; }
