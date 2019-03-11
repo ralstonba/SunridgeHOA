@@ -15,21 +15,92 @@ namespace SunridgeHOA.Controllers
             return View();
         }
 
-        public IActionResult About()
+        public IActionResult BoardMembers()
         {
-            ViewData["Message"] = "Your application description page.";
-
             return View();
         }
 
-        public IActionResult Contact()
+        public IActionResult EventCalender()
         {
-            ViewData["Message"] = "Your contact page.";
-
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult Lots()
+        {
+            return View();
+        }
+
+        public IActionResult Cabins()
+        {
+            return View();
+        }
+
+        public IActionResult OtherServices()
+        {
+            return View();
+        }
+
+        public IActionResult Rules()
+        {
+            return View();
+        }
+
+        public IActionResult Maps()
+        {
+            return View();
+        }
+
+        public IActionResult Forms()
+        {
+            return View();
+        }
+
+        public IActionResult FireInfo()
+        {
+            return View();
+        }
+
+        public IActionResult Season2018()
+        {
+            return View();
+        }
+
+        public IActionResult Season2017()
+        {
+            return View();
+        }
+
+        public IActionResult Season2016()
+        {
+            return View();
+        }
+
+        public IActionResult PhotoGallery()
+        {
+            return View();
+        }
+
+        public IActionResult SummerGallery()
+        {
+            return View();
+        }
+
+        public IActionResult WinterGallery()
+        {
+            return View();
+        }
+
+        public IActionResult PeopleGallery()
+        {
+            return View();
+        }
+
+        public IActionResult H13()
+        {
+            return View();
+        }
+
+        public IActionResult CabinBak()
         {
             return View();
         }
