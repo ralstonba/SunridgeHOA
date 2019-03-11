@@ -18,7 +18,7 @@ namespace SunridgeHOA.Models
         public DateTime LastModifiedDate { get; set; }
         
         // Navigation Properties
-        [Required, ForeignKey("User")] public int UserID { get; set; }
-        public User User { get; set; }
+        [Required, ForeignKey("ApplicationUser")] public int UserID { get; set; }
+        public ApplicationUser ApplicationUser { get; set; }
     }
 }

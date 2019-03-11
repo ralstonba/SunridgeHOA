@@ -27,7 +27,7 @@ namespace SunridgeHOA.Models
         [ForeignKey("OwnerHistory")] public int OwnerHistoryID { get; set; }
         public OwnerHistory OwnerHistory { get; set; }
 
-        [Required, ForeignKey("User")] public int UserID { get; set; }
-        public User User { get; set; }
+        [Required, ForeignKey("ApplicationUser")] public int UserID { get; set; }
+        public ApplicationUser ApplicationUser { get; set; }
     }
 }
