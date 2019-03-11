@@ -77,7 +77,7 @@ namespace SunridgeHOA
             {
                 routes.MapRoute(
                     name: "areas",
-                    template: "{area=public}/{controller=Home}/{action=Index}/{id?}"
+                    template: "{area=Public}/{controller=Home}/{action=Index}/{id?}"
                 );
             });
         }
