@@ -34,6 +34,8 @@ namespace SunridgeHOA
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            services.AddTransient<IEventRepository, EventRepository>();
+
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
@@ -67,7 +69,7 @@ namespace SunridgeHOA
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{area=Public}/{controller=Home}/{action=Index}/{id?}");
             });
         }
     }

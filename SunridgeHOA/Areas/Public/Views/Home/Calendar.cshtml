@@ -1,0 +1,67 @@
+﻿
+@{
+    ViewData["Title"] = "Calendar";
+}
+
+<h2>Calendar</h2>
+
+<div id="calendar"></div>
+
+<link href="~/lib/fullcalendar/fullcalendar.min.css" rel="stylesheet" />
+<link href="~/lib/fullcalendar/fullcalendar.print.min.css" rel="stylesheet" media="print" />
+
+@section Scripts
+    {
+    <script src="~/lib/moment.js/moment.min.js"></script>
+    <script src="~/lib/fullcalendar/fullcalendar.js"></script>
+
+
+    <script>
+        $(document).ready(function () {
+
+            var events = [];
+
+            $.ajax({
+                type: "GET",
+                url: "/public/home/GetEvents",
+                success: function (data) {
+                    $.each(data, function (i, v) {
+                        events.push({
+                            title: v.subject,
+                            description: v.description,
+                            start: moment(v.start),
+                            end: v.End != null ? moment(v.end) : null,
+                            allDay: v.isFullDay
+                        });
+                    })
+
+                    GenerateCalendar(events);
+                },
+                error: function (error) {
+                    alert('failed');
+                }
+            })
+
+
+            function GenerateCalendar(events) {
+                // When generating cal, destroy whatever already exists
+                //$('#calendar').fullCalendar('destroy');
+
+                // Calendar settings
+                $('#calendar').fullCalendar({
+                    contentHeight: 400,
+                    defaultDate: new Date(),
+                    timeFormat: 'h(:mm)a',
+                    header: {
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'month,basicWeek,basicDay,agenda'
+                    },
+                    eventLimit: true,
+                    eventColor: '#378006',
+                    events: events
+                })
+            }
+        })
+    </script>
+}
