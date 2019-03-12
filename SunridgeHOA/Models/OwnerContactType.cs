@@ -19,15 +19,15 @@ namespace SunridgeHOA.Models
         public DateTime LastModifiedDate { get; set; }
 
         // Navigation Properties
-        [ForeignKey("OwnerID")]
+        [ForeignKey("Owner")]
         public int OwnerID { get; set; }
         public virtual Owner Owner { get; set; }
 
-        [ForeignKey("ContactID")]
+        [ForeignKey("ContactType")]
         public int ContactID { get; set; }
         public virtual ContactType ContactType { get; set; }
 
-        [ForeignKey("LastModifiedBy")]
+        [ForeignKey("ApplicationUser")]
         public int LastModifiedBy { get; set; }
         public virtual ApplicationUser ApplicationUser { get; set; }
     }

@@ -24,15 +24,15 @@ namespace SunridgeHOA.Models
         [ForeignKey("InventoryItem")] public int InventoryID { get; set; }
         public virtual ICollection<InventoryItem> InventoryItems { get; set; }
 
-        [ForeignKey("AddressID")]
+        [ForeignKey("Address")]
         public int AddressID { get; set; }
         public virtual Address Address { get; set; }
 
-        [ForeignKey("OwnerID")]
+        [ForeignKey("Owner")]
         public int OwnerID { get; set; }
         public virtual Owner Owner { get; set; }
 
-        [ForeignKey("LastModifiedBy")]
+        [ForeignKey("ApplicationUser")]
         public int LastModifiedBy { get; set; }
         public virtual ApplicationUser ApplicationUser { get; set; }
 

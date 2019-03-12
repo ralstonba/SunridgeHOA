@@ -27,19 +27,19 @@ namespace SunridgeHOA.Models
         public DateTime LastModifiedDate { get; set; }
 
         // Foreign Keys
-        [ForeignKey("LotID")]
+        [ForeignKey("Lot")]
         public int LotID { get; set; }
         public virtual Lot Lot { get; set; }
 
-        [ForeignKey("OwnerID")]
+        [ForeignKey("Owner")]
         public int OwnerID { get; set; }
         public virtual Owner Owner { get; set; }
 
-        [ForeignKey("TransactionTypeID")]
+        [ForeignKey("TransactionType")]
         public int TransactionTypeId { get; set; }
         public virtual TransactionType TransactionType { get; set; }
 
-        [ForeignKey("LastModifiedBy")]
+        [ForeignKey("ApplicationUser")]
         public int LastModifiedBy { get; set; }
         public virtual ApplicationUser ApplicationUser { get; set; }
     }
