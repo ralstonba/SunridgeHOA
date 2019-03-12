@@ -33,5 +33,8 @@ namespace SunridgeHOA.Models
 
         [Required, ForeignKey("ClassifiedCategory")] public int ClassifiedCategoryID { get; set; }
         public ClassifiedCategory ClassifiedCategory { get; set; }
+
+        [Required, ForeignKey("ApplicationUser")] public int LastModifiedBy { get; set; }
+        public ApplicationUser ApplicationUser { get; set; }
     }
 }
