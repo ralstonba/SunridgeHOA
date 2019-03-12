@@ -9,22 +9,26 @@ namespace SunridgeHOA.Models
 {
     public class OwnerContactType
     {
-
-        [ForeignKey("OwnerID")]
-        public virtual int OwnerID { get; set; }
-
-        [ForeignKey("ContactID")]
-        public virtual int ContactID { get; set; }
-
-        [Key]
+        [Key]   // Primary Key
         public int ID { get; set; }
 
         public string ContactValue { get; set; }
 
         public bool IsArchive { get; set; }
 
-        public string LastModifiedBy { get; set; }
-
         public DateTime LastModifiedDate { get; set; }
+
+        // Navigation Properties
+        [ForeignKey("OwnerID")]
+        public int OwnerID { get; set; }
+        public virtual Owner Owner { get; set; }
+
+        [ForeignKey("ContactID")]
+        public int ContactID { get; set; }
+        public virtual ContactType ContactType { get; set; }
+
+        [ForeignKey("LastModifiedBy")]
+        public int LastModifiedBy { get; set; }
+        public virtual ApplicationUser ApplicationUser { get; set; }
     }
 }

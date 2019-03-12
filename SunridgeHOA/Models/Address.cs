@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -8,7 +9,7 @@ namespace SunridgeHOA.Models
 {
     public class Address
     {
-        [Key]
+        [Key] // Primary Key
         public int ID { get; set; }
 
         public string StreetAddress { get; set; }
@@ -21,8 +22,11 @@ namespace SunridgeHOA.Models
 
         public bool IsArchive { get; set; }
 
-        public string LastModifiedBy { get; set; }
-
         public DateTime LastModifiedDate { get; set; }
+
+        // Navigation Properties
+        public int LastModifiedBy { get; set; }
+        [ForeignKey("LastModifiedBy")]
+        public virtual ApplicationUser ApplicationUser { get; set; }
     }
 }

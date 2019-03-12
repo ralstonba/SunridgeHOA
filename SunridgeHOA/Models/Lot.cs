@@ -9,7 +9,7 @@ namespace SunridgeHOA.Models
 {
     public class Lot
     {
-        [Key]
+        [Key] // Primary Key
         public int ID { get; set; }
 
         public string LotNumber { get; set; }
@@ -17,8 +17,6 @@ namespace SunridgeHOA.Models
         public string Status { get; set; }
 
         public bool IsArchive { get; set; }
-
-        public string LastModifiedBy { get; set; }
 
         public DateTime LastModifiedDate { get; set; }
 
@@ -28,10 +26,15 @@ namespace SunridgeHOA.Models
 
         [ForeignKey("AddressID")]
         public int AddressID { get; set; }
-        public virtual Address Addresses { get; set; }
+        public virtual Address Address { get; set; }
 
         [ForeignKey("OwnerID")]
         public int OwnerID { get; set; }
         public virtual Owner Owner { get; set; }
+
+        [ForeignKey("LastModifiedBy")]
+        public int LastModifiedBy { get; set; }
+        public virtual ApplicationUser ApplicationUser { get; set; }
+
     }
 }

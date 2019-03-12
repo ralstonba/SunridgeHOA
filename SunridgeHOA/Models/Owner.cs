@@ -9,13 +9,7 @@ namespace SunridgeHOA.Models
 {
     public class Owner
     {
-        [ForeignKey("AddressID")]
-        public virtual Address AddressID { get; set; }
-
-        [ForeignKey("CoOwnerID")]
-        public virtual Address CoOwnerID { get; set; }
-
-        [Key]
+        [Key]   // Primary Key
         public int ID { get; set; }
 
         public bool IsPrimary { get; set; }
@@ -34,8 +28,19 @@ namespace SunridgeHOA.Models
 
         public  bool IsArchive { get; set; }
 
-        public string LastModifiedBy { get; set; }
-
         public DateTime LastModifiedDate { get; set; }
+
+        //Navigation Properties
+        [ForeignKey("AddressID")]
+        public int AddressID { get; set; }
+        public virtual Address Address { get; set; }
+
+        [ForeignKey("CoOwnerID")]
+        public int CoOwnerID { get; set; }
+        public virtual Owner OwnerID { get; set; }
+
+        [ForeignKey("LastModifiedBy")]
+        public string LastModifiedBy { get; set; }
+        public virtual ApplicationUser ApplicationUser { get; set; }
     }
 }

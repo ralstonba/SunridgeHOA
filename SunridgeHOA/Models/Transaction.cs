@@ -9,16 +9,7 @@ namespace SunridgeHOA.Models
 {
     public class Transaction
     {
-        [ForeignKey("LotID")]
-        public virtual int LotID { get; set; }
-
-        [ForeignKey("OwnerID")]
-        public virtual int OwnerID { get; set; }
-
-        [ForeignKey("TransactionTypeID")]
-        public virtual int TransactionTypeID { get; set; }
-
-        [Key]
+        [Key]   // Primary Key
         public int ID { get; set; }
 
         public string Description { get; set; }
@@ -33,8 +24,23 @@ namespace SunridgeHOA.Models
 
         public bool IsArchive { get; set; }
 
-        public string LastModifiedBy { get; set; }
-
         public DateTime LastModifiedDate { get; set; }
+
+        // Foreign Keys
+        [ForeignKey("LotID")]
+        public int LotID { get; set; }
+        public virtual Lot Lot { get; set; }
+
+        [ForeignKey("OwnerID")]
+        public int OwnerID { get; set; }
+        public virtual Owner Owner { get; set; }
+
+        [ForeignKey("TransactionTypeID")]
+        public int TransactionTypeId { get; set; }
+        public virtual TransactionType TransactionType { get; set; }
+
+        [ForeignKey("LastModifiedBy")]
+        public int LastModifiedBy { get; set; }
+        public virtual ApplicationUser ApplicationUser { get; set; }
     }
 }

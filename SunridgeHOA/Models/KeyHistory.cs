@@ -9,13 +9,7 @@ namespace SunridgeHOA.Models
 {
     public class KeyHistory
     {
-        [ForeignKey("KeyID")]
-        public virtual int KeyID { get; set; }
-
-        [ForeignKey("OwnerID")]
-        public virtual int OwnerID { get; set; }
-
-        [Key]
+        [Key]   // Primary Key
         public int ID { get; set; }
 
         public string Status { get; set; }
@@ -28,8 +22,19 @@ namespace SunridgeHOA.Models
 
         public bool IsArchive { get; set; }
 
-        public string LastModifiedBy { get; set; }
-
         public DateTime LastModifiedDate { get; set; }
+
+        // Navigation Properties
+        [ForeignKey("KeyID")]
+        public int KeyID { get; set; }
+        public virtual Key Key { get; set; }
+
+        [ForeignKey("OwnerID")]
+        public int OwnerID { get; set; }
+        public virtual Owner Owner { get; set; }
+
+        [ForeignKey("LastModifiedBy")]
+        public int LastModifiedBy { get; set; }
+        public ApplicationUser ApplicationUser { get; set; }
     }
 }
