@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,12 +9,7 @@ namespace SunridgeHOA.Models
 {
     public class Owner
     {
-        [ForeignKey("AddressID")]
-        public virtual Addresses AddressID { get; set; }
-
-        [ForeignKey("CoOwnerID")]
-        public virtual Addresses CoOwnerID { get; set; }
-
+        [Key]   // Primary Key
         public int ID { get; set; }
 
         public bool IsPrimary { get; set; }
@@ -32,8 +28,19 @@ namespace SunridgeHOA.Models
 
         public  bool IsArchive { get; set; }
 
-        public string LastModifiedBy { get; set; }
-
         public DateTime LastModifiedDate { get; set; }
+
+        //Navigation Properties
+        [ForeignKey("Address")]
+        public int AddressID { get; set; }
+        public virtual Address Address { get; set; }
+
+        [ForeignKey("OwnerID")]
+        public int CoOwnerID { get; set; }
+        public virtual Owner OwnerID { get; set; }
+
+        [ForeignKey("ApplicationUser")]
+        public string LastModifiedBy { get; set; }
+        public virtual ApplicationUser ApplicationUser { get; set; }
     }
 }

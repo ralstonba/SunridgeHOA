@@ -31,5 +31,8 @@ namespace SunridgeHOA.Models
         [Required, ForeignKey("HistoryType")]
         public int HistoryTypeID { get; set; }
         public virtual HistoryType HistoryType { get; set; }
+
+        [Required, ForeignKey("ApplicationUser")] public int LastModifiedBy { get; set; }
+        public ApplicationUser ApplicationUser { get; set; }
     }
 }
