@@ -10,6 +10,7 @@ namespace SunridgeHOA.Controllers
 {
     public class HomeController : Controller
     {
+
         public IActionResult Index()
         {
             return View();
@@ -103,6 +104,30 @@ namespace SunridgeHOA.Controllers
         public IActionResult CabinBak()
         {
             return View();
+        }
+
+        public IActionResult CreateAccount()
+        {
+            return View();
+        }
+
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost, ActionName("Login")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> LoginPOST()
+        {
+            return RedirectToAction("Index", "account");
+        }
+
+        [HttpPost, ActionName("CreateAccount")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateAccountPOST()
+        {
+            return RedirectToAction("Index", "account");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
