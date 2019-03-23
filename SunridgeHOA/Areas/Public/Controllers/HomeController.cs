@@ -8,6 +8,7 @@ using SunridgeHOA.Models;
 
 namespace SunridgeHOA.Controllers
 {
+    [Area("Public")]
     public class HomeController : Controller
     {
         public IActionResult Index()
