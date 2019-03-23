@@ -12,7 +12,7 @@ namespace SunridgeHOA.Models
         [Required] public string Subject { get; set; }
         public string Description { get; set; }
         [Required] public DateTime Start { get; set; }
-        public DateTime End { get; set; }
+        public DateTime? End { get; set; }
         [Required] public bool IsFullDay { get; set; }
     }
 }
