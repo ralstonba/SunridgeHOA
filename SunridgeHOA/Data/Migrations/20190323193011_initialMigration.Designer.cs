@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SunridgeHOA.Data;
 
 namespace SunridgeHOA.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190323193011_initialMigration")]
+    partial class initialMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -770,12 +772,12 @@ namespace SunridgeHOA.Data.Migrations
                     b.HasOne("SunridgeHOA.Models.Address", "Address")
                         .WithMany()
                         .HasForeignKey("AddressID")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.HasOne("SunridgeHOA.Models.Owner", "OwnerID")
                         .WithMany()
                         .HasForeignKey("CoOwnerID")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.SetNull);
                 });
 
             modelBuilder.Entity("SunridgeHOA.Models.OwnerContactType", b =>
@@ -806,7 +808,7 @@ namespace SunridgeHOA.Data.Migrations
                     b.HasOne("SunridgeHOA.Models.Owner", "Owner")
                         .WithMany()
                         .HasForeignKey("OwnerID")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.SetNull);
                 });
 
             modelBuilder.Entity("SunridgeHOA.Models.Transaction", b =>

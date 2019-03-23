@@ -21,7 +21,8 @@ namespace SunridgeHOA.Models
         public DateTime LastModifiedDate { get; set; }
 
         // Navigation Properties
-        [ForeignKey("InventoryItem")] public int InventoryID { get; set; }
+        public int InventoryID { get; set; }
+        [ForeignKey("InventoryID")]
         public virtual ICollection<InventoryItem> InventoryItems { get; set; }
 
         [ForeignKey("Address")]
@@ -31,10 +32,6 @@ namespace SunridgeHOA.Models
         [ForeignKey("Owner")]
         public int OwnerID { get; set; }
         public virtual Owner Owner { get; set; }
-
-        [ForeignKey("ApplicationUser")]
-        public int LastModifiedBy { get; set; }
-        public virtual ApplicationUser ApplicationUser { get; set; }
 
     }
 }

@@ -26,9 +26,5 @@ namespace SunridgeHOA.Models
         [ForeignKey("ContactType")]
         public int ContactID { get; set; }
         public virtual ContactType ContactType { get; set; }
-
-        [ForeignKey("ApplicationUser")]
-        public int LastModifiedBy { get; set; }
-        public virtual ApplicationUser ApplicationUser { get; set; }
     }
 }

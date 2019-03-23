@@ -23,10 +23,5 @@ namespace SunridgeHOA.Models
         public bool IsArchive { get; set; }
 
         public DateTime LastModifiedDate { get; set; }
-
-        // Navigation Properties
-        [ForeignKey("ApplicationUser")]
-        public int LastModifiedBy { get; set; }
-        public virtual ApplicationUser ApplicationUser { get; set; }
     }
 }
