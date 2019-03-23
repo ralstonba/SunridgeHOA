@@ -22,10 +22,8 @@ namespace SunridgeHOA.Models
         public DateTime LastModifiedDate { get; set; }
 
         // Navigation Properties
-        [Required, ForeignKey("CommonAreaAsset")] public int CommonAreaAssetID { get; set; }
+        public int CommonAreaAssetID { get; set; }
+        [ForeignKey("CommonAreaAssetID")]
         public virtual ICollection<CommonAreaAsset> CommonAreaAsset { get; set; }
-
-        [Required, ForeignKey("ApplicationUser")] public int LastModifiedBy { get; set; }
-        public ApplicationUser ApplicationUser { get; set; }
     }
 }

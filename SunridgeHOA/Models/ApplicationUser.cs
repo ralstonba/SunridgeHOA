@@ -10,9 +10,6 @@ namespace SunridgeHOA.Models
 {
     public class ApplicationUser : IdentityUser
     {
-        [Key]   // Primary Key
-        public int ID { get; set; }
-
         public string UserName { get; set; }
 
         public string UserPassword { get; set; }
@@ -22,10 +19,5 @@ namespace SunridgeHOA.Models
         public bool IsArchive { get; set; }
 
         public DateTime LastModifiedDate { get; set; }
-
-        // Navigation Properties
-        [ForeignKey("ApplicationUser")]
-        public int LastModifiedBy { get; set; }
-        public virtual ApplicationUser ApplicationUserID { get; set; }
     }
 }
