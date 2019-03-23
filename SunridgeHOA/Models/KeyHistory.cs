@@ -1,19 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace SunridgeHOA.Models
 {
-    public class KeyHistories
+    public class KeyHistory
     {
-        [ForeignKey("KeyID")]
-        public virtual int KeyID { get; set; }
-
-        [ForeignKey("OwnerID")]
-        public virtual int OwnerID { get; set; }
-
+        [Key]   // Primary Key
         public int ID { get; set; }
 
         public string Status { get; set; }
@@ -26,8 +22,19 @@ namespace SunridgeHOA.Models
 
         public bool IsArchive { get; set; }
 
-        public string LastModifiedBy { get; set; }
-
         public DateTime LastModifiedDate { get; set; }
+
+        // Navigation Properties
+        [ForeignKey("Key")]
+        public int KeyID { get; set; }
+        public virtual Key Key { get; set; }
+
+        [ForeignKey("Owner")]
+        public int OwnerID { get; set; }
+        public virtual Owner Owner { get; set; }
+
+        [ForeignKey("ApplicationUser")]
+        public int LastModifiedBy { get; set; }
+        public ApplicationUser ApplicationUser { get; set; }
     }
 }
