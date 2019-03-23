@@ -22,6 +22,22 @@ namespace SunridgeHOA.Controllers
 
         public IActionResult MyAccount()
         {
+            ViewBag.SignedIn = "true";
+            return View();
+        }
+
+        public IActionResult AddSummerPic()
+        {
+            return View();
+        }
+
+        public IActionResult AddWinterPic()
+        {
+            return View();
+        }
+
+        public IActionResult AddPeoplePic()
+        {
             return View();
         }
     }
