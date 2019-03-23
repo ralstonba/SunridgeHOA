@@ -1,16 +1,16 @@
 ﻿@model IEnumerable<SunridgeHOA.Models.BoardMember>
 @{
-    ViewData["Title"] = "Products";
+    ViewData["Title"] = "Board Members";
 }
 
 <br /><br />
 
 <div class="row">
     <div class="col-6">
-        <h2 class="text-info"> Product List</h2>
+        <h2 class="text-info">Board Member List</h2>
     </div>
     <div class="col-6 text-right">
-        <a asp-action="Create" class="btn btn-info"><i class="fas fa-plus"></i> New Product Type</a>
+        <a asp-action="Create" class="btn btn-info"><i class="fas fa-plus"></i> New Board Member</a>
     </div>
 </div>
 
@@ -25,13 +25,16 @@
                 @Html.DisplayNameFor(m => m.Owner.LastName)
             </th>
             <th>
-                @Html.DisplayNameFor(m => m.Available)
+                @Html.DisplayNameFor(m => m.Position)
             </th>
             <th>
-                @Html.DisplayNameFor(m => m.ProductTypes)
+                @Html.DisplayNameFor(m => m.Owner.Lot.LotNumber)
             </th>
             <th>
-                @Html.DisplayNameFor(m => m.SpecialTags)
+                @Html.DisplayNameFor(m => m.Owner.Phone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.Image)
             </th>
             <th></th>
             <th></th>
@@ -40,29 +43,29 @@
 
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(m => item.Name)
-                </td>
-                <td>
-                    @String.Format("{0:c}", item.Price)
-                </td>
-                <td>
-                    @Html.DisplayFor(m => item.Available)
-                </td>
-                <td>
-                    @Html.DisplayFor(m => item.ProductTypes.Name)
-                </td>
-                <td>
-                    @if (!item.SpecialTags.Name.Equals("--None--"))
-                    {
-                        @Html.DisplayFor(m => item.SpecialTags.Name)
-                    }
-                </td>
-                <td>
-                    <partial name="_TableButtonPartial" model="item.Id" />
-                </td>
-            </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(m => item.Owner.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(m => item.Owner.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(m => item.Position)
+            </td>
+            <td>
+                @Html.DisplayFor(m => item.Owner.Lot.LotNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(m => item.Owner.Phone)
+            </td>
+            <td>
+                @Html.DisplayFor(m => item.Image)
+            </td>
+            <td>
+                <partial name="_TableButtonPartial" model="item.Id" />
+            </td>
+        </tr>
 
         }
     </table>

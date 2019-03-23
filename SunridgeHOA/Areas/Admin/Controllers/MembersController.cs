@@ -11,7 +11,7 @@ using SunridgeHOA.Models.ViewModels;
 
 namespace SunridgeHOA.Areas.Admin.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    // [Authorize(Roles = "Admin")]
     [Area("Admin")]
     public class MembersController : Controller
     {
@@ -33,7 +33,7 @@ namespace SunridgeHOA.Areas.Admin.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            var boardMembers = _db.BoardMembers.Include(mbox => mbox.Owner);
+            var boardMembers = _db.BoardMembers.Include(m => m.Owner);
             return View(await boardMembers.ToListAsync());
         }
 

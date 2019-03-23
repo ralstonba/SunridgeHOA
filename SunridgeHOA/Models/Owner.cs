@@ -13,6 +13,7 @@ namespace SunridgeHOA.Models
         public int ID { get; set; }
 
         public bool IsPrimary { get; set; }
+
         public bool IsBoardMember { get; set; }
 
         public string FirstName { get; set; }
@@ -20,6 +21,8 @@ namespace SunridgeHOA.Models
         public string LastName { get; set; }
 
         public string Occupation { get; set; }
+
+        public string Phone { get; set; }
 
         public DateTime Birthday { get; set; }
 
@@ -39,5 +42,9 @@ namespace SunridgeHOA.Models
         [ForeignKey("OwnerID")]
         public int CoOwnerID { get; set; }
         public virtual Owner OwnerID { get; set; }
+
+        [ForeignKey("LotID")]
+        public int LotID { get; set; }
+        public virtual Lot Lot { get; set; }
     }
 }

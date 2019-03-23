@@ -11,12 +11,21 @@
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="form-group row">
             <div class="col-2">
-                <label asp-for="BoardMember.Name"></label>
+                <label asp-for="BoardMember.Owner.FirstName"></label>
             </div>
             <div class="col-5">
-                <input asp-for="BoardMember.Name" class="form-control" />
+                <input asp-for="BoardMember.Owner.FirstName" class="form-control" />
             </div>
-            <span asp-validation-for="BoardMember.Name" class="text-danger"></span>
+            <span asp-validation-for="BoardMember.Owner.FirstName" class="text-danger"></span>
+        </div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="BoardMember.Owner.LastName"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="BoardMember.Owner.LastName" class="form-control" />
+            </div>
+            <span asp-validation-for="BoardMember.Owner.LastName" class="text-danger"></span>
         </div>
         <br />
         <div class="form-group">
