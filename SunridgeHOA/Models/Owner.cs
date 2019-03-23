@@ -13,6 +13,7 @@ namespace SunridgeHOA.Models
         public int ID { get; set; }
 
         public bool IsPrimary { get; set; }
+        public bool IsBoardMember { get; set; }
 
         public string FirstName { get; set; }
 
