@@ -19,6 +19,8 @@
   <ItemGroup>
     <Compile Remove="Data\Migrations\20190324001310_addSuperUserFlagToUsers.cs" />
     <Compile Remove="Data\Migrations\20190324001310_addSuperUserFlagToUsers.Designer.cs" />
+    <Compile Remove="Data\Migrations\20190324005045_removeRedundantPropsFromAppUsers.cs" />
+    <Compile Remove="Data\Migrations\20190324005045_removeRedundantPropsFromAppUsers.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
