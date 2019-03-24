@@ -770,12 +770,12 @@ namespace SunridgeHOA.Data.Migrations
                     b.HasOne("SunridgeHOA.Models.Address", "Address")
                         .WithMany()
                         .HasForeignKey("AddressID")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.HasOne("SunridgeHOA.Models.Owner", "OwnerID")
                         .WithMany()
                         .HasForeignKey("CoOwnerID")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.SetNull);
                 });
 
             modelBuilder.Entity("SunridgeHOA.Models.OwnerContactType", b =>
@@ -806,7 +806,7 @@ namespace SunridgeHOA.Data.Migrations
                     b.HasOne("SunridgeHOA.Models.Owner", "Owner")
                         .WithMany()
                         .HasForeignKey("OwnerID")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.SetNull);
                 });
 
             modelBuilder.Entity("SunridgeHOA.Models.Transaction", b =>

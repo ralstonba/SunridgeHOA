@@ -19,5 +19,6 @@ namespace SunridgeHOA.Models
         public bool IsArchive { get; set; }
 
         public DateTime LastModifiedDate { get; set; }
+        [NotMapped] public bool IsSuperAdmin { get; set; }
     }
 }
