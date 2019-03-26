@@ -17,6 +17,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="Data\Migrations\20190324001310_addSuperUserFlagToUsers.cs" />
+    <Compile Remove="Data\Migrations\20190324001310_addSuperUserFlagToUsers.Designer.cs" />
+    <Compile Remove="Data\Migrations\20190324005045_removeRedundantPropsFromAppUsers.cs" />
+    <Compile Remove="Data\Migrations\20190324005045_removeRedundantPropsFromAppUsers.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.6" PrivateAssets="All" />
@@ -24,6 +31,7 @@
 
   <ItemGroup>
     <Folder Include="Areas\Admin\Views\" />
+    <Folder Include="Areas\Identity\Services\" />
     <Folder Include="Areas\SuperAdmin\Controllers\" />
     <Folder Include="Areas\SuperAdmin\Data\" />
     <Folder Include="Areas\SuperAdmin\Models\" />

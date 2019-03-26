@@ -10,8 +10,6 @@ namespace SunridgeHOA.Models
 {
     public class ApplicationUser : IdentityUser
     {
-        public string UserName { get; set; }
-
         public string UserPassword { get; set; }
 
         public string UserType { get; set; }
@@ -19,5 +17,6 @@ namespace SunridgeHOA.Models
         public bool IsArchive { get; set; }
 
         public DateTime LastModifiedDate { get; set; }
+        [NotMapped] public bool IsSuperAdmin { get; set; }
     }
 }
