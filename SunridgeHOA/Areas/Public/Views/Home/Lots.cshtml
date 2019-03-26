@@ -3,6 +3,10 @@
     ViewData["Title"] = "Lots";
 }
 
+@if (User.IsInRole(SunridgeHOA.Utilities.StaticDetails.AdminEndUser))
+{
+    <a class="nav-link" asp-area="Admin" asp-controller="Account" asp-action="AddSummerPic">Add Lot</a>
+}
 <!-- inro section Grid -->
 <section class="p-5">
     <div class="container">
