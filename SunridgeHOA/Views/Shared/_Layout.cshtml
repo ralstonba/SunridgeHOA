@@ -90,23 +90,6 @@
                 </li>
             </ul>
         </div>
-        @{
-            if (ViewBag.SignedIn == "true")
-            {
-                <a asp-action="MyAccount" class="nav-link ml-auto">My Account</a>
-                <a asp-action="Logout">
-                    <button class="btn btn-primary ml-auto">Logout</button>
-                </a>
-            }
-            else
-            {
-                <a asp-action="CreateAccount" class="nav-link ml-auto">Create Account</a>
-                <a asp-action="Login">
-                    <button class="btn btn-primary ml-auto">Login</button>
-                </a>
-            }
-        }
-
     </nav>
 
     <partial name="_CookieConsentPartial" />

@@ -38,9 +38,5 @@ namespace SunridgeHOA.Models
         [ForeignKey("TransactionType")]
         public int TransactionTypeId { get; set; }
         public virtual TransactionType TransactionType { get; set; }
-
-        [ForeignKey("ApplicationUser")]
-        public int LastModifiedBy { get; set; }
-        public virtual ApplicationUser ApplicationUser { get; set; }
     }
 }
