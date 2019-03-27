@@ -1,29 +1,27 @@
-﻿@model SunridgeHOA.Models.ClassifiedListing
+﻿@model SunridgeHOA.Models.ViewModels.ClassifiedViewModel
+
 @{
     ViewData["Title"] = "Add Lot";
 }
 
-<br />
-<h2 class="text-info">Add Lot</h2>
+<h2>AddLot</h2>
 
-<form method="post" asp-action="AddLot" enctype="multipart/form-data" class="form-control">
-    <label>Name:</label>
-    <input class="form-control" />
-    <br />
-    <label>Price:</label>
-    <input class="form-control" />
-    <br />
-    <label>Image:</label>
-    <input type="file" class="form-control" />
-    <br /> 
-    <label>Description:</label>
-    <input class="form-control" />
-    <br />
-    <label>Phone Number:</label>
-    <input class="form-control" />
-    <br />
-    <label>Email:</label>
-    <input class="form-control" />
-    <br /> <br />
-    <input type="submit" />
-</form>
+<h4>ClassifiedViewModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="AddLot"  method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Classifieds.Name">Name:</label>
+                <input asp-for="Classifieds.Name" />
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
