@@ -1,11 +1,14 @@
-﻿
+﻿@model IEnumerable<SunridgeHOA.Models.ClassifiedListing>
 @{
     ViewData["Title"] = "Lots";
 }
 
 @if (User.IsInRole(SunridgeHOA.Utilities.StaticDetails.AdminEndUser))
 {
-    <a class="nav-link" asp-area="Admin" asp-controller="Account" asp-action="AddSummerPic">Add Lot</a>
+    <a class="nav-link" asp-area="Admin" asp-controller="Account" asp-action="AddLot">
+        <i class="fas fa-plus-circle"></i>
+        Add Lot
+    </a>
 }
 <!-- inro section Grid -->
 <section class="p-5">
@@ -15,6 +18,87 @@
         </div>
     </div>
 </section>
+
+<div>
+    <table class="table table-striped border">
+        <tr class="table-info">
+            <th>
+                @Html.DisplayNameFor(m => m.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.ListingDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.PhoneNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.IsArchive)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.LastModifiedDate)
+            </th>
+            <th></th>
+            <th></th>
+
+        </tr>
+
+        @if (Model != null)
+        {
+            @foreach (var item in Model)
+            {
+        <tr>
+            <td>
+                @Html.DisplayFor(m => item.Name)
+            </td>
+            <td>
+                @String.Format("{0:c}", item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(m => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(m => item.ListingDate)
+            </td>
+            <td>
+                @Html.DisplayFor(m => item.PhoneNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(m => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(m => item.IsArchive)
+            </td>
+            <td>
+                @Html.DisplayFor(m => item.LastModifiedDate)
+            </td>
+            <td style="width:150px">
+                <div class="btn-group" role="group">
+                    <a type="button" class="btn btn-primary">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                    <a type="button" class="btn btn-success">
+                        <i class="fas fa-list-alt"></i>
+                    </a>
+                    <a type="button" class="btn btn-danger">
+                        <i class="fas fa-trash-alt"></i>
+                    </a>
+                </div>
+            </td>
+        </tr>
+            }
+        }
+
+    </table>
+</div>
 
 <!-- Testimonials -->
 <section class="testimonials text-center">
@@ -35,4 +119,3 @@
         </div>
     </div>
 </section>
-
