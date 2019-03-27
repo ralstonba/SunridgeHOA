@@ -30,7 +30,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Admin\Views\" />
     <Folder Include="Areas\Identity\Services\" />
     <Folder Include="Areas\SuperAdmin\Controllers\" />
     <Folder Include="Areas\SuperAdmin\Data\" />
