@@ -44,7 +44,10 @@
                 <p id="eventDetails"></p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary">Save changes</button>
+                @if (User.IsInRole(StaticData.AdminEndUser))
+                {
+                    <button type="button" class="btn btn-primary">Edit Event</button>
+                }
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
         </div>
@@ -93,7 +96,7 @@
                     header: {
                         left: 'prev,next today',
                         center: 'title',
-                        right: 'month,basicWeek,basicDay,agenda'
+                        right: 'month,basicWeek,listMonth'
                     },
                     eventLimit: true,
                     eventColor: '#378006',
