@@ -32,5 +32,6 @@ namespace SunridgeHOA.Data
         public DbSet<Transaction> Transactions { get; set; }
         public DbSet<TransactionType> TransactionTypes { get; set; }
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+        public DbSet<ScheduledEvent> ScheduledEvents { get; set; }
     }
 }
