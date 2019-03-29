@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting.Internal;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SunridgeHOA.Data;
+using SunridgeHOA.Models;
 using SunridgeHOA.Models.ViewModels;
 
 namespace SunridgeHOA.Areas.Admin.Controllers
@@ -28,7 +29,7 @@ namespace SunridgeHOA.Areas.Admin.Controllers
             BoardMembersVM = new BoardMembersViewModel()
             {
                 BoardMember = new Models.BoardMember(),
-                Users = _db.ApplicationUsers.Where(d => d.Owner.IsBoardMember == false)
+                Users = _db.ApplicationUsers.Where(d => d.Owner.IsBoardMember == false).ToList()
             };
         }
         public async Task<IActionResult> Index()
@@ -37,10 +38,105 @@ namespace SunridgeHOA.Areas.Admin.Controllers
             return View(await boardMembers.ToListAsync());
         }
 
-        //GET Create Action Method
+        //GET Boardmember Create
         public IActionResult Create()
         {
             return View(BoardMembersVM);
+        }
+
+        //POST Boardmember Create
+        [HttpPost, ActionName("Create")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreatePOST()
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(BoardMembersVM.BoardMember.Owner);
+            }
+
+            _db.BoardMembers.Add(BoardMembersVM.BoardMember);
+            await _db.SaveChangesAsync();
+
+            var DbUsers = _db.ApplicationUsers.SingleOrDefault(b => b.OwnerID == BoardMembersVM.BoardMember.OwnerID);
+            if (DbUsers != null)
+            {
+                DbUsers.Owner.IsBoardMember = true;
+                _db.SaveChanges();
+            }
+           
+            return RedirectToAction(nameof(Index));
+        }
+
+        //GET Edit
+        public async Task<IActionResult> Edit (int? id)
+        {
+            if(id == null)
+            {
+                return NotFound();
+            }
+
+            BoardMembersVM.BoardMember = await _db.BoardMembers.SingleOrDefaultAsync(m => m.ID == id);
+
+            if(BoardMembersVM.BoardMember == null)
+            {
+                return NotFound();
+            }
+
+            return View(BoardMembersVM);
+        }
+
+        //POST Edit
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id)
+        {
+            if (ModelState.IsValid)
+            {
+                var productFromDb = _db.BoardMembers.Where(m => m.ID == BoardMembersVM.BoardMember.ID).FirstOrDefault();
+                productFromDb.Position = BoardMembersVM.BoardMember.Position;
+                await _db.SaveChangesAsync();
+
+                return RedirectToAction(nameof(Index));
+            }
+            return View(BoardMembersVM);
+        }
+
+        //GET Delete
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            BoardMembersVM.BoardMember = await _db.BoardMembers.SingleOrDefaultAsync(m => m.ID == id);
+
+            if (BoardMembersVM.BoardMember == null)
+            {
+                return NotFound();
+            }
+
+            return View(BoardMembersVM);
+        }
+
+        //POST Delete
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            BoardMember boardMember = await _db.BoardMembers.FindAsync(id);
+
+            if (boardMember == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                _db.BoardMembers.Remove(boardMember);
+                await _db.SaveChangesAsync();
+
+                return RedirectToAction(nameof(Index));
+            }
         }
     }
 }

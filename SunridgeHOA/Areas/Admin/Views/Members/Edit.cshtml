@@ -1,0 +1,40 @@
+﻿@model SunridgeHOA.Models.ViewModels.BoardMembersViewModel
+@using SunridgeHOA.Extensions
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<br />
+<h2 class="text-info">Edit a Board Member</h2>
+
+<form method="post" asp-action="Edit" enctype="multipart/form-data">
+    <div class="p-4 border rounded">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="BoardMember.Owner"></label>
+            </div>
+            <div class="col-5">
+                <select asp-for="@Model.BoardMember.OwnerID" asp-items="Model.Users.ToSelectListItem(Model.BoardMember.OwnerID)" class="form-control"></select>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="BoardMember.Position"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="BoardMember.Position" class="form-control" />
+            </div>
+            <span asp-validation-for="BoardMember.Position" class="text-danger"></span>
+        </div>
+        <br />
+        <div class="form-group">
+            <input type="submit" class="btn btn-primary" value="Edit" />
+            <a asp-action="Index" class="btn btn-success">Back to List</a>
+        </div>
+    </div>
+</form>
+
+@section Scripts{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
