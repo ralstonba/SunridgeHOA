@@ -20,6 +20,8 @@ namespace SunridgeHOA.Models
 
         public string LastName { get; set; }
 
+        public string Image { get; set; }
+
         public string Occupation { get; set; }
 
         public string Phone { get; set; }

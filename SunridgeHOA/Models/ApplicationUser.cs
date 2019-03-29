@@ -18,5 +18,9 @@ namespace SunridgeHOA.Models
 
         public DateTime LastModifiedDate { get; set; }
         [NotMapped] public bool IsSuperAdmin { get; set; }
+
+        [ForeignKey("OwnerID")]
+        public int OwnerID { get; set; }
+        public virtual Owner Owner { get; set; }
     }
 }

@@ -12,26 +12,20 @@
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="form-group row">
             <div class="col-2">
-                <label asp-for="BoardMember.Owner.FirstName"></label>
+                <label asp-for="BoardMember.Owner"></label>
             </div>
             <div class="col-5">
-                <input asp-for="BoardMember.Owner.FirstName" class="form-control" />
+                <select asp-for="@Model.BoardMember.OwnerID" asp-items="Model.Users.ToSelectListItem(Model.BoardMember.OwnerID)" class="form-control"></select>
             </div>
-            <span asp-validation-for="BoardMember.Owner.FirstName" class="text-danger"></span>
         </div>
         <div class="form-group row">
             <div class="col-2">
-                <label asp-for="BoardMember.Owner.LastName"></label>
+                <label asp-for="BoardMember.Position"></label>
             </div>
             <div class="col-5">
-                <input asp-for="BoardMember.Owner.LastName" class="form-control" />
+                <input asp-for="BoardMember.Position" class="form-control" />
             </div>
-            <span asp-validation-for="BoardMember.Owner.LastName" class="text-danger"></span>
-        </div>
-        <div class="form-group row">
-            <div class="col-2">
-                <select asp-for="@Model.BoardMember.OwnerID" asp-items="Model.Owner.ToSelectListItem(Model.BoardMember.OwnerID)" class="form-control"></select>
-            </div>
+            <span asp-validation-for="BoardMember.Position" class="text-danger"></span>
         </div>
         <br />
         <div class="form-group">

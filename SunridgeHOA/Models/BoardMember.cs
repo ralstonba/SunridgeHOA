@@ -10,7 +10,6 @@ namespace SunridgeHOA.Models
     {
         public int ID { get; set; }
         public string Position { get; set; }
-        public string Image { get; set; }
 
         //Navigation Properties
         [ForeignKey("Owner")]

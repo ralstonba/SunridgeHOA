@@ -28,7 +28,7 @@ namespace SunridgeHOA.Areas.Admin.Controllers
             BoardMembersVM = new BoardMembersViewModel()
             {
                 BoardMember = new Models.BoardMember(),
-                Owner = _db.Owners.Where(d => d.IsBoardMember == true)
+                Users = _db.ApplicationUsers.Where(d => d.Owner.IsBoardMember == false)
             };
         }
         public async Task<IActionResult> Index()

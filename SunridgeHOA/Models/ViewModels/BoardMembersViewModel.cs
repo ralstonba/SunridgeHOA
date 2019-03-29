@@ -8,6 +8,6 @@ namespace SunridgeHOA.Models.ViewModels
     public class BoardMembersViewModel
     {
         public BoardMember BoardMember { get; set; }
-        public IEnumerable<Owner> Owner { get; set; }
+        public IEnumerable<ApplicationUser> Users { get; set; }
     }
 }
