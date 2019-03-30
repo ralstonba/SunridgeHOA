@@ -20,7 +20,7 @@ namespace SunridgeHOA.Models
         [NotMapped] public bool IsSuperAdmin { get; set; }
 
         [ForeignKey("OwnerID")]
-        public int OwnerID { get; set; }
+        public int? OwnerID { get; set; }
         public virtual Owner Owner { get; set; }
     }
 }

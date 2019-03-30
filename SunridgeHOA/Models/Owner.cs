@@ -32,21 +32,21 @@ namespace SunridgeHOA.Models
 
         public string EmergencyContactPhone { get; set; }
 
-        public  bool IsArchive { get; set; }
+        public  bool? IsArchive { get; set; }
 
-        public DateTime LastModifiedDate { get; set; }
+        public DateTime? LastModifiedDate { get; set; }
 
         //Navigation Properties
         [ForeignKey("Address")]
-        public int AddressID { get; set; }
+        public int? AddressID { get; set; }
         public virtual Address Address { get; set; }
 
         [ForeignKey("OwnerID")]
-        public int CoOwnerID { get; set; }
+        public int? CoOwnerID { get; set; }
         public virtual Owner OwnerID { get; set; }
 
         [ForeignKey("LotID")]
-        public int LotID { get; set; }
+        public int? LotID { get; set; }
         public virtual Lot Lot { get; set; }
     }
 }
