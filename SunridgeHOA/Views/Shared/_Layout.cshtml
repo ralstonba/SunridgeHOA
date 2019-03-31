@@ -7,31 +7,55 @@
 
     <environment include="Development">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
         <!-- Custom fonts for this template -->
-        <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
-        <link href="vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet" type="text/css">
         <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
         <!-- Custom styles for this template -->
-        <link href="css/landing-page.min.css" rel="stylesheet">        
-        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+        <link href="~/css/landing-page.css" rel="stylesheet">
         <link rel="stylesheet" href="~/css/site.css" />
     </environment>
     <environment exclude="Development">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
         <!-- Custom fonts for this template -->
-        <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
-        <link href="vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet" type="text/css">
         <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
         <!-- Custom styles for this template -->
-        <link href="css/landing-page.min.css" rel="stylesheet">        
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+        <link href="~/css/landing-page.css" rel="stylesheet">
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
     </environment>
+    <script type="text/javascript">
+        function saveEdits() {
+
+            //get the editable element
+            var editElem = document.getElementById("edit");
+
+            //get the edited element content
+            var userVersion = editElem.innerHTML;
+
+            //save the content to local storage
+            localStorage.userEdits = userVersion;
+
+            //write a confirmation to the user
+            document.getElementById("update").innerHTML = "Edits saved!";
+
+        }
+        function checkEdits() {
+
+            //find out if the user has previously saved edits
+            if (localStorage.userEdits != null)
+                document.getElementById("edit").innerHTML = localStorage.userEdits;
+        }
+    </script>
 </head>
-<body style="padding: 0;">
+<body style="padding: 0;" onload="checkEdits()">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -52,11 +76,11 @@
                         Classified Ads
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" asp-action="Lots">Lots</a>
+                        <a class="dropdown-item" asp-area="Public" asp-controller="Home" asp-action="Lots">Lots</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" asp-action="Cabins">Cabins</a>
+                        <a class="dropdown-item" asp-area="Public" asp-controller="Home" asp-action="Cabins">Cabins</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" asp-action="OtherServices">Other Services</a>
+                        <a class="dropdown-item" asp-area="Public" asp-controller="Home" asp-action="OtherServices">Other Services</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
@@ -64,13 +88,13 @@
                         Docs &amp; Forms
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" asp-action="Rules">Rules</a>
+                        <a class="dropdown-item" asp-area="Admin" asp-controller="Rules" asp-action="Index">Rules</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" asp-action="Maps">Maps</a>
+                        <a class="dropdown-item" asp-area="Public" asp-controller="Home" asp-action="Maps">Maps</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" asp-action="Forms">Forms</a>
+                        <a class="dropdown-item" asp-area="Admin" asp-controller="Forms" asp-action="Index">Forms</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" asp-action="FireInfo">Fire Info</a>
+                        <a class="dropdown-item" asp-area="Public" asp-controller="Home" asp-action="FireInfo">Fire Info</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
@@ -89,7 +113,9 @@
                     <a class="nav-link" asp-action="PhotoGallery">Photo Gallery</a>
                 </li>
             </ul>
-            <button>Login</button>
+        </div>
+        <div>
+            <partial name="_LoginPartial"/>
         </div>
     </nav>
 
