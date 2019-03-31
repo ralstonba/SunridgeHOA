@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SunridgeHOA.Data;
 
 namespace SunridgeHOA.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190329165714_OwnerChanges")]
+    partial class OwnerChanges
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -515,11 +517,11 @@ namespace SunridgeHOA.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("AddressID");
+                    b.Property<int>("AddressID");
 
                     b.Property<DateTime>("Birthday");
 
-                    b.Property<int?>("CoOwnerID");
+                    b.Property<int>("CoOwnerID");
 
                     b.Property<string>("EmergencyContactName");
 
@@ -529,17 +531,17 @@ namespace SunridgeHOA.Data.Migrations
 
                     b.Property<string>("Image");
 
-                    b.Property<bool?>("IsArchive");
+                    b.Property<bool>("IsArchive");
 
                     b.Property<bool>("IsBoardMember");
 
                     b.Property<bool>("IsPrimary");
 
-                    b.Property<DateTime?>("LastModifiedDate");
+                    b.Property<DateTime>("LastModifiedDate");
 
                     b.Property<string>("LastName");
 
-                    b.Property<int?>("LotID");
+                    b.Property<int>("LotID");
 
                     b.Property<string>("Occupation");
 
@@ -694,7 +696,7 @@ namespace SunridgeHOA.Data.Migrations
 
                     b.Property<DateTime>("LastModifiedDate");
 
-                    b.Property<int?>("OwnerID");
+                    b.Property<int>("OwnerID");
 
                     b.Property<string>("UserPassword");
 
@@ -825,11 +827,13 @@ namespace SunridgeHOA.Data.Migrations
                 {
                     b.HasOne("SunridgeHOA.Models.Address", "Address")
                         .WithMany()
-                        .HasForeignKey("AddressID");
+                        .HasForeignKey("AddressID")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("SunridgeHOA.Models.Owner", "OwnerID")
                         .WithMany()
-                        .HasForeignKey("CoOwnerID");
+                        .HasForeignKey("CoOwnerID")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("SunridgeHOA.Models.OwnerContactType", b =>
@@ -885,7 +889,8 @@ namespace SunridgeHOA.Data.Migrations
                 {
                     b.HasOne("SunridgeHOA.Models.Owner", "Owner")
                         .WithMany()
-                        .HasForeignKey("OwnerID");
+                        .HasForeignKey("OwnerID")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

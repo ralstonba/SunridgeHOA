@@ -50,10 +50,13 @@
                     <a class="nav-link" asp-action="Index">Home<span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" asp-action="BoardMembers">Board Members</a>
+                    <a class="nav-link" asp-area="Admin" asp-controller="Owners" asp-action="Index">Edit Users</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" asp-action="EventCalender">Event Calendar</a>
+                    <a class="nav-link" asp-area="Admin" asp-controller="Members" asp-action="Index">Board Members</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-area="Public" asp-controller="Home" asp-action="EventCalender">Event Calendar</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

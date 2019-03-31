@@ -1,0 +1,41 @@
+﻿@model SunridgeHOA.Models.ViewModels.BoardMembersViewModel
+@using SunridgeHOA.Extensions
+@{
+    ViewData["Title"] = "Details";
+}
+
+<br />
+<h2 class="text-info">Board Member Details</h2>
+
+    <div class="p-4 border rounded">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="BoardMember.Owner.FirstName"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="BoardMember.Owner.FirstName" readonly class="form-control" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="BoardMember.Owner.LastName"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="BoardMember.Owner.LastName" readonly class="form-control" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="BoardMember.Position"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="BoardMember.Position" readonly class="form-control" />
+            </div>
+        </div>
+        <br />
+        <div class="form-group">
+            <a asp-action="Edit" asp-route-id="@Model.BoardMember.ID" class="btn btn-primary">Edit</a>
+            <a asp-action="Index" class="btn btn-success">Back to List</a>
+        </div>
+    </div>

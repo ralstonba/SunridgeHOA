@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SunridgeHOA.Data;
 
 namespace SunridgeHOA.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190323224237_BoardMembers")]
+    partial class BoardMembers
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -141,9 +143,11 @@ namespace SunridgeHOA.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.Property<string>("LoginProvider");
+                    b.Property<string>("LoginProvider")
+                        .HasMaxLength(128);
 
-                    b.Property<string>("ProviderKey");
+                    b.Property<string>("ProviderKey")
+                        .HasMaxLength(128);
 
                     b.Property<string>("ProviderDisplayName");
 
@@ -174,9 +178,11 @@ namespace SunridgeHOA.Data.Migrations
                 {
                     b.Property<string>("UserId");
 
-                    b.Property<string>("LoginProvider");
+                    b.Property<string>("LoginProvider")
+                        .HasMaxLength(128);
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .HasMaxLength(128);
 
                     b.Property<string>("Value");
 
@@ -213,6 +219,8 @@ namespace SunridgeHOA.Data.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Image");
 
                     b.Property<int>("OwnerID");
 
@@ -515,11 +523,11 @@ namespace SunridgeHOA.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("AddressID");
+                    b.Property<int>("AddressID");
 
                     b.Property<DateTime>("Birthday");
 
-                    b.Property<int?>("CoOwnerID");
+                    b.Property<int>("CoOwnerID");
 
                     b.Property<string>("EmergencyContactName");
 
@@ -527,19 +535,17 @@ namespace SunridgeHOA.Data.Migrations
 
                     b.Property<string>("FirstName");
 
-                    b.Property<string>("Image");
-
-                    b.Property<bool?>("IsArchive");
+                    b.Property<bool>("IsArchive");
 
                     b.Property<bool>("IsBoardMember");
 
                     b.Property<bool>("IsPrimary");
 
-                    b.Property<DateTime?>("LastModifiedDate");
+                    b.Property<DateTime>("LastModifiedDate");
 
                     b.Property<string>("LastName");
 
-                    b.Property<int?>("LotID");
+                    b.Property<int>("LotID");
 
                     b.Property<string>("Occupation");
 
@@ -610,28 +616,6 @@ namespace SunridgeHOA.Data.Migrations
                     b.ToTable("OwnerHistories");
                 });
 
-            modelBuilder.Entity("SunridgeHOA.Models.ScheduledEvent", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Description");
-
-                    b.Property<DateTime?>("End");
-
-                    b.Property<bool>("IsFullDay");
-
-                    b.Property<DateTime>("Start");
-
-                    b.Property<string>("Subject")
-                        .IsRequired();
-
-                    b.HasKey("ID");
-
-                    b.ToTable("ScheduledEvents");
-                });
-
             modelBuilder.Entity("SunridgeHOA.Models.Transaction", b =>
                 {
                     b.Property<int>("ID")
@@ -694,13 +678,9 @@ namespace SunridgeHOA.Data.Migrations
 
                     b.Property<DateTime>("LastModifiedDate");
 
-                    b.Property<int?>("OwnerID");
-
                     b.Property<string>("UserPassword");
 
                     b.Property<string>("UserType");
-
-                    b.HasIndex("OwnerID");
 
                     b.ToTable("ApplicationUser");
 
@@ -825,11 +805,13 @@ namespace SunridgeHOA.Data.Migrations
                 {
                     b.HasOne("SunridgeHOA.Models.Address", "Address")
                         .WithMany()
-                        .HasForeignKey("AddressID");
+                        .HasForeignKey("AddressID")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("SunridgeHOA.Models.Owner", "OwnerID")
                         .WithMany()
-                        .HasForeignKey("CoOwnerID");
+                        .HasForeignKey("CoOwnerID")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("SunridgeHOA.Models.OwnerContactType", b =>
@@ -879,13 +861,6 @@ namespace SunridgeHOA.Data.Migrations
                         .WithMany()
                         .HasForeignKey("TransactionTypeId")
                         .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("SunridgeHOA.Models.ApplicationUser", b =>
-                {
-                    b.HasOne("SunridgeHOA.Models.Owner", "Owner")
-                        .WithMany()
-                        .HasForeignKey("OwnerID");
                 });
 #pragma warning restore 612, 618
         }

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SunridgeHOA.Data;
 
 namespace SunridgeHOA.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190330152015_nullableValuesInOwnerModel")]
+    partial class nullableValuesInOwnerModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -529,13 +531,13 @@ namespace SunridgeHOA.Data.Migrations
 
                     b.Property<string>("Image");
 
-                    b.Property<bool?>("IsArchive");
+                    b.Property<bool>("IsArchive");
 
                     b.Property<bool>("IsBoardMember");
 
                     b.Property<bool>("IsPrimary");
 
-                    b.Property<DateTime?>("LastModifiedDate");
+                    b.Property<DateTime>("LastModifiedDate");
 
                     b.Property<string>("LastName");
 

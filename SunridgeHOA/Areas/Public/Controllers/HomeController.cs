@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Hosting.Internal;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
 using SunridgeHOA.Data;
 using SunridgeHOA.Models;
@@ -15,27 +15,25 @@ namespace SunridgeHOA.Controllers
     [Area("Public")]
     public class HomeController : Controller
     {
-        private readonly ApplicationDbContext _db;
-        private readonly HostingEnvironment _hostingEnvironment;
-        [BindProperty]
-        public ClassifiedViewModel ClassifiedVM { get; set; }
-        public HomeController(ApplicationDbContext db, HostingEnvironment hostingEnvironment)
+        private readonly ApplicationDbContext _context;
+
+        public HomeController(ApplicationDbContext context)
         {
-            _db = db;
-            _hostingEnvironment = hostingEnvironment;
-            ClassifiedVM = new ClassifiedViewModel()
-            {
-                Lots = new Models.ClassifiedListing()
-            };
+            _context = context;
         }
+
         public IActionResult Index()
         {
             return View();
         }
 
-        public IActionResult BoardMembers()
+        public async Task<IActionResult> BoardMembers()
         {
-            return View();
+            List<BoardMemberIndexVM> bmList = _context.BoardMembers.Include(m => m.Owner)
+                .Join(_context.ApplicationUsers, member => member.Owner.ID, user => user.Owner.ID,
+                    (member, user) => new BoardMemberIndexVM(member, user)).ToList();
+
+            return View(bmList);
         }
 
         public IActionResult EventCalender()
@@ -43,10 +41,9 @@ namespace SunridgeHOA.Controllers
             return View();
         }
 
-        public async Task<IActionResult> Lots()
+        public IActionResult Lots()
         {
-            var lots = _db.ClassifiedListings;
-            return View(await lots.ToListAsync());
+            return View();
         }
 
         public IActionResult Cabins()
