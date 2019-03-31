@@ -33,7 +33,8 @@ namespace SunridgeHOA.Areas.Admin.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var users = _db.ApplicationUsers;
+            var users = _db.ApplicationUsers
+                .Include(m => m.Owner);
             return View(await users.ToListAsync());
         }
 
