@@ -31,29 +31,6 @@
         <link href="~/css/landing-page.css" rel="stylesheet">
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
     </environment>
-    <script type="text/javascript">
-        function saveEdits() {
-
-            //get the editable element
-            var editElem = document.getElementById("edit");
-
-            //get the edited element content
-            var userVersion = editElem.innerHTML;
-
-            //save the content to local storage
-            localStorage.userEdits = userVersion;
-
-            //write a confirmation to the user
-            document.getElementById("update").innerHTML = "Edits saved!";
-
-        }
-        function checkEdits() {
-
-            //find out if the user has previously saved edits
-            if (localStorage.userEdits != null)
-                document.getElementById("edit").innerHTML = localStorage.userEdits;
-        }
-    </script>
 </head>
 <body style="padding: 0;" onload="checkEdits()">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
