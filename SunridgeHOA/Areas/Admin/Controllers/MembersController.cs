@@ -103,12 +103,30 @@ namespace SunridgeHOA.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                var productFromDb = _db.BoardMembers.Where(m => m.ID == BoardMembersVM.BoardMember.ID).FirstOrDefault();
+                var productFromDb = _db.BoardMembers.Where(m => m.ID == id).FirstOrDefault();
                 productFromDb.Position = BoardMembersVM.BoardMember.Position;
                 await _db.SaveChangesAsync();
 
                 return RedirectToAction(nameof(Index));
             }
+            return View(BoardMembersVM);
+        }
+
+        //GET Details
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            BoardMembersVM.BoardMember = await _db.BoardMembers.Include(m => m.Owner).SingleOrDefaultAsync(m => m.ID == id);
+
+            if (BoardMembersVM.BoardMember == null)
+            {
+                return NotFound();
+            }
+
             return View(BoardMembersVM);
         }
 
@@ -120,7 +138,7 @@ namespace SunridgeHOA.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            BoardMembersVM.BoardMember = await _db.BoardMembers.SingleOrDefaultAsync(m => m.ID == id);
+            BoardMembersVM.BoardMember = await _db.BoardMembers.Include(m => m.Owner).SingleOrDefaultAsync(m => m.ID == id);
 
             if (BoardMembersVM.BoardMember == null)
             {

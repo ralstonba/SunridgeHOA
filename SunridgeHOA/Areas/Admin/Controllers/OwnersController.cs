@@ -91,10 +91,11 @@ namespace SunridgeHOA.Areas.Admin.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        //GET EDIT
+        //GET Edit
         public async Task<IActionResult> Edit (string id)
         {
             OwnerVM.User = _db.ApplicationUsers.SingleOrDefault(m => m.Id == id);
+            OwnerVM.Owner = _db.Owners.SingleOrDefault(m => m.ID == OwnerVM.User.OwnerID);
 
             if (OwnerVM.User == null)
             {
@@ -112,5 +113,126 @@ namespace SunridgeHOA.Areas.Admin.Controllers
             }
         }
 
+        //POST Edit
+        [HttpPost, ActionName("Edit")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditPost(string id)
+        {
+            OwnerVM.User = _db.ApplicationUsers.SingleOrDefault(m => m.Id == OwnerVM.User.Id);
+
+            if (ModelState.IsValid)
+            {
+                string webRootPath = _hostingEnvironment.WebRootPath;
+                var files = HttpContext.Request.Form.Files;
+
+                var ownerFromDb = _db.Owners.Where(m => m.ID == OwnerVM.User.OwnerID).FirstOrDefault();
+
+                if (files.Count > 0 && files[0] != null)
+                {
+                    var uploads = Path.Combine(webRootPath, @"images\OwnerImage");
+                    var extension_new = Path.GetExtension(files[0].FileName);
+                    var extension_old = Path.GetExtension(ownerFromDb.Image);
+
+                    if (System.IO.File.Exists(Path.Combine(uploads, OwnerVM.Owner.ID + extension_old)))
+                    {
+                        System.IO.File.Delete(Path.Combine(uploads, OwnerVM.Owner.ID + extension_old));
+                    }
+                    using (var filestream = new FileStream(Path.Combine(uploads, OwnerVM.Owner.ID + extension_new), FileMode.Create))
+                    {
+                        files[0].CopyTo(filestream);
+                    }
+                    OwnerVM.Owner.Image = @"\" + @"images\OwnerImage" + @"\" + OwnerVM.Owner.ID + extension_new;
+                }
+
+                if (OwnerVM.Owner.Image != null)
+                {
+                    ownerFromDb.Image = OwnerVM.Owner.Image;
+                }
+
+                ownerFromDb.FirstName = OwnerVM.Owner.FirstName;
+                ownerFromDb.LastName = OwnerVM.Owner.LastName;
+                ownerFromDb.IsPrimary = OwnerVM.Owner.IsPrimary;
+                ownerFromDb.Occupation = OwnerVM.Owner.Occupation;
+                ownerFromDb.Phone = OwnerVM.Owner.Phone;
+                ownerFromDb.Birthday = OwnerVM.Owner.Birthday;
+                ownerFromDb.EmergencyContactName = OwnerVM.Owner.EmergencyContactName;
+                ownerFromDb.EmergencyContactPhone = OwnerVM.Owner.EmergencyContactPhone;
+                await _db.SaveChangesAsync();
+
+                return RedirectToAction(nameof(Index));
+            }
+
+            return View(OwnerVM);
+        }
+
+        //GET Details
+        public async Task<IActionResult> Details(string id)
+        {
+            OwnerVM.User = _db.ApplicationUsers.SingleOrDefault(m => m.Id == id);
+
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            OwnerVM.Owner = await _db.Owners.SingleOrDefaultAsync(m => m.ID == OwnerVM.User.OwnerID);
+
+            if (OwnerVM.Owner == null)
+            {
+                return NotFound();
+            }
+
+            return View(OwnerVM);
+        }
+
+        //GET Delete
+        public async Task<IActionResult> Delete(string id)
+        {
+
+            OwnerVM.User = _db.ApplicationUsers.SingleOrDefault(m => m.Id == id);
+
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            OwnerVM.Owner = await _db.Owners.SingleOrDefaultAsync(m => m.ID == OwnerVM.User.OwnerID);
+
+            if (OwnerVM.Owner == null)
+            {
+                return NotFound();
+            }
+
+            return View(OwnerVM);
+        }
+
+        //POST Delete
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(string id)
+        {
+            OwnerVM.User = _db.ApplicationUsers.SingleOrDefault(m => m.Id == OwnerVM.User.Id);
+            string webRootPath = _hostingEnvironment.WebRootPath;
+            Owner owner = await _db.Owners.FindAsync(OwnerVM.User.OwnerID);
+
+            if (owner == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                var uploads = Path.Combine(webRootPath, @"images\OwnerImage");
+                var extension = Path.GetExtension(owner.Image);
+
+                if (System.IO.File.Exists(Path.Combine(uploads, owner.ID + extension)))
+                {
+                    System.IO.File.Delete(Path.Combine(uploads, owner.ID + extension));
+                }
+                _db.Owners.Remove(owner);
+                await _db.SaveChangesAsync();
+
+                return RedirectToAction(nameof(Index));
+            }
+        }
     }
 }
