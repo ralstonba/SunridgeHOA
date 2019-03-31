@@ -54,7 +54,13 @@ namespace SunridgeHOA.Areas.Admin.Controllers
                 return View();
             }
 
+            OwnerVM.Owner.IsBoardMember = false;
             _db.Owners.Add(OwnerVM.Owner);
+            await _db.SaveChangesAsync();
+
+            OwnerVM.User = _db.ApplicationUsers.SingleOrDefault(m => m.Id == OwnerVM.User.Id);
+
+            OwnerVM.User.Owner = OwnerVM.Owner;
             await _db.SaveChangesAsync();
 
             string webRootPath = _hostingEnvironment.WebRootPath;
