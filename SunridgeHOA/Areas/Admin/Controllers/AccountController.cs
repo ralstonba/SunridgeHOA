@@ -28,7 +28,8 @@ namespace SunridgeHOA.Areas.Admin.Controllers
             WebRootPath = hostingEnvironment.WebRootPath;
             ClassifiedVM = new ClassifiedViewModel()
             {
-                Lots = new Models.ClassifiedListing()
+                Lots = new Models.ClassifiedListing(),
+                Cabins = new Models.ClassifiedListing()
             };
         }
         public IActionResult AddLot()
