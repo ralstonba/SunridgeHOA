@@ -54,8 +54,9 @@ namespace SunridgeHOA.Areas.Admin.Controllers
                 return View(BoardMembersVM.BoardMember.Owner);
             }
 
-            var appUser = _db.ApplicationUsers.Find(BoardMembersVM.SelectedApplicationUserID);
-            var owner = _db.Owners.Find(appUser.OwnerID);
+            var appUser = _db.ApplicationUsers
+                .Include(m => m.Owner).FirstOrDefault(m => m.Id == BoardMembersVM.SelectedApplicationUserID);
+            var owner = appUser.Owner;
 
             BoardMember newBoardMember = new BoardMember()
             {
@@ -134,7 +135,8 @@ namespace SunridgeHOA.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            BoardMember boardMember = await _db.BoardMembers.FindAsync(id);
+            BoardMember boardMember = _db.BoardMembers.Include(m => m.Owner).FirstOrDefault(m => m.ID == id);
+            Owner owner = boardMember.Owner;
 
             if (boardMember == null)
             {
@@ -142,7 +144,11 @@ namespace SunridgeHOA.Areas.Admin.Controllers
             }
             else
             {
+                owner.IsBoardMember = false;
+
                 _db.BoardMembers.Remove(boardMember);
+                _db.Owners.Update(owner);
+
                 await _db.SaveChangesAsync();
 
                 return RedirectToAction(nameof(Index));
