@@ -8,14 +8,14 @@ namespace SunridgeHOA.Extensions
 {
     public static class IEnumerableExtensions
     {
-        public static IEnumerable<SelectListItem> ToSelectListItem<T>(this IEnumerable<T> items)
+        public static IEnumerable<SelectListItem> ToSelectListItem<T>(this IEnumerable<T> items, string selectedValue)
         {
             return from item in items
                    select new SelectListItem
                    {
                        Text = item.GetPropertyValue("UserName"),
                        Value = item.GetPropertyValue("Id"),
-                       Selected = item.GetPropertyValue("Id").Equals(item.GetPropertyValue("Id"))
+                       Selected = item.GetPropertyValue("Id").Equals(selectedValue)
                    };
         }
     }

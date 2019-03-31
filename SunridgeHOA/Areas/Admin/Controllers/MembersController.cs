@@ -54,13 +54,23 @@ namespace SunridgeHOA.Areas.Admin.Controllers
                 return View(BoardMembersVM.BoardMember.Owner);
             }
 
-            _db.BoardMembers.Add(BoardMembersVM.BoardMember);
+            var appUser = _db.ApplicationUsers.Find(BoardMembersVM.SelectedApplicationUserID);
+            var owner = _db.Owners.Find(appUser.OwnerID);
+
+            BoardMember newBoardMember = new BoardMember()
+            {
+                Position = BoardMembersVM.BoardMember.Position,
+                Owner = owner,
+                OwnerID = owner.ID
+            };
+
+            _db.BoardMembers.Add(newBoardMember);
             await _db.SaveChangesAsync();
 
-            var DbUsers = _db.ApplicationUsers.SingleOrDefault(b => b.OwnerID == BoardMembersVM.BoardMember.OwnerID);
-            if (DbUsers != null)
+            if (owner != null)
             {
-                DbUsers.Owner.IsBoardMember = true;
+                owner.IsBoardMember = true;
+                _db.Owners.Update(owner);
                 _db.SaveChanges();
             }
            
