@@ -15,6 +15,7 @@ namespace SunridgeHOA.Data
         }
 
         public DbSet<Address> Addresses { get; set; }
+        public DbSet<BoardMember> BoardMembers { get; set; }
         public DbSet<ClassifiedCategory> ClassifiedCategories { get; set; }
         public DbSet<ClassifiedListing> ClassifiedListings { get; set; }
         public DbSet<CommonAreaAsset> CommonAreaAssets { get; set; }

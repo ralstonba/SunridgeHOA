@@ -4,21 +4,36 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis;
+using Microsoft.EntityFrameworkCore;
+using SunridgeHOA.Data;
 using SunridgeHOA.Models;
+using SunridgeHOA.Models.ViewModels;
 
 namespace SunridgeHOA.Controllers
 {
     [Area("Public")]
     public class HomeController : Controller
     {
+        private readonly ApplicationDbContext _context;
+
+        public HomeController(ApplicationDbContext context)
+        {
+            _context = context;
+        }
+
         public IActionResult Index()
         {
             return View();
         }
 
-        public IActionResult BoardMembers()
+        public async Task<IActionResult> BoardMembers()
         {
-            return View();
+            List<BoardMemberIndexVM> boardMemberList = _context.BoardMembers
+                .Join(_context.ApplicationUsers, member => member.OwnerID, user => user.OwnerID,
+                    (member, user) => new BoardMemberIndexVM(member, user)).ToList();
+
+            return View(boardMemberList);
         }
 
         public IActionResult EventCalender()
