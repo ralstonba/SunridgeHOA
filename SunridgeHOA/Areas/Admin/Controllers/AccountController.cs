@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting.Internal;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SunridgeHOA.Data;
+using SunridgeHOA.Models;
 using SunridgeHOA.Models.ViewModels;
 
 namespace SunridgeHOA.Areas.Admin.Controllers
@@ -114,6 +115,68 @@ namespace SunridgeHOA.Areas.Admin.Controllers
             return View(ClassifiedVM);
         }
 
+        public async Task<IActionResult> LotDetails(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            ClassifiedVM.Lots = await _db.ClassifiedListings.SingleOrDefaultAsync(m => m.ID == id);
+
+            if (ClassifiedVM.Lots == null)
+            {
+                NotFound();
+            }
+
+            return View(ClassifiedVM);
+        }
+
+        public async Task<IActionResult> DeleteLot(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            ClassifiedVM.Lots = await _db.ClassifiedListings.SingleOrDefaultAsync(m => m.ID == id);
+
+            if (ClassifiedVM.Cabins == null)
+            {
+                NotFound();
+            }
+
+            return View(ClassifiedVM);
+        }
+
+        //POST : Delete
+        [HttpPost, ActionName("DeleteLot")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteLotConfirmed(int id)
+        {
+            string webRootPath = _hostingEnvironment.WebRootPath;
+            ClassifiedListing lots = await _db.ClassifiedListings.FindAsync(id);
+
+            if (lots == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                var uploads = Path.Combine(webRootPath, @"img\otherservices");
+                //var extension = Path.GetExtension(cabins.Image);
+
+                /*if (System.IO.File.Exists(Path.Combine(uploads, products.Id + extension)))
+                {
+                    System.IO.File.Delete(Path.Combine(uploads, products.Id + extension));
+                }*/
+                _db.ClassifiedListings.Remove(lots);
+                await _db.SaveChangesAsync();
+
+                return RedirectToAction("Lots", "Home");
+            }
+        }
+
         public IActionResult AddCabin()
         {
             return View(ClassifiedVM);
@@ -196,6 +259,68 @@ namespace SunridgeHOA.Areas.Admin.Controllers
             }
 
             return View(ClassifiedVM);
+        }
+
+        public async Task<IActionResult> CabinDetails(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            ClassifiedVM.Cabins = await _db.ClassifiedListings.SingleOrDefaultAsync(m => m.ID == id);
+
+            if (ClassifiedVM.Lots == null)
+            {
+                NotFound();
+            }
+
+            return View(ClassifiedVM);
+        }
+
+        public async Task<IActionResult> DeleteCabin(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            ClassifiedVM.Cabins = await _db.ClassifiedListings.SingleOrDefaultAsync(m => m.ID == id);
+
+            if (ClassifiedVM.Cabins == null)
+            {
+                NotFound();
+            }
+
+            return View(ClassifiedVM);
+        }
+
+        //POST : Delete
+        [HttpPost, ActionName("DeleteCabin")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteCabinConfirmed(int id)
+        {
+            string webRootPath = _hostingEnvironment.WebRootPath;
+            ClassifiedListing cabins = await _db.ClassifiedListings.FindAsync(id);
+
+            if (cabins == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                var uploads = Path.Combine(webRootPath, @"img\otherservices");
+                //var extension = Path.GetExtension(cabins.Image);
+
+                /*if (System.IO.File.Exists(Path.Combine(uploads, products.Id + extension)))
+                {
+                    System.IO.File.Delete(Path.Combine(uploads, products.Id + extension));
+                }*/
+                _db.ClassifiedListings.Remove(cabins);
+                await _db.SaveChangesAsync();
+
+                return RedirectToAction("Cabins", "Home");
+            }
         }
 
         public IActionResult AddService()

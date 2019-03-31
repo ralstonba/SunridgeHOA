@@ -83,13 +83,13 @@
                     </td>
                     <td style="width:150px">
                         <div class="btn-group" role="group">
-                            <a type="button" class="btn btn-primary">
+                            <a type="button" class="btn btn-primary" asp-area="Admin" asp-controller="Account" href="@Url.Action("EditCabin"+Model)">
                                 <i class="fas fa-edit"></i>
                             </a>
-                            <a type="button" class="btn btn-success">
+                            <a type="button" class="btn btn-success" asp-area="Admin" asp-controller="Account" href="@Url.Action("CabinDetails"+Model)">
                                 <i class="fas fa-list-alt"></i>
                             </a>
-                            <a type="button" class="btn btn-danger">
+                            <a type="button" class="btn btn-danger" asp-area="Admin" asp-controller="Account" href="@Url.Action("DeleteCabin"+Model)">
                                 <i class="fas fa-trash-alt"></i>
                             </a>
                         </div>
