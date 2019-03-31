@@ -2,14 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SunridgeHOA.Data;
 using SunridgeHOA.Models;
+using SunridgeHOA.Utility;
 
 namespace SunridgeHOA.Areas.SuperAdmin.Controllers
 {
+    [Authorize(Roles = StaticData.SuperAdminEndUser)]
     [Area("SuperAdmin")]
     public class ScheduledEventsController : Controller
     {

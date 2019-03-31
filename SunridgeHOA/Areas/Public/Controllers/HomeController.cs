@@ -29,11 +29,11 @@ namespace SunridgeHOA.Controllers
 
         public async Task<IActionResult> BoardMembers()
         {
-            List<BoardMemberIndexVM> boardMemberList = _context.BoardMembers
-                .Join(_context.ApplicationUsers, member => member.OwnerID, user => user.OwnerID,
+            List<BoardMemberIndexVM> bmList = _context.BoardMembers.Include(m => m.Owner)
+                .Join(_context.ApplicationUsers, member => member.Owner.ID, user => user.Owner.ID,
                     (member, user) => new BoardMemberIndexVM(member, user)).ToList();
 
-            return View(boardMemberList);
+            return View(bmList);
         }
 
         public IActionResult EventCalender()
