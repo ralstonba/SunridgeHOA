@@ -22,10 +22,10 @@
                 <div class="mb-5 col-lg-4">
                     <div class="testimonial-item mx-auto mb-5 mb-lg-0">
                         <img class="img-fluid rounded-circle mb-3" src="@member.BoardMember.Owner.Image" alt="Boardmember profile picture">
-                        <h5>@member.BoardMember.Position @member.FullName()</h5>
-                        <p class="font-weight-light mb-0">@member.BoardMember.Owner.Lot</p>
+                        <h5>@member.BoardMember.Position: @member.FullName()</h5>
+                        <p class="font-weight-light mb-0">Lot: @member.BoardMember.Owner.Lot</p>
                         <p class="font-weight-light mb-0">@member.BoardMember.Owner.Phone</p>
-                        <p class="font-weight-light mb-0">Email: <a href="mailto:"@member.User.Email>@member.FullName()</a></p>
+                        <p class="font-weight-light mb-0">Email: <a href="mailto:@{@member.User.Email}">@member.FullName()</a></p>
                     </div>
                 </div>
             }
