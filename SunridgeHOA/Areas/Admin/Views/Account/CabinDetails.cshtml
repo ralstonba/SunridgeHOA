@@ -6,7 +6,7 @@
 <br />
 <h2 class="text-info">Cabin Details</h2>
 
-<form method="post" asp-action="CabinDetails" enctype="multipart/form-data">
+<form method="post" asp-area="Public" asp-controller="Home" asp-action="Cabins" enctype="multipart/form-data">
     <div class="p-4 border rounded row">
         <input type="hidden" asp-for="Cabins.ID" />
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>

@@ -43,12 +43,12 @@ namespace SunridgeHOA.Controllers
 
         public async Task<IActionResult> Lots()
         {
-            return View(await _context.ClassifiedListings.ToListAsync());
+            return View(await _context.ClassifiedListings.Where(m => m.ClassifiedCategory.Name == "Lots").ToListAsync());
         }
 
-        public IActionResult Cabins()
+        public async Task<IActionResult> Cabins()
         {
-            return View();
+            return View(await _context.ClassifiedListings.Where(m => m.ClassifiedCategory.Name == "Cabins").ToListAsync());
         }
 
         public IActionResult OtherServices()
