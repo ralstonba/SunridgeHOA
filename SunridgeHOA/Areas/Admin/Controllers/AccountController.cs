@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting.Internal;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SunridgeHOA.Data;
@@ -17,14 +18,16 @@ namespace SunridgeHOA.Areas.Admin.Controllers
     {
         private readonly ApplicationDbContext _db;
         private readonly HostingEnvironment _hostingEnvironment;
+        private readonly UserManager<IdentityUser> _userManager;
         
         private string WebRootPath { get; set; }
         [BindProperty]
         public ClassifiedViewModel ClassifiedVM { get; set; } 
-        public AccountController(ApplicationDbContext db, HostingEnvironment hostingEnvironment)
+        public AccountController(ApplicationDbContext db, HostingEnvironment hostingEnvironment, UserManager<IdentityUser> userManager)
         {
             _db = db;
             _hostingEnvironment = hostingEnvironment;
+            _userManager = userManager;
             WebRootPath = hostingEnvironment.WebRootPath;
             ClassifiedVM = new ClassifiedViewModel()
             {
@@ -46,7 +49,12 @@ namespace SunridgeHOA.Areas.Admin.Controllers
                 return RedirectToAction("Lots", "Home");
             }
 
-            _db.ClassifiedListings.Add(ClassifiedVM.Lots);
+            ClassifiedListing classifiedListing = new ClassifiedListing()
+            {
+                ClassifiedCategory = _db.ClassifiedCategories.FirstOrDefault(m => m.Name == "Lots"),
+            };
+
+            _db.ClassifiedListings.Add(classifiedListing);
             await _db.SaveChangesAsync();
             return RedirectToAction("Lots", "Home");
         }

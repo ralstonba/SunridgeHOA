@@ -5,6 +5,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting.Internal;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using SunridgeHOA.Data;
 using SunridgeHOA.Models;
 using SunridgeHOA.Models.ViewModels;
 
