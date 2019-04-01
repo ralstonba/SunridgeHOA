@@ -1,0 +1,18 @@
+﻿@model SunridgeHOA.Models.Map
+@{
+    ViewData["Title"] = "DeleteMap";
+}
+
+<h2>Delete Map</h2>
+
+<form asp-area="Admin" asp-controller="Maps" asp-action="Delete" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label asp-for="FileURL">Map</label>
+        <input type="file" name="map" id="map" class="form-control" />
+    </div>
+    <br />
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+<div>
+    <a asp-area="Public" asp-controller="Home" asp-action="Maps">Back</a>
+</div>

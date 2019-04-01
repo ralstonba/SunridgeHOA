@@ -1,0 +1,23 @@
+﻿@model SunridgeHOA.Models.Map
+@{
+    ViewData["Title"] = "Add Map";
+}
+
+<h2>Add Map</h2>
+
+<br />
+
+<form asp-area="Public" asp-controller="Home" asp-action="Maps" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label asp-for="FileURL">Map</label>
+        <input type="file" name="map" id="map" class="form-control" />
+    </div>
+    <br />
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+<div>
+    <a asp-area="Public" asp-controller="Home" asp-action="Maps">Back</a>
+</div>
+
+
+
