@@ -49,9 +49,17 @@ namespace SunridgeHOA.Areas.Admin.Controllers
                 return RedirectToAction("Lots", "Home");
             }
 
+            // This can fail if you do not ensure that the method requires the user to be logged in in the first place
+
+            ApplicationUser applicationUser = _db.ApplicationUsers.Include(m => m.Owner)
+                .FirstOrDefault(m => m.Id.Equals(_userManager.GetUserId(HttpContext.User)));
+
+            // You need to check that applicationUser is actually and owner
+
             ClassifiedListing classifiedListing = new ClassifiedListing()
             {
                 ClassifiedCategory = _db.ClassifiedCategories.FirstOrDefault(m => m.Name == "Lots"),
+                Owner = applicationUser.Owner
             };
 
             _db.ClassifiedListings.Add(classifiedListing);
