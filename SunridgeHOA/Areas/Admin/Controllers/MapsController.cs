@@ -56,6 +56,7 @@ namespace SunridgeHOA.Areas.Admin.Controllers
 
             //Save the string image to the database with the image name
             mapsFromDb.FileURL = @"\" + @"img\Maps" + @"\" + map.ID + extension;
+            await _db.SaveChangesAsync();
             return RedirectToAction("Maps", "Home");
         }
     }

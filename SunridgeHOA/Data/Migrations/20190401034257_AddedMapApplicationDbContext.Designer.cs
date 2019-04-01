@@ -10,8 +10,8 @@ using SunridgeHOA.Data;
 namespace SunridgeHOA.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190401010538_AddedMapModel")]
-    partial class AddedMapModel
+    [Migration("20190401034257_AddedMapApplicationDbContext")]
+    partial class AddedMapApplicationDbContext
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -509,6 +509,20 @@ namespace SunridgeHOA.Data.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("MaintenanceRecords");
+                });
+
+            modelBuilder.Entity("SunridgeHOA.Models.Map", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("FileURL")
+                        .IsRequired();
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Map");
                 });
 
             modelBuilder.Entity("SunridgeHOA.Models.Owner", b =>

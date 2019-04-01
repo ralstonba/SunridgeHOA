@@ -509,6 +509,20 @@ namespace SunridgeHOA.Data.Migrations
                     b.ToTable("MaintenanceRecords");
                 });
 
+            modelBuilder.Entity("SunridgeHOA.Models.Map", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("FileURL")
+                        .IsRequired();
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Map");
+                });
+
             modelBuilder.Entity("SunridgeHOA.Models.Owner", b =>
                 {
                     b.Property<int>("ID")

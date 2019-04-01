@@ -8,7 +8,7 @@
 <form asp-area="Admin" asp-controller="Maps" asp-action="Delete" method="post" enctype="multipart/form-data">
     <div class="form-group">
         <label asp-for="FileURL">Map</label>
-        <input type="file" name="map" id="map" class="form-control" />
+        <img src="@Model.FileURL" width="100%" style="border-radius: 5px; border:1px solid #bbb9b9;" />
     </div>
     <br />
     <button type="submit" class="btn btn-primary">Submit</button>
