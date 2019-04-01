@@ -5,9 +5,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting.Internal;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.CodeAnalysis;
-using Microsoft.EntityFrameworkCore;
-using SunridgeHOA.Data;
 using SunridgeHOA.Models;
 using SunridgeHOA.Models.ViewModels;
 
@@ -17,18 +14,12 @@ namespace SunridgeHOA.Controllers
     public class HomeController : Controller
     {
         private readonly ApplicationDbContext _context;
-        private readonly HostingEnvironment _hostingEnvironment;
-        [BindProperty]
-        public ClassifiedViewModel ClassifiedVM { get; set; }
-        public HomeController(ApplicationDbContext context, HostingEnvironment hostingEnvironment)
+
+        public HomeController(ApplicationDbContext context)
         {
             _context = context;
-            _hostingEnvironment = hostingEnvironment;
-            ClassifiedVM = new ClassifiedViewModel()
-            {
-                Lots = new Models.ClassifiedListing()
-            };
         }
+
         public IActionResult Index()
         {
             return View();
@@ -50,8 +41,7 @@ namespace SunridgeHOA.Controllers
 
         public async Task<IActionResult> Lots()
         {
-            var lots = _context.ClassifiedListings;
-            return View(await lots.ToListAsync());
+            return View();
         }
 
         public IActionResult Cabins()
