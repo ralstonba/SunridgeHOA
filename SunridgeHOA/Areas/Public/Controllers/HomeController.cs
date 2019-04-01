@@ -3,22 +3,44 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting.Internal;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis;
+using Microsoft.EntityFrameworkCore;
+using SunridgeHOA.Data;
 using SunridgeHOA.Models;
+using SunridgeHOA.Models.ViewModels;
 
 namespace SunridgeHOA.Controllers
 {
     [Area("Public")]
     public class HomeController : Controller
     {
+        private readonly ApplicationDbContext _context;
+        private readonly HostingEnvironment _hostingEnvironment;
+        [BindProperty]
+        public ClassifiedViewModel ClassifiedVM { get; set; }
+        public HomeController(ApplicationDbContext context, HostingEnvironment hostingEnvironment)
+        {
+            _context = context;
+            _hostingEnvironment = hostingEnvironment;
+            ClassifiedVM = new ClassifiedViewModel()
+            {
+                Lots = new Models.ClassifiedListing()
+            };
+        }
         public IActionResult Index()
         {
             return View();
         }
 
-        public IActionResult BoardMembers()
+        public async Task<IActionResult> BoardMembers()
         {
-            return View();
+            List<BoardMemberIndexVM> bmList = _context.BoardMembers.Include(m => m.Owner)
+                .Join(_context.ApplicationUsers, member => member.Owner.ID, user => user.Owner.ID,
+                    (member, user) => new BoardMemberIndexVM(member, user)).ToList();
+
+            return View(bmList);
         }
 
         public IActionResult EventCalender()
@@ -26,9 +48,10 @@ namespace SunridgeHOA.Controllers
             return View();
         }
 
-        public IActionResult Lots()
+        public async Task<IActionResult> Lots()
         {
-            return View();
+            var lots = _context.ClassifiedListings;
+            return View(await lots.ToListAsync());
         }
 
         public IActionResult Cabins()

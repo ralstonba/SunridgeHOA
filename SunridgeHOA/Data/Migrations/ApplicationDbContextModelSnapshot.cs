@@ -208,6 +208,23 @@ namespace SunridgeHOA.Data.Migrations
                     b.ToTable("Addresses");
                 });
 
+            modelBuilder.Entity("SunridgeHOA.Models.BoardMember", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("OwnerID");
+
+                    b.Property<string>("Position");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("OwnerID");
+
+                    b.ToTable("BoardMembers");
+                });
+
             modelBuilder.Entity("SunridgeHOA.Models.ClassifiedCategory", b =>
                 {
                     b.Property<int>("ID")
@@ -463,7 +480,8 @@ namespace SunridgeHOA.Data.Migrations
 
                     b.HasIndex("AddressID");
 
-                    b.HasIndex("OwnerID");
+                    b.HasIndex("OwnerID")
+                        .IsUnique();
 
                     b.ToTable("Lots");
                 });
@@ -497,11 +515,11 @@ namespace SunridgeHOA.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("AddressID");
+                    b.Property<int?>("AddressID");
 
                     b.Property<DateTime>("Birthday");
 
-                    b.Property<int>("CoOwnerID");
+                    b.Property<int?>("CoOwnerID");
 
                     b.Property<string>("EmergencyContactName");
 
@@ -509,15 +527,23 @@ namespace SunridgeHOA.Data.Migrations
 
                     b.Property<string>("FirstName");
 
-                    b.Property<bool>("IsArchive");
+                    b.Property<string>("Image");
+
+                    b.Property<bool?>("IsArchive");
+
+                    b.Property<bool>("IsBoardMember");
 
                     b.Property<bool>("IsPrimary");
 
-                    b.Property<DateTime>("LastModifiedDate");
+                    b.Property<DateTime?>("LastModifiedDate");
 
                     b.Property<string>("LastName");
 
+                    b.Property<int?>("LotID");
+
                     b.Property<string>("Occupation");
+
+                    b.Property<string>("Phone");
 
                     b.HasKey("ID");
 
@@ -584,6 +610,28 @@ namespace SunridgeHOA.Data.Migrations
                     b.ToTable("OwnerHistories");
                 });
 
+            modelBuilder.Entity("SunridgeHOA.Models.ScheduledEvent", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Description");
+
+                    b.Property<DateTime?>("End");
+
+                    b.Property<bool>("IsFullDay");
+
+                    b.Property<DateTime>("Start");
+
+                    b.Property<string>("Subject")
+                        .IsRequired();
+
+                    b.HasKey("ID");
+
+                    b.ToTable("ScheduledEvents");
+                });
+
             modelBuilder.Entity("SunridgeHOA.Models.Transaction", b =>
                 {
                     b.Property<int>("ID")
@@ -646,9 +694,13 @@ namespace SunridgeHOA.Data.Migrations
 
                     b.Property<DateTime>("LastModifiedDate");
 
+                    b.Property<int?>("OwnerID");
+
                     b.Property<string>("UserPassword");
 
                     b.Property<string>("UserType");
+
+                    b.HasIndex("OwnerID");
 
                     b.ToTable("ApplicationUser");
 
@@ -697,6 +749,14 @@ namespace SunridgeHOA.Data.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser")
                         .WithMany()
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("SunridgeHOA.Models.BoardMember", b =>
+                {
+                    b.HasOne("SunridgeHOA.Models.Owner", "Owner")
+                        .WithMany()
+                        .HasForeignKey("OwnerID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -756,8 +816,8 @@ namespace SunridgeHOA.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("SunridgeHOA.Models.Owner", "Owner")
-                        .WithMany()
-                        .HasForeignKey("OwnerID")
+                        .WithOne("Lot")
+                        .HasForeignKey("SunridgeHOA.Models.Lot", "OwnerID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -765,13 +825,11 @@ namespace SunridgeHOA.Data.Migrations
                 {
                     b.HasOne("SunridgeHOA.Models.Address", "Address")
                         .WithMany()
-                        .HasForeignKey("AddressID")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("AddressID");
 
                     b.HasOne("SunridgeHOA.Models.Owner", "OwnerID")
                         .WithMany()
-                        .HasForeignKey("CoOwnerID")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("CoOwnerID");
                 });
 
             modelBuilder.Entity("SunridgeHOA.Models.OwnerContactType", b =>
@@ -821,6 +879,13 @@ namespace SunridgeHOA.Data.Migrations
                         .WithMany()
                         .HasForeignKey("TransactionTypeId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("SunridgeHOA.Models.ApplicationUser", b =>
+                {
+                    b.HasOne("SunridgeHOA.Models.Owner", "Owner")
+                        .WithMany()
+                        .HasForeignKey("OwnerID");
                 });
 #pragma warning restore 612, 618
         }
