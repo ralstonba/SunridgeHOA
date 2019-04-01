@@ -4,6 +4,7 @@ using SunridgeHOA.Data;
 using SunridgeHOA.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -40,6 +41,21 @@ namespace SunridgeHOA.Areas.Admin.Controllers
 
             _db.Map.Add(map);
             await _db.SaveChangesAsync();
+            string webRootPath = _hostingEnvironment.WebRootPath;
+            var files = HttpContext.Request.Form.Files;
+
+            var mapsFromDb = _db.Map.Find(map.ID);
+
+            var uploads = Path.Combine(webRootPath, @"img\Maps");
+            var extension = Path.GetExtension(files[0].FileName);
+
+            using (var filestream = new FileStream(Path.Combine(uploads, map.ID + extension), FileMode.Create))
+            {
+                files[0].CopyTo(filestream); //Moves to server and renames
+            }
+
+            //Save the string image to the database with the image name
+            mapsFromDb.FileURL = @"\" + @"img\Maps" + @"\" + map.ID + extension;
             return RedirectToAction("Maps", "Home");
         }
     }
