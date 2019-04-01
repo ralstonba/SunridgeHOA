@@ -59,7 +59,12 @@ namespace SunridgeHOA.Areas.Admin.Controllers
             ClassifiedListing classifiedListing = new ClassifiedListing()
             {
                 ClassifiedCategory = _db.ClassifiedCategories.FirstOrDefault(m => m.Name == "Lots"),
-                Owner = applicationUser.Owner
+                Owner = applicationUser.Owner,
+                Name = ClassifiedVM.Lots.Name,
+                Description = ClassifiedVM.Lots.Description,
+                Price = ClassifiedVM.Lots.Price,
+                Email = ClassifiedVM.Lots.Email,
+                PhoneNumber = ClassifiedVM.Lots.PhoneNumber
             };
 
             _db.ClassifiedListings.Add(classifiedListing);
