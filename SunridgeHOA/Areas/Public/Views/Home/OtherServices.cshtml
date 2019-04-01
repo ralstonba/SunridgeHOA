@@ -1,0 +1,74 @@
+﻿
+@{
+    ViewData["Title"] = "Other Services";
+}
+
+@if (User.IsInRole(SunridgeHOA.Utilities.StaticDetails.AdminEndUser))
+{
+    <a class="nav-link" asp-area="Admin" asp-controller="Account" asp-action="AddService">
+        <i class="fas fa-plus-circle"></i>
+        Add Service
+    </a>
+}
+
+<!-- inro section Grid -->
+<section class=" p-5 text-center">
+    <div class="container">
+        <div class="container container-fluid no2">
+            <h1 class="main-heading mb-4">Business and Services supporting Sunridge</h1>
+            <p>If you would like your business or service advertised here, please contact us</p>
+            <button class=" mt-4 btn-primary"><a class="text-white" href="mailto:Webmaster@sunridge.info">Email Us</a></button>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials -->
+<div class="container gallery-container text-center mt-5 mb-5">
+
+    <div class="tz-gallery">
+        <div class="row">
+            <div class="col-sm-6 col-md-4">
+                <a class="lightbox" href="~/img/other-services/excavating-thubmnail.jpg">
+                    <img src="~/img/other-services/excavating-thubmnail.jpg" alt="excavating">
+                </a>
+            </div>
+            <div class="col-sm-6 col-md-4">
+                <a class="lightbox" href="~/img/other-services/real-estate-thumbnail.jpg">
+                    <img src="~/img/other-services/real-estate-thumbnail.jpg" alt="real estate">
+                </a>
+            </div>
+            <div class="col-sm-12 col-md-4">
+                <a class="lightbox" href="~/img/other-services/design-thubmnail.jpg">
+                    <img src="~/img/other-services/design-thubmnail.jpg" alt="design">
+                </a>
+            </div>
+            <div class="col-sm-6 col-md-4">
+                <a class="lightbox" href="~/img/other-services/swag-thumbnail.jpg">
+                    <img src="~/img/other-services/swag-thumbnail.jpg" alt="Swag">
+                </a>
+            </div>
+
+            <div class="col-sm-6 col-md-4">
+                <a class="lightbox" href="~/img/other-services/Cell.png">
+                    <img src="~/img/other-services/Cell.png" alt="Cell Service">
+                </a>
+            </div>
+
+
+            <div class="col-sm-6 col-md-4">
+                <a class="lightbox" href="~/img/other-services/roofing-img.jpg">
+                    <img src="~/img/other-services/roofing-img.jpg" alt="roofing">
+                </a>
+            </div>
+
+            <div class="col-sm-6 col-md-4">
+                <a class="lightbox" href="~/img/other-services/trading.jpg">
+                    <img src="~/img/other-services/trading.jpg" alt="trading">
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.8.1/baguetteBox.min.js"></script>
+<script>baguetteBox.run('.tz-gallery');</script>
+

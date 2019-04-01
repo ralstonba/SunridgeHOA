@@ -26,8 +26,5 @@ namespace SunridgeHOA.Models
         // Navigation Properties
         [ForeignKey("OwnerHistory")] public int OwnerHistoryID { get; set; }
         public OwnerHistory OwnerHistory { get; set; }
-
-        [Required, ForeignKey("ApplicationUser")] public int LastModifiedBy { get; set; }
-        public ApplicationUser ApplicationUser { get; set; }
     }
 }

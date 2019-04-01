@@ -1,0 +1,72 @@
+﻿@model IEnumerable<SunridgeHOA.Models.BoardMember>
+@{
+    ViewData["Title"] = "Board Members";
+}
+
+<br /><br />
+
+<div class="row">
+    <div class="col-6">
+        <h2 class="text-info">Board Member List</h2>
+    </div>
+    <div class="col-6 text-right">
+        <a asp-action="Create" class="btn btn-info"><i class="fas fa-plus"></i> New Board Member</a>
+    </div>
+</div>
+
+<br />
+<div>
+    <table class="table table-striped border">
+        <tr class="table-info">
+            <th>
+                @Html.DisplayNameFor(m => m.Owner.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.Owner.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.Position)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.Owner.Lot.LotNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.Owner.Phone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.Owner.Image)
+            </th>
+            <th></th>
+            <th></th>
+
+        </tr>
+
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(m => item.Owner.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(m => item.Owner.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(m => item.Position)
+            </td>
+            <td>
+                @Html.DisplayFor(m => item.Owner.Lot.LotNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(m => item.Owner.Phone)
+            </td>
+            <td>
+                @Html.DisplayFor(m => item.Owner.Image)
+            </td>
+            <td>
+                <partial name="_TableButtonPartial" model="item.ID" />
+            </td>
+        </tr>
+
+        }
+    </table>
+</div>
