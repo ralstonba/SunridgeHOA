@@ -40,14 +40,40 @@
     </environment>
 </head>
 <body style="padding: 0;">
+    <partial name="_NavBar"/>
+    <div class="col-12">
+        <div class="form-group row">
+            <div class="col-2">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse inline" id="navbarNav">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="Admin" asp-controller="Panel" asp-action="Index">Dashboard</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="Admin" asp-controller="Owners" asp-action="Index">Owners</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="Admin" asp-controller="Members" asp-action="Index">Keys</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="Public" asp-controller="Home" asp-action="EventCalender">Lots</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-action="PhotoGallery">Photo Gallery</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
 
-    <partial name="_NavBar" />
-
-    <partial name="_CookieConsentPartial" />
-
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
+            <div class="col-9">
+                <partial name="_CookieConsentPartial" />
+                @RenderBody()
+            </div>
+            <hr />
+        </div>
     </div>
 
     <!-- Footer -->
