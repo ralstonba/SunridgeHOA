@@ -19,6 +19,7 @@ namespace SunridgeHOA.Models
         public bool IsArchive { get; set; }
 
         public DateTime LastModifiedDate { get; set; }
+        public string TaxID { get; set; }
 
         // Navigation Properties
         public int InventoryID { get; set; }
