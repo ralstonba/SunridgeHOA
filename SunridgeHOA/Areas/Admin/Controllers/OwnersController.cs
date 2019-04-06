@@ -28,6 +28,7 @@ namespace SunridgeHOA.Areas.Admin.Controllers
             OwnerVM = new OwnerViewModel()
             {
                 Owner = new Owner()
+                //Lots = _db.Lots.ToList()
             };
         }
 

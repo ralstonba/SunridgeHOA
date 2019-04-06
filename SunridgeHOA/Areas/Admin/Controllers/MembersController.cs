@@ -56,7 +56,7 @@ namespace SunridgeHOA.Areas.Admin.Controllers
             }
 
             var appUser = _db.ApplicationUsers
-                .Include(m => m.Owner).FirstOrDefault(m => m.Id == BoardMembersVM.SelectedApplicationUserID);
+                .Include(m => m.Owner).FirstOrDefault(m => m.OwnerID == BoardMembersVM.BoardMember.OwnerID);
             var owner = appUser.Owner;
 
             BoardMember newBoardMember = new BoardMember()
@@ -104,8 +104,8 @@ namespace SunridgeHOA.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                var productFromDb = _db.BoardMembers.Where(m => m.ID == id).FirstOrDefault();
-                productFromDb.Position = BoardMembersVM.BoardMember.Position;
+                var ownerFromDb = _db.BoardMembers.Where(m => m.ID == id).FirstOrDefault();
+                ownerFromDb.Position = BoardMembersVM.BoardMember.Position;
                 await _db.SaveChangesAsync();
 
                 return RedirectToAction(nameof(Index));
