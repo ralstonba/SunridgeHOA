@@ -4,6 +4,9 @@
     ViewData["Title"] = "Create";
 }
 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.7/dist/css/bootstrap-select.min.css">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.7/dist/js/bootstrap-select.min.js"></script>
+
 <br />
 <h2 class="text-info">Create an Owner</h2>
 
@@ -85,10 +88,10 @@
         </div>
         <div class="form-group row">
             <div class="col-2">
-                <label asp-for="Owner.LotID"></label>
+                <label asp-for="Owner.Lot.LotNumber"></label>
             </div>
             <div class="col-5">
-                <select asp-for="@Model.Owner.LotID" asp-items="Model.Lots.ToSelectListItemLots(Model.Owner.LotID)" class="form-control selectpicker" data-live-search="true"></select>
+                <select asp-for="@Model.Owner.Lot.LotNumber" asp-items="Model.Lots.ToSelectListItemLots(Model.Owner.LotID)" class="form-control selectpicker" data-live-search="true"></select>
             </div>
         </div>
         <div class="form-group row">
