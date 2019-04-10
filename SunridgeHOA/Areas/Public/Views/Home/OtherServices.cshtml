@@ -3,6 +3,14 @@
     ViewData["Title"] = "Other Services";
 }
 
+@if (User.IsInRole(SunridgeHOA.Utilities.StaticDetails.AdminEndUser))
+{
+    <a class="nav-link" asp-area="Admin" asp-controller="Account" asp-action="AddService">
+        <i class="fas fa-plus-circle"></i>
+        Add Service
+    </a>
+}
+
 <!-- inro section Grid -->
 <section class=" p-5 text-center">
     <div class="container">
