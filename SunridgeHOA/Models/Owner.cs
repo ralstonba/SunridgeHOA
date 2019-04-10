@@ -14,11 +14,17 @@ namespace SunridgeHOA.Models
 
         public bool IsPrimary { get; set; }
 
+        public bool IsBoardMember { get; set; }
+
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
 
+        public string Image { get; set; }
+
         public string Occupation { get; set; }
+
+        public string Phone { get; set; }
 
         public DateTime Birthday { get; set; }
 
@@ -26,21 +32,21 @@ namespace SunridgeHOA.Models
 
         public string EmergencyContactPhone { get; set; }
 
-        public  bool IsArchive { get; set; }
+        public  bool? IsArchive { get; set; }
 
-        public DateTime LastModifiedDate { get; set; }
+        public DateTime? LastModifiedDate { get; set; }
 
         //Navigation Properties
         [ForeignKey("Address")]
-        public int AddressID { get; set; }
+        public int? AddressID { get; set; }
         public virtual Address Address { get; set; }
 
         [ForeignKey("OwnerID")]
-        public int CoOwnerID { get; set; }
+        public int? CoOwnerID { get; set; }
         public virtual Owner OwnerID { get; set; }
 
-        [ForeignKey("ApplicationUser")]
-        public string LastModifiedBy { get; set; }
-        public virtual ApplicationUser ApplicationUser { get; set; }
+        [ForeignKey("LotID")]
+        public int? LotID { get; set; }
+        public virtual Lot Lot { get; set; }
     }
 }

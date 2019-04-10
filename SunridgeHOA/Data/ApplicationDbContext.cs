@@ -15,6 +15,7 @@ namespace SunridgeHOA.Data
         }
 
         public DbSet<Address> Addresses { get; set; }
+        public DbSet<BoardMember> BoardMembers { get; set; }
         public DbSet<ClassifiedCategory> ClassifiedCategories { get; set; }
         public DbSet<ClassifiedListing> ClassifiedListings { get; set; }
         public DbSet<CommonAreaAsset> CommonAreaAssets { get; set; }
@@ -32,5 +33,6 @@ namespace SunridgeHOA.Data
         public DbSet<Transaction> Transactions { get; set; }
         public DbSet<TransactionType> TransactionTypes { get; set; }
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+        public DbSet<ScheduledEvent> ScheduledEvents { get; set; }
     }
 }

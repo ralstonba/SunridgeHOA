@@ -32,9 +32,5 @@ namespace SunridgeHOA.Models
         [ForeignKey("Owner")]
         public int OwnerID { get; set; }
         public virtual Owner Owner { get; set; }
-
-        [ForeignKey("ApplicationUser")]
-        public int LastModifiedBy { get; set; }
-        public ApplicationUser ApplicationUser { get; set; }
     }
 }
