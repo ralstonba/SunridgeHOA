@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting.Internal;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
 using SunridgeHOA.Data;
 using SunridgeHOA.Models;
@@ -41,14 +41,14 @@ namespace SunridgeHOA.Controllers
             return View();
         }
 
-        public IActionResult Lots()
+        public async Task<IActionResult> Lots()
         {
-            return View();
+            return View(await _context.ClassifiedListings.Where(m => m.ClassifiedCategory.Name == "Lots").ToListAsync());
         }
 
-        public IActionResult Cabins()
+        public async Task<IActionResult> Cabins()
         {
-            return View();
+            return View(await _context.ClassifiedListings.Where(m => m.ClassifiedCategory.Name == "Cabins").ToListAsync());
         }
 
         public IActionResult OtherServices()
