@@ -16,16 +16,22 @@ namespace SunridgeHOA.Models
 
         public bool IsBoardMember { get; set; }
 
+        [Required]
         public string FirstName { get; set; }
 
+        [Required]
         public string LastName { get; set; }
 
         public string Image { get; set; }
 
         public string Occupation { get; set; }
 
+        [DataType(DataType.PhoneNumber)]
         public string Phone { get; set; }
 
+        [Required]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime Birthday { get; set; }
 
         public string EmergencyContactName { get; set; }
@@ -48,5 +54,9 @@ namespace SunridgeHOA.Models
         [ForeignKey("LotID")]
         public int? LotID { get; set; }
         public virtual Lot Lot { get; set; }
+
+        public int LotsID { get; set; }
+        [ForeignKey("LotsID")]
+        public virtual ICollection<Lot> Lots { get; set; }
     }
 }

@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 
 namespace SunridgeHOA.Models.ViewModels
 {
-    public class OwnerViewModel
+    public class MyLotsViewModel
     {
-        public Owner Owner { get; set; }
-        public ApplicationUser User { get; set; }
+        public int OwnerID { get; set; }
         public IEnumerable<Lot> Lots { get; set; }
+        public IEnumerable<OwnerHistory> OwnerHistories { get; set; }
     }
 }

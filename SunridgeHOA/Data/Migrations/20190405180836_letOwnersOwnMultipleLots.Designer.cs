@@ -3,19 +3,21 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SunridgeHOA.Data;
 
 namespace SunridgeHOA.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190405180836_letOwnersOwnMultipleLots")]
+    partial class letOwnersOwnMultipleLots
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.8-servicing-32085")
+                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -476,8 +478,6 @@ namespace SunridgeHOA.Data.Migrations
 
                     b.Property<string>("Status");
 
-                    b.Property<string>("TaxID");
-
                     b.HasKey("ID");
 
                     b.HasIndex("AddressID");
@@ -526,8 +526,7 @@ namespace SunridgeHOA.Data.Migrations
 
                     b.Property<string>("EmergencyContactPhone");
 
-                    b.Property<string>("FirstName")
-                        .IsRequired();
+                    b.Property<string>("FirstName");
 
                     b.Property<string>("Image");
 
@@ -539,8 +538,7 @@ namespace SunridgeHOA.Data.Migrations
 
                     b.Property<DateTime?>("LastModifiedDate");
 
-                    b.Property<string>("LastName")
-                        .IsRequired();
+                    b.Property<string>("LastName");
 
                     b.Property<int?>("LotID");
 
