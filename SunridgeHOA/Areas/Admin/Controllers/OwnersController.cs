@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -96,7 +96,7 @@ namespace SunridgeHOA.Areas.Admin.Controllers
         public async Task<IActionResult> Edit (string id)
         {
             OwnerVM.User = _db.ApplicationUsers.SingleOrDefault(m => m.Id == id);
-            OwnerVM.Owner = _db.Owners.SingleOrDefault(m => m.ID == OwnerVM.User.OwnerID);
+            OwnerVM.Owner = _db.Owners.Include(m => m.Address).SingleOrDefault(m => m.ID == OwnerVM.User.OwnerID);
 
             if (OwnerVM.User == null)
             {
@@ -126,7 +126,10 @@ namespace SunridgeHOA.Areas.Admin.Controllers
                 string webRootPath = _hostingEnvironment.WebRootPath;
                 var files = HttpContext.Request.Form.Files;
 
-                var ownerFromDb = _db.Owners.Where(m => m.ID == OwnerVM.User.OwnerID).FirstOrDefault();
+                var ownerFromDb = _db.Owners
+                    .Include(m => m.Address)
+                    .Include(m => m.Lots)
+                    .FirstOrDefault(m => m.ID == OwnerVM.User.OwnerID);
 
                 if (files.Count > 0 && files[0] != null)
                 {

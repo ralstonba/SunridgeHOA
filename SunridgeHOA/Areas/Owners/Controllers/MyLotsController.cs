@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -35,7 +35,9 @@ namespace SunridgeHOA.Areas.Owners.Controllers
             viewModel.OwnerID = _db.ApplicationUsers.Include(m => m.Owner)
                 .FirstOrDefault(m => m.Id.Equals(_userManager.GetUserId(HttpContext.User))).Owner.ID;
 
-            viewModel.Lots = _db.Lots.Where(m => m.OwnerID == viewModel.OwnerID).ToList();
+            var owner = _db.Owners.Include(m => m.Lots).FirstOrDefault(m => m.ID == viewModel.OwnerID);
+
+            viewModel.Lots = owner.Lots;
 
             return View(viewModel);
         }

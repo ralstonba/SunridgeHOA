@@ -1,4 +1,4 @@
-﻿@model SunridgeHOA.Models.ViewModels.OwnerViewModel
+@model SunridgeHOA.Models.ViewModels.OwnerViewModel
 @using SunridgeHOA.Extensions
 @{
     ViewData["Title"] = "Edit";
@@ -10,7 +10,7 @@
 <br />
 <h2 class="text-info">Edit an Owner</h2>
 
-<form method="post" asp-action="Create" enctype="multipart/form-data">
+<form method="post" asp-action="Edit" enctype="multipart/form-data">
     <div class="p-4 border rounded">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <input type="hidden" asp-for="User.Id" />
@@ -141,7 +141,7 @@
         </div>
         <br />
         <div class="form-group">
-            <input type="submit" class="btn btn-primary" value="Create" />
+            <input type="submit" class="btn btn-primary" value="Edit" />
             <a asp-action="Index" class="btn btn-success">Back to List</a>
         </div>
     </div>
