@@ -1,0 +1,255 @@
+﻿@model SunridgeHOA.Models.ViewModels.OwnerViewModel
+@using SunridgeHOA.Extensions
+@{
+    ViewData["Title"] = "User Dashboard";
+}
+
+<br />
+<h2 class="text-info">Your Information</h2>
+
+<div class="p-4 border rounded row">
+    <div class="col-8">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="User.Id" />
+        <div class="form-group row">
+            <div class="col-3">
+                <label asp-for="Owner.FirstName"></label>
+            </div>
+            <div class="col-7">
+                <input asp-for="Owner.FirstName" readonly class="form-control" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-3">
+                <label asp-for="Owner.LastName"></label>
+            </div>
+            <div class="col-7">
+                <input asp-for="Owner.LastName" readonly class="form-control" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-3">
+                <label asp-for="Owner.Address.StreetAddress"></label>
+            </div>
+            <div class="col-7">
+                <input asp-for="Owner.Address.StreetAddress" readonly class="form-control" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-3">
+                <label asp-for="Owner.Address.City"></label>
+            </div>
+            <div class="col-7">
+                <input asp-for="Owner.Address.City" readonly class="form-control" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-3">
+                <label asp-for="Owner.Address.State"></label>
+            </div>
+            <div class="col-7">
+                <input asp-for="Owner.Address.State" readonly class="form-control" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-3">
+                <label asp-for="Owner.Address.Zip"></label>
+            </div>
+            <div class="col-7">
+                <input asp-for="Owner.Address.Zip" readonly class="form-control" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-3">
+                <label asp-for="Owner.Occupation"></label>
+            </div>
+            <div class="col-7">
+                <input asp-for="Owner.Occupation" readonly class="form-control" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-3">
+                <label asp-for="Owner.Phone"></label>
+            </div>
+            <div class="col-7">
+                <input asp-for="Owner.Phone" readonly class="form-control" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-3">
+                <label asp-for="Owner.Birthday"></label>
+            </div>
+            <div class="col-7">
+                <input asp-for="Owner.Birthday" readonly class="form-control" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-3">
+                <label asp-for="Owner.EmergencyContactName"></label>
+            </div>
+            <div class="col-7">
+                <input asp-for="Owner.EmergencyContactName" readonly class="form-control" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-3">
+                <label asp-for="Owner.EmergencyContactPhone"></label>
+            </div>
+            <div class="col-7">
+                <input asp-for="Owner.EmergencyContactPhone" readonly class="form-control" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-3">
+                <label asp-for="Owner.Lot.LotNumber"></label>
+            </div>
+            <div class="col-7">
+                <input asp-for="Owner.Lot.LotNumber" readonly class="form-control" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-3">
+                <label asp-for="Owner.IsPrimary"></label>
+            </div>
+            <div class="col-7">
+                <input type="checkbox" asp-for="Owner.IsPrimary" disabled class="checkbox" />
+            </div>
+        </div>
+        <br />
+    </div>
+    <div class="col-1"></div>
+    <div class="col-3">
+        <img src="@Model.Owner.Image" width="100%" style="border-radius: 5px; border: 1px solid #bbb9b9;" />
+    </div>
+</div>
+
+    <br>
+
+    <h2 class="text-info">Your Lots</h2>
+
+    <div class="p-4 border rounded row">
+        <div class="col-8">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="User.Id" />
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="Owner.Lot.LotNumber"></label>
+                </div>
+                <div class="col-7">
+                    <input asp-for="Owner.Lot.LotNumber" readonly class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="Owner.Lot.Status"></label>
+                </div>
+                <div class="col-7">
+                    <input asp-for="Owner.Lot.Status" readonly class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="Owner.Lot.IsArchive"></label>
+                </div>
+                <div class="col-7">
+                    <input type="checkbox" asp-for="Owner.Lot.IsArchive" disabled class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="Owner.Lot.LastModifiedDate"></label>
+                </div>
+                <div class="col-7">
+                    <input asp-for="Owner.Lot.LastModifiedDate" readonly class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="Owner.Lot.TaxID"></label>
+                </div>
+                <div class="col-7">
+                    <input asp-for="Owner.Lot.TaxID" readonly class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="Owner.Lot.InventoryID"></label>
+                </div>
+                <div class="col-7">
+                    <input asp-for="Owner.Lot.InventoryID" readonly class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="Owner.Lot.Address.ID"></label>
+                </div>
+                <div class="col-7">
+                    <input asp-for="Owner.Lot.Address.ID" readonly class="form-control" />
+                </div>
+            </div>
+            <br />
+        </div>
+    </div>
+
+    <br>
+
+    <h2 class="text-info">Your Keys</h2>
+
+    <div class="p-4 border rounded row"></div>
+
+        @*<div>
+            <table class="table table-striped border">
+                @foreach (var item in Model.Owner.KeyUnits)
+                {
+                    <tr class="table-info">
+                        <th>
+                            @Html.DisplayNameFor(m => item.SerialNumber)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(m => item.KeyHistory.Status)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(m => item.KeyHistory.DateIssued)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(m => item.KeyHistory.DateReturned)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(m => item.KeyHistory.PaidAmount)
+                        </th>
+                        <th></th>
+                        <th></th>
+
+                    </tr>
+
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(m => item.SerialNumber)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => item.KeyHistory.Status)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => item.KeyHistory.DateIssued)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => item.KeyHistory.DateReturned)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => item.KeyHistory.PaidAmount)
+                        </td>
+                        <td>
+                            <partial name="_TableButtonPartial" model="item.ID" />
+                        </td>
+                    </tr>
+
+                }
+            </table>
+        </div>
+
+        *@
+
+        @section Scripts{
+            @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+        }

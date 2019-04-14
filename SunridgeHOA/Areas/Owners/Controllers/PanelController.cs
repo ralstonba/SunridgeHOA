@@ -12,7 +12,7 @@ using SunridgeHOA.Models.ViewModels;
 
 namespace SunridgeHOA.Areas.Admin.Controllers
 {
-    [Area("Admin")]
+    [Area("Owners")]
     public class PanelController : Controller
     {
         public readonly ApplicationDbContext _db;

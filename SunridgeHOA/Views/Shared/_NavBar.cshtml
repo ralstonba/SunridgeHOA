@@ -11,9 +11,6 @@
                 <a class="nav-link" asp-area="Public" asp-controller="Home" asp-action="BoardMembers">Board Members</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" asp-area="Admin" asp-controller="Panel" asp-action="Index">Panel</a>
-            </li>
-            <li class="nav-item">
                 <a class="nav-link" asp-area="Public" asp-controller="Home" asp-action="EventCalender">Event Calendar</a>
             </li>
             <li class="nav-item dropdown">
@@ -57,6 +54,12 @@
             <li class="nav-item">
                 <a class="nav-link" asp-action="PhotoGallery">Photo Gallery</a>
             </li>
+            @if (User.IsInRole("Owner"))
+            {
+                <li class="nav-item">
+                    <a class="nav-link" asp-area="Owners" asp-controller="Panel" asp-action="Index">Owner Panel</a>
+                </li>
+            }
         </ul>
         <div>
             <partial name="_LoginPartial" />

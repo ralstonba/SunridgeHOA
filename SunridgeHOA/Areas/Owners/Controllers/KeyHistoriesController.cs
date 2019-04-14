@@ -10,7 +10,7 @@ using SunridgeHOA.Models;
 
 namespace SunridgeHOA.Areas.Admin.Controllers
 {
-    [Area("Admin")]
+    [Area("OWners")]
     public class KeyHistoriesController : Controller
     {
         private readonly ApplicationDbContext _context;

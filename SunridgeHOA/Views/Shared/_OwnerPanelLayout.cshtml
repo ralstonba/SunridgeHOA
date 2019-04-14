@@ -40,7 +40,7 @@
     </environment>
 </head>
 <body style="padding: 0;">
-    <partial name="_NavBar"/>
+    <partial name="_NavBar" />
     <div class="col-12">
         <div class="form-group row">
             <div class="col-2">
@@ -50,32 +50,35 @@
                 <div class="collapse navbar-collapse inline" id="navbarNav">
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="Admin" asp-controller="Panel" asp-action="Index">Dashboard</a>
+                            <a class="nav-link" asp-area="Owners" asp-controller="Panel" asp-action="Index">Dashboard</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" asp-area="Owners" asp-controller="MyLots" asp-action="Index">My Lots</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="Admin" asp-controller="Owners" asp-action="Index">Owners</a>
+                            <a class="nav-link" asp-area="Owners" asp-controller="KeyHistories" asp-action="Index">Key History</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="Admin" asp-controller="Members" asp-action="Index">Board Members</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="Admin" asp-controller="Lots" asp-action="Index">Lots</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="Admin" asp-controller="Addresses" asp-action="Index">Addresses</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="Admin" asp-controller="Keys" asp-action="Index">Keys</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="Admin" asp-controller="KeyHistories" asp-action="Index">Key History</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="Admin" asp-controller="InventoryItems" asp-action="Index">Inventory Items</a>
-                        </li>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="Admin" asp-controller="Owners" asp-action="Index">Owners</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="Admin" asp-controller="Members" asp-action="Index">Board Members</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="Admin" asp-controller="Lots" asp-action="Index">Lots</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="Admin" asp-controller="Addresses" asp-action="Index">Addresses</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="Admin" asp-controller="Keys" asp-action="Index">Keys</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="Admin" asp-controller="InventoryItems" asp-action="Index">Inventory Items</a>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>
