@@ -57,6 +57,14 @@ namespace SunridgeHOA.Areas.Admin.Controllers
                 return View();
             }
 
+            Address newAddress = new Address();
+            newAddress.City = OwnerVM.Owner.Address.City;
+            newAddress.State = OwnerVM.Owner.Address.State;
+            newAddress.StreetAddress = OwnerVM.Owner.Address.StreetAddress;
+            newAddress.Zip = OwnerVM.Owner.Address.Zip;
+
+            OwnerVM.Owner.Address = newAddress;
+
             OwnerVM.Owner.IsBoardMember = false;
             _db.Owners.Add(OwnerVM.Owner);
             await _db.SaveChangesAsync();
@@ -162,6 +170,13 @@ namespace SunridgeHOA.Areas.Admin.Controllers
                 ownerFromDb.Birthday = OwnerVM.Owner.Birthday;
                 ownerFromDb.EmergencyContactName = OwnerVM.Owner.EmergencyContactName;
                 ownerFromDb.EmergencyContactPhone = OwnerVM.Owner.EmergencyContactPhone;
+
+                Address address = ownerFromDb.Address;
+                address.City = OwnerVM.Owner.Address.City;
+                address.State = OwnerVM.Owner.Address.State;
+                address.StreetAddress = OwnerVM.Owner.Address.StreetAddress;
+                address.Zip = OwnerVM.Owner.Address.Zip;
+
                 await _db.SaveChangesAsync();
 
                 return RedirectToAction(nameof(Index));
