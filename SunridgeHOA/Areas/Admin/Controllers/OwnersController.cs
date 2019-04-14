@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting.Internal;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SunridgeHOA.Data;
 using SunridgeHOA.Models;
@@ -107,6 +108,9 @@ namespace SunridgeHOA.Areas.Admin.Controllers
             OwnerVM.User = _db.ApplicationUsers.SingleOrDefault(m => m.Id == id);
             OwnerVM.Owner = _db.Owners.Include(m => m.Address).SingleOrDefault(m => m.ID == OwnerVM.User.OwnerID);
 
+            ViewBag.Lots = _db.Lots
+                .Select(item => new SelectListItem {Value = item.ID.ToString(), Text = item.LotNumber}).ToList();
+
             if (OwnerVM.User == null)
             {
                 NotFound();
@@ -170,6 +174,7 @@ namespace SunridgeHOA.Areas.Admin.Controllers
                 ownerFromDb.Birthday = OwnerVM.Owner.Birthday;
                 ownerFromDb.EmergencyContactName = OwnerVM.Owner.EmergencyContactName;
                 ownerFromDb.EmergencyContactPhone = OwnerVM.Owner.EmergencyContactPhone;
+                ownerFromDb.Lots = _db.Lots.Where(lot => OwnerVM.SelectedLots.Contains(lot.ID)).ToList();
 
                 Address address = ownerFromDb.Address;
                 address.City = OwnerVM.Owner.Address.City;
