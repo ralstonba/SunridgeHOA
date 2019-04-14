@@ -1,5 +1,61 @@
-﻿
+﻿@model IEnumerable<SunridgeHOA.Models.ComplaintForm>
 @{
     ViewData["Title"] = "Forms";
 }
+
+<br /><br />
+<p>
+    <a asp-action="FormList"><i class="fas fa-plus-circle"></i> Add New Form</a>
+</p>
+
+<div class="row">
+    <div class="col-6">
+        <h2 class="text-info">Form List</h2>
+    </div>
+</div>
+
+<br />
+<div>
+    <table class="table table-striped border">
+        <tr class="table-info">
+            <th>
+                @Html.DisplayNameFor(m => m.Owner.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.Owner.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.Owner.Lot.LotNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.Owner.Form.States.Name)
+            </th>
+            <th></th>
+            <th></th>
+
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(m => item.Owner.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.Owner.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.Owner.Lot.LotNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.Owner.Form.States.Name)
+                </td>
+                @*<td>
+                    <partial name="_TableButtonPartialString" model="item.Id" />
+                </td>*@
+            </tr>
+
+        }
+    </table>
+</div>
 

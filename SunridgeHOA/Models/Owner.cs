@@ -47,6 +47,10 @@ namespace SunridgeHOA.Models
         public int? AddressID { get; set; }
         public virtual Address Address { get; set; }
 
+        [ForeignKey("ComplaintForm")]
+        public int? FormID { get; set; }
+        public virtual ComplaintForm Form { get; set; }
+
         [ForeignKey("OwnerID")]
         public int? CoOwnerID { get; set; }
         public virtual Owner OwnerID { get; set; }

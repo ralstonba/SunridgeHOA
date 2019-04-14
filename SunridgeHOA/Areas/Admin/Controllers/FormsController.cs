@@ -24,9 +24,35 @@ namespace SunridgeHOA.Areas.Admin.Controllers
             _hostingEnvironment = hostingEnvironment;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
+        {
+            var forms = _db.ApplicationUsers.Include(m => m.Owner.Form);
+            return View(await forms.ToListAsync());
+        }
+
+        public IActionResult FormList()
         {
             return View();
         }
+
+        public IActionResult ComplaintFormCreate()
+        {
+            return View();
+        }
+
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> ComplaintFormCreate()
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return View();
+        //    }
+
+        //    db.User = _db.ApplicationUsers.SingleOrDefault(m => m.Id == OwnerVM.User.Id);
+
+        //    OwnerVM.User.Owner = OwnerVM.Owner;
+        //    await _db.SaveChangesAsync();
+        //}
     }
 }
