@@ -9,7 +9,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-area="Public" asp-controller="Home" asp-action="Cabins" method="post" enctype="multipart/form-data">
+        <form asp-action="CreateCabin" method="post" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Cabins.Name">Name:</label>
@@ -21,7 +21,9 @@
                 <label asp-for="Cabins.PhoneNumber">Phone Number:</label>
                 <input asp-for="Cabins.PhoneNumber" /> <br />
                 <label asp-for="Cabins.Email">Email:</label>
-                <input asp-for="Cabins.Email" /> <br /> <br />
+                <input asp-for="Cabins.Email" /> <br />
+                <label asp-for="Cabins.Image" />
+                <input type="file" asp-for="Cabins.Image" /> <br /> <br />
                 <input type="submit" value="Create" class="btn btn-default" />
             </div>
         </form>

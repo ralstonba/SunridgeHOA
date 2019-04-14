@@ -20,7 +20,7 @@
     </div>
 </section>
 
-<div>
+@*<div>
     <table class="table table-striped border">
         <tr class="table-info">
             <th>
@@ -89,11 +89,41 @@
         }
 
     </table>
+</div>*@
+
+<div class="row">
+    @foreach (var cabin in Model)
+    {
+        <div class="col-4">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h4 class="my-0 font-weight-normal">
+                        <label style="font-size:23px;color:steelblue;">@cabin.Name</label>
+                        @if (User.IsInRole(SunridgeHOA.Utilities.StaticDetails.AdminEndUser))
+                        {
+                            <span style="float: right"> <partial name="_TableButtonPartialLot" model="cabin.ID" /> </span>
+                        }
+                    </h4>
+                </div>
+
+                <img class="card-img-top" style="height:100%;" src="@cabin.Image" alt="Card Image" />
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="btn-group">
+                            <label style="font-size:20px; color:#a51313"><b>$@cabin.Price</b></label>
+                        </div>
+                        <a asp-area="Admin" asp-controller="Account" asp-action="CabinDetails" btn btn-info" asp-route-id="@cabin.ID"> View Details</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    }
 </div>
 
-
 <!-- Testimonials -->
-<section class="testimonials text-center">
+@*<section class="testimonials text-center">
 
 
     <div class="container mb-5">
@@ -145,3 +175,4 @@
         </div>
     </div>
 </section>
+*@
