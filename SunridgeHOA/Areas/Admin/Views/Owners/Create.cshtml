@@ -124,6 +124,14 @@
         </div>
         <div class="form-group row">
             <div class="col-2">
+                <label asp-for="Owner.KeyUnitID"></label>
+            </div>
+            <div class="col-5">
+                <select asp-for="@Model.Owner.KeyUnitID" asp-items="Model.Keys.ToSelectListItemKeys(Model.Owner.KeyUnitID)" class="form-control selectpicker" data-live-search="true" multiple></select>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-2">
                 <label asp-for="Owner.Image"></label>
             </div>
             <div class="col-5">

@@ -29,5 +29,16 @@ namespace SunridgeHOA.Extensions
                        Selected = item.GetPropertyValue("ID").Equals(selectedValue)
                    };
         }
+
+        public static IEnumerable<SelectListItem> ToSelectListItemKeys<T>(this IEnumerable<T> items, int? selectedValue)
+        {
+            return from item in items
+                   select new SelectListItem
+                   {
+                       Text = item.GetPropertyValue("SerialNumber"),
+                       Value = item.GetPropertyValue("ID"),
+                       Selected = item.GetPropertyValue("ID").Equals(selectedValue)
+                   };
+        }
     }
 }

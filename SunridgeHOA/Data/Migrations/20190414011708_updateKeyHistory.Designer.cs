@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SunridgeHOA.Data;
 
 namespace SunridgeHOA.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190414011708_updateKeyHistory")]
+    partial class updateKeyHistory
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -416,7 +418,7 @@ namespace SunridgeHOA.Data.Migrations
 
                     b.Property<bool>("IsArchive");
 
-                    b.Property<int?>("KeyHistoryID");
+                    b.Property<int>("KeyHistoryID");
 
                     b.Property<int?>("KeyUnitID");
 
@@ -537,7 +539,7 @@ namespace SunridgeHOA.Data.Migrations
 
                     b.Property<bool>("IsPrimary");
 
-                    b.Property<int?>("KeyUnitID");
+                    b.Property<int>("KeyUnitID");
 
                     b.Property<DateTime?>("LastModifiedDate");
 
@@ -808,7 +810,8 @@ namespace SunridgeHOA.Data.Migrations
                 {
                     b.HasOne("SunridgeHOA.Models.KeyHistory", "KeyHistory")
                         .WithMany()
-                        .HasForeignKey("KeyHistoryID");
+                        .HasForeignKey("KeyHistoryID")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("SunridgeHOA.Models.Owner")
                         .WithMany("KeyUnits")

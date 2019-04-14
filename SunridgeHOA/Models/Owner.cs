@@ -58,5 +58,9 @@ namespace SunridgeHOA.Models
         public int LotsID { get; set; }
         [ForeignKey("LotsID")]
         public virtual ICollection<Lot> Lots { get; set; }
+
+        public int? KeyUnitID { get; set; }
+        [ForeignKey("KeyUnitID")]
+        public virtual ICollection<Key> KeyUnits { get; set; }
     }
 }
