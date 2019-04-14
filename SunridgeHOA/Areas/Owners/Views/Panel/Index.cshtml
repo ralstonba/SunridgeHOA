@@ -124,43 +124,43 @@
     </div>
 </div>
 
-    <br>
+<br>
 
-@if (Model.Lots != null && Model.Lots.Any())
+@if (Model.Owner.Lots != null && Model.Owner.Lots.Any())
 {
     <h2 class="text-info">Your Lots</h2>
 
     <div class="p-4 border rounded row">
         <div class="col-8">
-            <table class="table">
+            <table class="table table-striped border">
                 <thead>
-                <tr>
-                    <th>
-                        Lot Number
-                    </th>
-                    <th>
-                        Inventory
-                    </th>
-                </tr>
+                    <tr>
+                        <th>
+                            Lot Number
+                        </th>
+                        <th>
+                            Inventory
+                        </th>
+                    </tr>
                 </thead>
                 <tbody>
-                @foreach (var lot in Model.Lots)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => lot.LotNumber)
-                        </td>
-                        <td>
-                            @if (lot.InventoryItems != null && lot.InventoryItems.Any())
-                            {
-                                foreach (var item in lot.InventoryItems)
-                                 {
-                                     @Html.DisplayFor(invItem => item.Name) <br/>
-                                 }
-                            }
-                        </td>
-                    </tr>
-                }
+                    @foreach (var lot in Model.Owner.Lots)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => lot.LotNumber)
+                            </td>
+                            <td>
+                                @if (lot.InventoryItems != null && lot.InventoryItems.Any())
+                                {
+                                    foreach (var item in lot.InventoryItems)
+                                    {
+                                        @Html.DisplayFor(invItem => item.Name) <br />
+                                    }
+                                }
+                            </td>
+                        </tr>
+                    }
                 </tbody>
             </table>
         </div>
@@ -169,11 +169,13 @@
     <br>
 }
 
+@if (Model.Owner.KeyUnits != null && Model.Owner.KeyUnits.Any())
+{
     <h2 class="text-info">Your Keys</h2>
 
-    <div class="p-4 border rounded row"></div>
+    <div class="p-4 border rounded row">
 
-        @*<div>
+        <div class="col-8">
             <table class="table table-striped border">
                 @foreach (var item in Model.Owner.KeyUnits)
                 {
@@ -222,9 +224,9 @@
                 }
             </table>
         </div>
+    </div>
+}
 
-        *@
-
-        @section Scripts{
-            @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-        }
+@section Scripts{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -119,7 +119,7 @@
                 <label asp-for="Owner.Lot.LotNumber"></label>
             </div>
             <div class="col-5">
-                <select multiple="multiple" class="form-control selectpicker" asp-for="@Model.SelectedLots" asp-items="(List<SelectListItem>)ViewBag.Lots"></select>
+                <select multiple="multiple" class="form-control selectpicker" asp-for="@Model.SelectedLots" asp-items="(List<SelectListItem>)ViewBag.Lots" data-live-search="true"></select>
             </div>
         </div>
         <div class="form-group row">
@@ -127,7 +127,7 @@
                 <label asp-for="Owner.KeyUnitID"></label>
             </div>
             <div class="col-5">
-                <select asp-for="@Model.Owner.KeyUnitID" asp-items="Model.Keys.ToSelectListItemKeys(Model.Owner.KeyUnitID)" class="form-control selectpicker" data-live-search="true" multiple></select>
+                <select multiple="multiple" class="form-control selectpicker" asp-for="@Model.SelectedKeys" asp-items="(List<SelectListItem>)ViewBag.Keys" data-live-search="true"></select>
             </div>
         </div>
         <div class="form-group row">

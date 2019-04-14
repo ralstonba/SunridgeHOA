@@ -39,6 +39,7 @@ namespace SunridgeHOA.Areas.Admin.Controllers
                 .Include(m => m.Lots)
                     .ThenInclude(lot => lot.InventoryItems)
                 .Include(m => m.KeyUnits)
+                    .ThenInclude(key => key.KeyHistory)
                 .Where(d => d.ID == 25).FirstOrDefault();
 
             var users = _db.ApplicationUsers
