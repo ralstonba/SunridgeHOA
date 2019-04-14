@@ -49,10 +49,48 @@ namespace SunridgeHOA.Areas.Admin.Controllers
         //        return View();
         //    }
 
+        //      _db.Add();
+
         //    db.User = _db.ApplicationUsers.SingleOrDefault(m => m.Id == OwnerVM.User.Id);
 
         //    OwnerVM.User.Owner = OwnerVM.Owner;
         //    await _db.SaveChangesAsync();
         //}
+
+        public IActionResult ComplaintFormEdit(string id)
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult ComplaintFormEditPost(string id){
+            return View();
+        }
+
+        public IActionResult ComplaintFormDetails(string id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            return View();
+
+        }
+
+        public IActionResult ComplaintFormDelete()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult ComplaintFormDeleteConfirmed(string id)
+        {
+            return View();
+        }
+
+
     }
 }
