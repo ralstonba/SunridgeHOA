@@ -35,5 +35,6 @@ namespace SunridgeHOA.Data
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
         public DbSet<ScheduledEvent> ScheduledEvents { get; set; }
         public DbSet<Service> Services { get; set; }
+        public DbSet<Banner> Banner { get; set; }
     }
 }
