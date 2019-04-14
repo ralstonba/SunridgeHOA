@@ -34,7 +34,11 @@ namespace SunridgeHOA.Areas.Admin.Controllers
 
         public async Task<IActionResult> Index()
         {
-            OwnerVM.Owner = _db.Owners.Where(d => d.ID == 25).FirstOrDefault();
+            OwnerVM.Owner = _db.Owners
+                .Include(m => m.Address)
+                .Include(m => m.Lots)
+                .Include(m => m.KeyUnits)
+                .Where(d => d.ID == 25).FirstOrDefault();
             var users = _db.ApplicationUsers
                 .Include(m => m.Owner);
             return View(OwnerVM);
