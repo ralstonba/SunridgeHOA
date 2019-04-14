@@ -16,15 +16,17 @@ namespace SunridgeHOA.Controllers
     public class HomeController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly ApplicationDbContext _db;
 
-        public HomeController(ApplicationDbContext context)
+        public HomeController(ApplicationDbContext context, ApplicationDbContext db)
         {
             _context = context;
+            _db = db;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            return View(await _db.Banner.ToListAsync());
         }
 
         public async Task<IActionResult> BoardMembers()
