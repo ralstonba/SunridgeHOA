@@ -15,7 +15,10 @@
         </div>
     </div>
 </section>
-
+@if (User.IsInRole(StaticDetails.AdminEndUser))
+{
+    <a class="nav-link" asp-area="SuperAdmin" asp-controller="ScheduledEvents" asp-action="Index"><i class="far fa-edit"></i> Edit Events</a>
+}
 <!-- Calendar -->
 <section class="calendar text-center">
     <div class="container">
@@ -34,7 +37,7 @@
 </section>
 
 <div id="calendarEventModal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title" id="eventTitle">Event Title</h4>
