@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using SunridgeHOA.Data;
 using SunridgeHOA.Models;
 using SunridgeHOA.Models.ViewModels;
+using SunridgeHOA.Utilities;
 
 namespace SunridgeHOA.Areas.Admin.Controllers
 {
@@ -46,7 +47,7 @@ namespace SunridgeHOA.Areas.Admin.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return RedirectToAction("Lots", "Home");
+                return RedirectToAction("Lots", "Home", new { area = "Public" });
             }
 
             // This can fail if you do not ensure that the method requires the user to be logged in in the first place
@@ -64,12 +65,44 @@ namespace SunridgeHOA.Areas.Admin.Controllers
                 Description = ClassifiedVM.Lots.Description,
                 Price = ClassifiedVM.Lots.Price,
                 Email = ClassifiedVM.Lots.Email,
-                PhoneNumber = ClassifiedVM.Lots.PhoneNumber
+                PhoneNumber = ClassifiedVM.Lots.PhoneNumber,
+                ListingDate = DateTime.Now,
+                LastModifiedDate = DateTime.Now
             };
 
             _db.ClassifiedListings.Add(classifiedListing);
             await _db.SaveChangesAsync();
-            return RedirectToAction("Lots", "Home");
+
+            string webRootPath = _hostingEnvironment.WebRootPath;
+            var files = HttpContext.Request.Form.Files;
+            string imgFolder = @"img\Lots";
+
+            var lotsFromDb = _db.ClassifiedListings.Find(classifiedListing.ID);
+
+            if (files.Count != 0)
+            {
+                //Image/s have been uploaded with form
+                var uploads = Path.Combine(webRootPath, imgFolder);
+                var extension = Path.GetExtension(files[0].FileName);
+
+                using (var filestream = new FileStream(Path.Combine(uploads, classifiedListing.ID + extension), FileMode.Create))
+                {
+                    files[0].CopyTo(filestream); //moves to server and renames
+                }
+
+                //now I know the new image name, so I can save the string image to the database
+                lotsFromDb.Image = @"\" + imgFolder + @"\" + classifiedListing.ID + extension;
+            }
+            else
+            {
+                //user didn't give us an image so we'll upload the placeholder
+                var uploads = Path.Combine(webRootPath, imgFolder, @"land-icon-01.svg");
+                System.IO.File.Copy(uploads, webRootPath + @"\" + imgFolder + @"\" + classifiedListing.ID + ".jpg");
+                lotsFromDb.Image = @"\" + imgFolder + @"\" + classifiedListing.ID + ".jpg";
+            }
+
+            await _db.SaveChangesAsync();
+            return RedirectToAction("Lots", "Home", new { area = "Public" });
         }
 
         public async Task<IActionResult> EditLot(int? id)
@@ -98,13 +131,14 @@ namespace SunridgeHOA.Areas.Admin.Controllers
             {
                 string webRootPath = _hostingEnvironment.WebRootPath;
                 var files = HttpContext.Request.Form.Files;
+                string imgFolder = @"img\Lots";
 
-                var productFromDb = _db.ClassifiedListings.Where(m => m.ID == ClassifiedVM.Lots.ID).FirstOrDefault();
+                var productFromDb = _db.ClassifiedListings.Where(m => m.ID == id).FirstOrDefault();
 
                 if (files.Count > 0 && files[0] != null)
                 {
                     //if user uploads a new image
-                    var uploads = Path.Combine(webRootPath, @"img\otherservices");
+                    var uploads = Path.Combine(webRootPath, imgFolder);
                     var extension_new = Path.GetExtension(files[0].FileName);
                     var extension_old = Path.GetExtension(uploads + ClassifiedVM.Lots.ID);
 
@@ -116,22 +150,24 @@ namespace SunridgeHOA.Areas.Admin.Controllers
                     {
                         files[0].CopyTo(filestream);
                     }
-                    //ClassifiedVM.Lots.Image = @"\" + SD.ImageFolder + @"\" + ProductsVM.Products.Id + extension_new;
+                    ClassifiedVM.Lots.Image = @"\" + imgFolder + @"\" + ClassifiedVM.Lots.ID + extension_new;
                 }
 
-                //if (ClassifiedVM.Lots.Image != null)
-                //{
-                //    productFromDb.Image = ProductsVM.Products.Image;
-                //}
+                if (ClassifiedVM.Lots.Image != null)
+                {
+                    productFromDb.Image = ClassifiedVM.Lots.Image;
+                }
 
                 productFromDb.Name = ClassifiedVM.Lots.Name;
                 productFromDb.Price = ClassifiedVM.Lots.Price;
                 productFromDb.Description = ClassifiedVM.Lots.Description;
                 productFromDb.PhoneNumber = ClassifiedVM.Lots.PhoneNumber;
                 productFromDb.Email = ClassifiedVM.Lots.Email;
+                productFromDb.LastModifiedDate = DateTime.Now;
+
                 await _db.SaveChangesAsync();
 
-                return RedirectToAction("Lots","Home");
+                return RedirectToAction("Lots","Home", new { area = "Public" });
             }
 
             return View(ClassifiedVM);
@@ -163,7 +199,7 @@ namespace SunridgeHOA.Areas.Admin.Controllers
 
             ClassifiedVM.Lots = await _db.ClassifiedListings.SingleOrDefaultAsync(m => m.ID == id);
 
-            if (ClassifiedVM.Cabins == null)
+            if (ClassifiedVM.Lots == null)
             {
                 NotFound();
             }
@@ -177,6 +213,7 @@ namespace SunridgeHOA.Areas.Admin.Controllers
         public async Task<IActionResult> DeleteLotConfirmed(int id)
         {
             string webRootPath = _hostingEnvironment.WebRootPath;
+            string imgFolder = @"img\Lots";
             ClassifiedListing lots = await _db.ClassifiedListings.FindAsync(id);
 
             if (lots == null)
@@ -185,17 +222,18 @@ namespace SunridgeHOA.Areas.Admin.Controllers
             }
             else
             {
-                var uploads = Path.Combine(webRootPath, @"img\otherservices");
-                //var extension = Path.GetExtension(cabins.Image);
+                var uploads = Path.Combine(webRootPath, imgFolder);
+                var extension = Path.GetExtension(lots.Image);
 
-                /*if (System.IO.File.Exists(Path.Combine(uploads, products.Id + extension)))
+                if (System.IO.File.Exists(Path.Combine(uploads, lots.ID + extension)))
                 {
-                    System.IO.File.Delete(Path.Combine(uploads, products.Id + extension));
-                }*/
+                    System.IO.File.Delete(Path.Combine(uploads, lots.ID + extension));
+                }
+
                 _db.ClassifiedListings.Remove(lots);
                 await _db.SaveChangesAsync();
 
-                return RedirectToAction("Lots", "Home");
+                return RedirectToAction("Lots", "Home", new { area = "Public" });
             }
         }
 
@@ -228,12 +266,44 @@ namespace SunridgeHOA.Areas.Admin.Controllers
                 Description = ClassifiedVM.Cabins.Description,
                 Price = ClassifiedVM.Cabins.Price,
                 Email = ClassifiedVM.Cabins.Email,
-                PhoneNumber = ClassifiedVM.Cabins.PhoneNumber
+                PhoneNumber = ClassifiedVM.Cabins.PhoneNumber,
+                ListingDate = DateTime.Now,
+                LastModifiedDate = DateTime.Now
             };
 
             _db.ClassifiedListings.Add(classifiedListing);
             await _db.SaveChangesAsync();
-            return RedirectToAction("Cabins", "Home");
+
+            string webRootPath = _hostingEnvironment.WebRootPath;
+            var files = HttpContext.Request.Form.Files;
+            string imgFolder = @"img\Cabins";
+
+            var CabinsFromDb = _db.ClassifiedListings.Find(classifiedListing.ID);
+
+            if (files.Count != 0)
+            {
+                //Image/s have been uploaded with form
+                var uploads = Path.Combine(webRootPath, imgFolder);
+                var extension = Path.GetExtension(files[0].FileName);
+
+                using (var filestream = new FileStream(Path.Combine(uploads, classifiedListing.ID + extension), FileMode.Create))
+                {
+                    files[0].CopyTo(filestream); //moves to server and renames
+                }
+
+                //now I know the new image name, so I can save the string image to the database
+                CabinsFromDb.Image = @"\" + imgFolder + @"\" + classifiedListing.ID + extension;
+            }
+            else
+            {
+                //user didn't give us an image so we'll upload the placeholder
+                var uploads = Path.Combine(webRootPath, imgFolder, @"land-icon-01.svg");
+                System.IO.File.Copy(uploads, webRootPath + @"\" + imgFolder + @"\" + classifiedListing.ID + ".jpg");
+                CabinsFromDb.Image = @"\" + imgFolder + @"\" + classifiedListing.ID + ".jpg";
+            }
+
+            await _db.SaveChangesAsync();
+            return RedirectToAction("Cabins", "Home", new { area = "Public" });
         }
 
         public async Task<IActionResult> EditCabin(int? id)
@@ -261,14 +331,15 @@ namespace SunridgeHOA.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 string webRootPath = _hostingEnvironment.WebRootPath;
+                string imgFolder = @"img\Cabins";
                 var files = HttpContext.Request.Form.Files;
 
-                var productFromDb = _db.ClassifiedListings.Where(m => m.ID == ClassifiedVM.Cabins.ID).FirstOrDefault();
+                var productFromDb = _db.ClassifiedListings.Where(m => m.ID == id).FirstOrDefault();
 
                 if (files.Count > 0 && files[0] != null)
                 {
                     //if user uploads a new image
-                    var uploads = Path.Combine(webRootPath, @"img\otherservices");
+                    var uploads = Path.Combine(webRootPath, imgFolder);
                     var extension_new = Path.GetExtension(files[0].FileName);
                     var extension_old = Path.GetExtension(uploads + ClassifiedVM.Cabins.ID);
 
@@ -280,22 +351,23 @@ namespace SunridgeHOA.Areas.Admin.Controllers
                     {
                         files[0].CopyTo(filestream);
                     }
-                    //ClassifiedVM.Lots.Image = @"\" + SD.ImageFolder + @"\" + ProductsVM.Products.Id + extension_new;
+                    ClassifiedVM.Lots.Image = @"\" + imgFolder + @"\" + ClassifiedVM.Cabins.ID + extension_new;
                 }
 
-                //if (ClassifiedVM.Lots.Image != null)
-                //{
-                //    productFromDb.Image = ProductsVM.Products.Image;
-                //}
+                if (ClassifiedVM.Lots.Image != null)
+                {
+                    productFromDb.Image = ClassifiedVM.Cabins.Image;
+                }
 
                 productFromDb.Name = ClassifiedVM.Cabins.Name;
                 productFromDb.Price = ClassifiedVM.Cabins.Price;
                 productFromDb.Description = ClassifiedVM.Cabins.Description;
                 productFromDb.PhoneNumber = ClassifiedVM.Cabins.PhoneNumber;
                 productFromDb.Email = ClassifiedVM.Cabins.Email;
+                productFromDb.LastModifiedDate = DateTime.Now;
                 await _db.SaveChangesAsync();
 
-                return RedirectToAction("Cabins", "Home");
+                return RedirectToAction("Cabins", "Home", new { area = "Public" });
             }
 
             return View(ClassifiedVM);
@@ -341,6 +413,7 @@ namespace SunridgeHOA.Areas.Admin.Controllers
         public async Task<IActionResult> DeleteCabinConfirmed(int id)
         {
             string webRootPath = _hostingEnvironment.WebRootPath;
+            string imgFolder = @"img\Cabins";
             ClassifiedListing cabins = await _db.ClassifiedListings.FindAsync(id);
 
             if (cabins == null)
@@ -349,17 +422,18 @@ namespace SunridgeHOA.Areas.Admin.Controllers
             }
             else
             {
-                var uploads = Path.Combine(webRootPath, @"img\otherservices");
-                //var extension = Path.GetExtension(cabins.Image);
+                var uploads = Path.Combine(webRootPath, imgFolder);
+                var extension = Path.GetExtension(cabins.Image);
 
-                /*if (System.IO.File.Exists(Path.Combine(uploads, products.Id + extension)))
+                if (System.IO.File.Exists(Path.Combine(uploads, cabins.ID + extension)))
                 {
-                    System.IO.File.Delete(Path.Combine(uploads, products.Id + extension));
-                }*/
+                    System.IO.File.Delete(Path.Combine(uploads, cabins.ID + extension));
+                }
+
                 _db.ClassifiedListings.Remove(cabins);
                 await _db.SaveChangesAsync();
 
-                return RedirectToAction("Cabins", "Home");
+                return RedirectToAction("Cabins", "Home", new { area = "Public" });
             }
         }
 
@@ -374,24 +448,35 @@ namespace SunridgeHOA.Areas.Admin.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return RedirectToAction("OtherServices", "Home");
+                return RedirectToAction("OtherServices", "Home", new { area = "Public" });
             }
-            _db.Files.Add(ClassifiedVM.File);
+
+            Service serviceFile = new Service()
+            {
+                FilePath = HttpContext.Request.Form.Files[0].FileName
+            };
+
+            _db.Services.Add(serviceFile);
             await _db.SaveChangesAsync();
 
             var files = HttpContext.Request.Form.Files;
             
             if (files.Count != 0)
             {
-                var uploads = Path.Combine(WebRootPath, @"img\otherservices");
+                var uploads = Path.Combine(WebRootPath, @"img\other-services");
                 var extension = Path.GetExtension(files[0].FileName);
-                using (var filestream = new FileStream(Path.Combine(uploads, ClassifiedVM.File.ID + extension), FileMode.Create))
+                using (var filestream = new FileStream(Path.Combine(uploads, serviceFile.ID + extension), FileMode.Create))
                 {
                     files[0].CopyTo(filestream);
-                } 
+                }
+
+                var productFromDb = _db.Services.Where(m => m.ID == serviceFile.ID).FirstOrDefault();
+                productFromDb.FilePath = Path.Combine(uploads, serviceFile.ID + extension);
+                await _db.SaveChangesAsync();
             }
+
             await _db.SaveChangesAsync();
-            return RedirectToAction("OtherServices", "Home");
+            return RedirectToAction("OtherServices", "Home", new { area = "Public" });
         }
     }
 }

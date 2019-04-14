@@ -1,4 +1,4 @@
-﻿
+﻿@model SunridgeHOA.Models.ViewModels.ClassifiedViewModel
 @{
     ViewData["Title"] = "Add Service";
 }
@@ -8,10 +8,10 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-area="Public" asp-controller="Home" asp-action="OtherServices" method="post" enctype="multipart/form-data">
+        <form asp-action="CreateService" method="post" enctype="multipart/form-data">
             <div class="form-group">
-                <label>File Upload:</label>
-                <input type="file" id="otherServicesFileUpload" /> <br /><br />
+                <label asp-for="Service.FilePath">File Upload:</label>
+                <input asp-for="Service.FilePath" type="file" id="otherServicesFileUpload" /> <br /><br />
                 <input type="submit" value="Add" class="btn btn-default" />
             </div>
         </form>

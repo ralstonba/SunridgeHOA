@@ -1,4 +1,4 @@
-﻿
+﻿@model IEnumerable<SunridgeHOA.Models.Service>
 @{
     ViewData["Title"] = "Other Services";
 }
@@ -21,6 +21,25 @@
         </div>
     </div>
 </section>
+
+@if (Model != null)
+{
+    <div class="container gallery-container text-center mt-5 mb-5">
+        <div class="tz-gallery">
+            <div class="row">
+                @foreach (var item in Model)
+                {
+                    <div class="col-sm-6 col-md-4">
+                        <a class="lightbox" href="@item.FilePath">
+                            <img src="@item.FilePath" alt="excavating">
+                        </a>
+                    </div>
+                }
+
+            </div>
+        </div>
+    </div>
+}
 
 <!-- Testimonials -->
 <div class="container gallery-container text-center mt-5 mb-5">

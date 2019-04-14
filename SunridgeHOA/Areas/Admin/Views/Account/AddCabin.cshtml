@@ -21,8 +21,10 @@
                 <label asp-for="Cabins.PhoneNumber">Phone Number:</label>
                 <input asp-for="Cabins.PhoneNumber" /> <br />
                 <label asp-for="Cabins.Email">Email:</label>
-                <input asp-for="Cabins.Email" /> <br /> <br />
-                <input asp-area="Public" asp-controller="Home"  asp-action="Cabins" type="submit" value="Create" class="btn btn-default" />
+                <input asp-for="Cabins.Email" /> <br />
+                <label asp-for="Cabins.Image" />
+                <input type="file" asp-for="Cabins.Image" /> <br /> <br />
+                <input type="submit" value="Create" class="btn btn-default" />
             </div>
         </form>
     </div>

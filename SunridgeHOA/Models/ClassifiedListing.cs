@@ -22,6 +22,7 @@ namespace SunridgeHOA.Models
         public string PhoneNumber { get; set; }
         [EmailAddress]
         public string Email { get; set; }
+        public string Image { get; set; }
         [Required]
         public bool IsArchive { get; set; }
         [Required]
