@@ -37,8 +37,10 @@ namespace SunridgeHOA.Areas.Admin.Controllers
             OwnerVM.Owner = _db.Owners
                 .Include(m => m.Address)
                 .Include(m => m.Lots)
+                    .ThenInclude(lot => lot.InventoryItems)
                 .Include(m => m.KeyUnits)
                 .Where(d => d.ID == 25).FirstOrDefault();
+
             var users = _db.ApplicationUsers
                 .Include(m => m.Owner);
             return View(OwnerVM);

@@ -126,73 +126,48 @@
 
     <br>
 
+@if (Model.Lots != null && Model.Lots.Any())
+{
     <h2 class="text-info">Your Lots</h2>
 
     <div class="p-4 border rounded row">
         <div class="col-8">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="User.Id" />
-            <div class="form-group row">
-                <div class="col-3">
-                    <label asp-for="Owner.Lot.LotNumber"></label>
-                </div>
-                <div class="col-7">
-                    <input asp-for="Owner.Lot.LotNumber" readonly class="form-control" />
-                </div>
-            </div>
-            <div class="form-group row">
-                <div class="col-3">
-                    <label asp-for="Owner.Lot.Status"></label>
-                </div>
-                <div class="col-7">
-                    <input asp-for="Owner.Lot.Status" readonly class="form-control" />
-                </div>
-            </div>
-            <div class="form-group row">
-                <div class="col-3">
-                    <label asp-for="Owner.Lot.IsArchive"></label>
-                </div>
-                <div class="col-7">
-                    <input type="checkbox" asp-for="Owner.Lot.IsArchive" disabled class="form-control" />
-                </div>
-            </div>
-            <div class="form-group row">
-                <div class="col-3">
-                    <label asp-for="Owner.Lot.LastModifiedDate"></label>
-                </div>
-                <div class="col-7">
-                    <input asp-for="Owner.Lot.LastModifiedDate" readonly class="form-control" />
-                </div>
-            </div>
-            <div class="form-group row">
-                <div class="col-3">
-                    <label asp-for="Owner.Lot.TaxID"></label>
-                </div>
-                <div class="col-7">
-                    <input asp-for="Owner.Lot.TaxID" readonly class="form-control" />
-                </div>
-            </div>
-            <div class="form-group row">
-                <div class="col-3">
-                    <label asp-for="Owner.Lot.InventoryID"></label>
-                </div>
-                <div class="col-7">
-                    <input asp-for="Owner.Lot.InventoryID" readonly class="form-control" />
-                </div>
-            </div>
-            <div class="form-group row">
-                <div class="col-3">
-                    <label asp-for="Owner.Lot.Address.ID"></label>
-                </div>
-                <div class="col-7">
-                    <input asp-for="Owner.Lot.Address.ID" readonly class="form-control" />
-                </div>
-            </div>
-            <br />
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>
+                        Lot Number
+                    </th>
+                    <th>
+                        Inventory
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var lot in Model.Lots)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => lot.LotNumber)
+                        </td>
+                        <td>
+                            @if (lot.InventoryItems != null && lot.InventoryItems.Any())
+                            {
+                                foreach (var item in lot.InventoryItems)
+                                 {
+                                     @Html.DisplayFor(invItem => item.Name) <br/>
+                                 }
+                            }
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
         </div>
     </div>
 
     <br>
+}
 
     <h2 class="text-info">Your Keys</h2>
 
