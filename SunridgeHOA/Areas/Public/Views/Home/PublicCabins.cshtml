@@ -1,0 +1,297 @@
+﻿@model SunridgeHOA.Models.ViewModels.ClassifiedViewModel
+@{
+    ViewData["Title"] = "Lot Details";
+}
+
+<br />
+<h2 class="text-info">Lot Details</h2>
+
+<div class="p-4 border rounded row">
+    <input type="hidden" asp-for="Cabins.ID" />
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="col-8">
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="Cabins.Name"></label>
+            </div>
+            <div class="col-8">
+                <input asp-for="Cabins.Name" class="form-control" readonly />
+            </div>
+            <span asp-validation-for="Cabins.Name" class="text-danger"></span>
+        </div>
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="Cabins.Price"></label>
+            </div>
+            <div class="col-8">
+                <input asp-for="Cabins.Price" class="form-control" readonly />
+            </div>
+            <span asp-validation-for="Cabins.Price" class="text-danger"></span>
+        </div>
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="Cabins.Description"></label>
+            </div>
+            <div class="col-8">
+                <input asp-for="@Model.Cabins.Description" class="form-control" readonly />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="Cabins.PhoneNumber"></label>
+            </div>
+            <div class="col-8">
+                <input asp-for="@Model.Cabins.PhoneNumber" class="form-control" readonly />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="Cabins.Email"></label>
+            </div>
+            <div class="col-8">
+                <input asp-for="Cabins.Email" class="form-control" readonly />
+            </div>
+            <span asp-validation-for="Cabins.Email" class="text-danger"></span>
+        </div>
+    </div>
+    @if (Model.Cabins.Image != null)
+    {
+        int i = 0;
+        <div class="col-1"></div>
+        @foreach (var image in (IEnumerable<string>)ViewBag.Images)
+        {
+            if (i == 0)
+            {
+                string temp = @"~/img/Cabins/" + Model.Cabins.ID.ToString() + @"/" + Model.Cabins.ID.ToString() + "." + i.ToString() + System.IO.Path.GetExtension(image);
+                <div class="col-3">
+                    <div class="numbertext">@(i + 1) / @(((IEnumerable<string>)ViewBag.Images).Count())</div>
+                    <img src="@Url.Content(temp)" alt="Lot" onclick="openModal();currentSlide(i)" class="hover-shadow" width="100%" style="border-radius: 5px; border: 1px solid #bbb9b9;" />
+                </div>
+                i++;
+            }
+        }
+        <!-- The Modal/Lightbox -->
+        <div id="myModal" class="modal">
+            <span class="close cursor" onclick="closeModal()">&times;</span>
+            <div class="modal-content">
+                @{
+                    i = 0;
+                }
+                @foreach (var image in (IEnumerable<string>)ViewBag.Images)
+                {
+                    string temp = @"~/img/Cabins/" + Model.Cabins.ID.ToString() + @"/" + Model.Cabins.ID.ToString() + "." + i.ToString() + System.IO.Path.GetExtension(image);
+                    <div class="mySlides">
+                        <div class="numbertext">@(i + 1) / @(((IEnumerable<string>)ViewBag.Images).Count())</div>
+                        <img src="@Url.Content(temp)" style="width:100%" alt="Lot">
+                    </div>
+                    i++;
+                }
+
+                <!-- Next/previous controls -->
+                <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+                <a class="next" onclick="plusSlides(1)">&#10095;</a>
+
+                <!-- Caption text -->
+                <div class="caption-container">
+                    <p id="caption"></p>
+                </div>
+
+                @{
+                    i = 0;
+                }
+                @foreach (var image in (IEnumerable<string>)ViewBag.Images)
+                {
+                    string temp = @"~/img/Cabins/" + Model.Cabins.ID.ToString() + @"/" + Model.Cabins.ID.ToString() + "." + i.ToString() + System.IO.Path.GetExtension(image);
+                    <div class="column">
+                        <img class="demo" src="@Url.Content(temp)" onclick="currentSlide(1)" alt="Lot">
+                    </div>
+                    i++;
+                }
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="col-1"></div>
+        <div class="col-3">
+            <img src="~/img/land-icon-01.svg" width="100%" style="border-radius: 5px; border: 1px solid #bbb9b9;" />
+        </div>
+        <br />
+    }
+
+    <div class="form-group">
+        <a asp-area="Public" asp-controller="Home" asp-action="Cabins" class="btn btn-success">Back to List</a>
+    </div>
+</div>
+
+<style>
+    .row > .column {
+        padding: 0 8px;
+    }
+
+    .row:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+
+    /* Create four equal columns that floats next to eachother */
+    .column {
+        float: left;
+        width: 25%;
+    }
+
+    /* The Modal (background) */
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        padding-top: 100px;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: black;
+    }
+
+    /* Modal Content */
+    .modal-content {
+        position: relative;
+        background-color: #fefefe;
+        margin: auto;
+        padding: 0;
+        width: 90%;
+        max-width: 1200px;
+    }
+
+    /* The Close Button */
+    .close {
+        color: white;
+        position: absolute;
+        top: 10px;
+        right: 25px;
+        font-size: 35px;
+        font-weight: bold;
+    }
+
+        .close:hover,
+        .close:focus {
+            color: #999;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+    /* Hide the slides by default */
+    .mySlides {
+        display: none;
+    }
+
+    /* Next & previous buttons */
+    .prev,
+    .next {
+        cursor: pointer;
+        position: absolute;
+        top: 50%;
+        width: auto;
+        padding: 16px;
+        margin-top: -50px;
+        color: white;
+        font-weight: bold;
+        font-size: 20px;
+        transition: 0.6s ease;
+        border-radius: 0 3px 3px 0;
+        user-select: none;
+        -webkit-user-select: none;
+    }
+
+    /* Position the "next button" to the right */
+    .next {
+        right: 0;
+        border-radius: 3px 0 0 3px;
+    }
+
+        /* On hover, add a black background color with a little bit see-through */
+        .prev:hover,
+        .next:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+    /* Number text (1/3 etc) */
+    .numbertext {
+        color: #f2f2f2;
+        font-size: 12px;
+        padding: 8px 12px;
+        position: absolute;
+        top: 0;
+    }
+
+    /* Caption text */
+    .caption-container {
+        text-align: center;
+        background-color: black;
+        padding: 2px 16px;
+        color: white;
+    }
+
+    img.demo {
+        opacity: 0.6;
+    }
+
+    .active,
+    .demo:hover {
+        opacity: 1;
+    }
+
+    img.hover-shadow {
+        transition: 0.3s;
+    }
+
+    .hover-shadow:hover {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+</style>
+
+<script>
+        // Open the Modal
+        function openModal() {
+            document.getElementById('myModal').style.display = "block";
+        }
+
+        // Close the Modal
+        function closeModal() {
+            document.getElementById('myModal').style.display = "none";
+        }
+
+        var slideIndex = 1;
+        showSlides(slideIndex);
+
+        // Next/previous controls
+        function plusSlides(n) {
+            showSlides(slideIndex += n);
+        }
+
+        // Thumbnail image controls
+        function currentSlide(n) {
+            showSlides(slideIndex = n);
+        }
+
+        function showSlides(n) {
+            var i;
+            var slides = document.getElementsByClassName("mySlides");
+            var dots = document.getElementsByClassName("demo");
+            var captionText = document.getElementById("caption");
+            if (n > slides.length) { slideIndex = 1 }
+            if (n < 1) { slideIndex = slides.length }
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+            slides[slideIndex - 1].style.display = "block";
+            dots[slideIndex - 1].className += " active";
+            captionText.innerHTML = dots[slideIndex - 1].alt;
+        }
+</script>

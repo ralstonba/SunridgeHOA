@@ -75,7 +75,9 @@ namespace SunridgeHOA.Areas.Admin.Controllers
 
             string webRootPath = _hostingEnvironment.WebRootPath;
             var files = HttpContext.Request.Form.Files;
-            string imgFolder = @"img\Lots";
+            Directory.CreateDirectory(Path.Combine(webRootPath, @"img\Lots", classifiedListing.ID.ToString()));
+            string imgFolder = Path.Combine(@"img\Lots", classifiedListing.ID.ToString());
+
 
             var lotsFromDb = _db.ClassifiedListings.Find(classifiedListing.ID);
 
@@ -85,13 +87,17 @@ namespace SunridgeHOA.Areas.Admin.Controllers
                 var uploads = Path.Combine(webRootPath, imgFolder);
                 var extension = Path.GetExtension(files[0].FileName);
 
-                using (var filestream = new FileStream(Path.Combine(uploads, classifiedListing.ID + extension), FileMode.Create))
+                for (int i = 0; i < files.Count; i++)
                 {
-                    files[0].CopyTo(filestream); //moves to server and renames
+                    var extensions = Path.GetExtension(files[i].FileName);
+                    using (var filestream = new FileStream(Path.Combine(uploads, classifiedListing.ID + "." + i + extensions), FileMode.Create))
+                    {
+                        files[i].CopyTo(filestream); //moves to server and renames
+                    }
                 }
 
                 //now I know the new image name, so I can save the string image to the database
-                lotsFromDb.Image = @"\" + imgFolder + @"\" + classifiedListing.ID + extension;
+                lotsFromDb.Image = @"\" + imgFolder + @"\" + classifiedListing.ID + ".0" + extension;
             }
             else
             {
@@ -276,7 +282,9 @@ namespace SunridgeHOA.Areas.Admin.Controllers
 
             string webRootPath = _hostingEnvironment.WebRootPath;
             var files = HttpContext.Request.Form.Files;
-            string imgFolder = @"img\Cabins";
+            Directory.CreateDirectory(Path.Combine(webRootPath, @"img\Cabins", classifiedListing.ID.ToString()));
+            string imgFolder = Path.Combine(@"img\Cabins", classifiedListing.ID.ToString());
+
 
             var CabinsFromDb = _db.ClassifiedListings.Find(classifiedListing.ID);
 
@@ -286,13 +294,17 @@ namespace SunridgeHOA.Areas.Admin.Controllers
                 var uploads = Path.Combine(webRootPath, imgFolder);
                 var extension = Path.GetExtension(files[0].FileName);
 
-                using (var filestream = new FileStream(Path.Combine(uploads, classifiedListing.ID + extension), FileMode.Create))
+                for (int i = 0; i < files.Count; i++)
                 {
-                    files[0].CopyTo(filestream); //moves to server and renames
+                    var extensions = Path.GetExtension(files[i].FileName);
+                    using (var filestream = new FileStream(Path.Combine(uploads, classifiedListing.ID + "." + i + extensions), FileMode.Create))
+                    {
+                        files[i].CopyTo(filestream); //moves to server and renames
+                    }
                 }
 
                 //now I know the new image name, so I can save the string image to the database
-                CabinsFromDb.Image = @"\" + imgFolder + @"\" + classifiedListing.ID + extension;
+                CabinsFromDb.Image = @"\" + imgFolder + @"\" + classifiedListing.ID + ".0" + extension;
             }
             else
             {
