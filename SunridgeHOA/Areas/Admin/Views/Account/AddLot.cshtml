@@ -9,7 +9,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-area="Public" asp-controller="Home" asp-action="Lots"  method="post" enctype="multipart/form-data">
+        <form asp-action="CreateLot"  method="post" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Lots.Name">Name:</label>
@@ -21,7 +21,9 @@
                 <label asp-for="Lots.PhoneNumber">Phone Number:</label>
                 <input asp-for="Lots.PhoneNumber" /> <br />
                 <label asp-for="Lots.Email">Email:</label>
-                <input asp-for="Lots.Email" /> <br /> <br />
+                <input asp-for="Lots.Email" /> <br />
+                <label asp-for="Lots.Image">Image: </label>
+                <input type="file" asp-for="Lots.Image" multiple /> <br /> <br />
                 <input type="submit" value="Create" class="btn btn-default" />
             </div>
         </form>
