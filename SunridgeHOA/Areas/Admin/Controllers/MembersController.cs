@@ -4,11 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting.Internal;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SunridgeHOA.Data;
 using SunridgeHOA.Models;
 using SunridgeHOA.Models.ViewModels;
+using SunridgeHOA.Utilities;
 
 namespace SunridgeHOA.Areas.Admin.Controllers
 {
@@ -18,18 +20,21 @@ namespace SunridgeHOA.Areas.Admin.Controllers
     {
         private readonly ApplicationDbContext _db;
         private readonly HostingEnvironment _hostingEnvironment;
+        private readonly UserManager<IdentityUser> _userManager;
         [BindProperty]
         public BoardMembersViewModel BoardMembersVM { get; set; }
 
-        public MembersController(ApplicationDbContext db, HostingEnvironment hostingEnvironment)
+        public MembersController(ApplicationDbContext db, HostingEnvironment hostingEnvironment, UserManager<IdentityUser> userManager)
         {
             _db = db;
             _hostingEnvironment = hostingEnvironment;
+            _userManager = userManager;
 
             BoardMembersVM = new BoardMembersViewModel()
             {
                 BoardMember = new Models.BoardMember(),
-                Users = _db.ApplicationUsers.Where(d => d.Owner.IsBoardMember == false).ToList()
+                Users = _db.ApplicationUsers.Where(d => d.Owner.IsBoardMember == false).ToList(),
+                Owners = _db.Owners.Where(d => d.IsBoardMember == false).ToList()
             };
         }
         public async Task<IActionResult> Index()
@@ -55,7 +60,7 @@ namespace SunridgeHOA.Areas.Admin.Controllers
             }
 
             var appUser = _db.ApplicationUsers
-                .Include(m => m.Owner).FirstOrDefault(m => m.Id == BoardMembersVM.SelectedApplicationUserID);
+                .Include(m => m.Owner).FirstOrDefault(m => m.OwnerID == BoardMembersVM.BoardMember.OwnerID);
             var owner = appUser.Owner;
 
             BoardMember newBoardMember = new BoardMember()
@@ -74,6 +79,8 @@ namespace SunridgeHOA.Areas.Admin.Controllers
                 _db.Owners.Update(owner);
                 _db.SaveChanges();
             }
+
+            await _userManager.AddToRoleAsync(appUser, StaticDetails.AdminEndUser);
            
             return RedirectToAction(nameof(Index));
         }
@@ -103,8 +110,8 @@ namespace SunridgeHOA.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                var productFromDb = _db.BoardMembers.Where(m => m.ID == id).FirstOrDefault();
-                productFromDb.Position = BoardMembersVM.BoardMember.Position;
+                var ownerFromDb = _db.BoardMembers.Where(m => m.ID == id).FirstOrDefault();
+                ownerFromDb.Position = BoardMembersVM.BoardMember.Position;
                 await _db.SaveChangesAsync();
 
                 return RedirectToAction(nameof(Index));
@@ -168,6 +175,11 @@ namespace SunridgeHOA.Areas.Admin.Controllers
                 _db.Owners.Update(owner);
 
                 await _db.SaveChangesAsync();
+
+                ApplicationUser user = _db.ApplicationUsers.Include(m => m.Owner)
+                    .FirstOrDefault(m => m.Owner.ID == owner.ID);
+
+                await _userManager.RemoveFromRoleAsync(user, StaticDetails.AdminEndUser);
 
                 return RedirectToAction(nameof(Index));
             }

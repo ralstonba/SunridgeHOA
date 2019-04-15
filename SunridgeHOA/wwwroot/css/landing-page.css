@@ -386,3 +386,28 @@ header.masthead12 {
 .carousel-inner > .item > img {
     margin: 0 auto;
 }
+.carousel-item {
+    height: 100%;
+}
+
+#bannerHeader {
+    padding-top: 8rem;
+    padding-bottom: 6rem;
+}
+
+#carouselTextBox {
+    background-color: #1F5687;
+    opacity: 0.8;
+    height: 200px;
+}
+
+img.masthead9 {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+    pointer-events: none;
+    position: absolute;
+}
+
+

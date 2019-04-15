@@ -9,6 +9,6 @@ namespace SunridgeHOA.Models.ViewModels
     {
         public ClassifiedListing Lots { get; set; }
         public ClassifiedListing Cabins { get; set; }
-        public File File { get; set; }
+        public Service Service { get; set; }
     }
 }

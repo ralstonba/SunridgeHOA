@@ -1,48 +1,49 @@
-﻿@{
+﻿@model List<SunridgeHOA.Models.Banner>
+@{
     ViewData["Title"] = "Home";
 }
 <!-- Masthead -->
-
+@if (User.IsInRole(SunridgeHOA.Utilities.StaticDetails.AdminEndUser))
+{
+    <a class="nav-link" asp-area="Admin" asp-controller="Banner" asp-action="Index">
+        <i class="far fa-edit"></i>
+        Edit Banner
+    </a>
+}
 <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" data-interval="7000">
     <div class="carousel-inner">
-        <div class="carousel-item active">
-            <header class="masthead9 text-white text-center">
-                <div style="background-color: #1F5687; opacity: 0.8;" class="container w-4 p-4">
-                    <h1>Welcome to Sunridge</h1>
-                    <p style="font-size: 18pt;">
-                        Located in Weber County, Utah, Sunridge is a home away from home for owners seeking the solitude and scenery of the Wasatch mountains.
-                        Tucked away behind Powder Mountain Ski Resort, Sunridge is just the place for those hoping to "get away from it all" and get close to nature!
-                    </p>
+        @foreach (var item in Model)
+        {
+            if (item ==
+                Model.First())
+            {
+                <div class="carousel-item active">
+                    <img class="masthead9 bg-primary" src="..@Html.DisplayFor(modelItem => item.Image)" />
+                    <header class="text-white text-center" id="bannerHeader">
+                        <div id="carouselTextBox" class="container w-4 p-4">
+                            <h1>@Html.DisplayFor(modelItem => item.Header)</h1>
+                            <p style="font-size: 18pt;">
+                                @Html.DisplayFor(modelItem => item.Body)
+                            </p>
+                        </div>
+                    </header>
                 </div>
-            </header>
-        </div>
-        <div class="carousel-item">
-            <header class="masthead6 text-white text-center">
-                <div style="background-color: #1F5687; opacity: 0.8;" class="container w-4 p-4">
-                    <h1>2019 HOA Dues</h1>
-                    <p style="font-size: 18pt;">
-                        2019 HOA dues invoices will be sent out by February 1,2019. Payment must be received no later than March 1,2019.  The accountant cannot accept credit cards.  Checks should be payable to Sunridge Property Owners Association and mailed to the address on the invoice. 2019 dues will be $375.00.
-                    </p>
+            }
+            else
+            {
+                <div class="carousel-item">
+                    <img class="masthead9 bg-primary" src="..@Html.DisplayFor(modelItem => item.Image)" />
+                    <header class="text-white text-center" id="bannerHeader">
+                        <div id="carouselTextBox" class="container w-4 p-4">
+                            <h1>@Html.DisplayFor(modelItem => item.Header)</h1>
+                            <p style="font-size: 18pt;">
+                                @Html.DisplayFor(modelItem => item.Body)
+                            </p>
+                        </div>
+                    </header>
                 </div>
-            </header>
-        </div>
-        <div class="carousel-item">
-            <header class="masthead11 text-white text-center">
-                <div style="background-color: #1F5687; opacity: 0.8;" class="container w-4 p-4">
-                    <h1>Hunting Regulations</h1>
-                    <p style="font-size: 18pt;">There will not be any hunting cards sent out this year. The hunting rules are the same as in the past. Hoping all hunters will abide by the rules and police themselves. The hunting rules and hunting area map can be found on our website.</p>
-                </div>
-            </header>
-        </div>
-
-        <div class="carousel-item">
-            <header class="masthead8 text-white text-center">
-                <div style="background-color: #1F5687; opacity: 0.8;" class="container w-4 p-4">
-                    <h1>Buy & Sell Property or Advertise a service at Sundridge</h1>
-                    <p style="font-size: 18pt;">Interested in buying a lot or cabin up at Sunridge?  <br>Have one to sell, or want to promote your Sunridge friendly business for free. See our classifieds section for more information.</p>
-                </div>
-            </header>
-        </div>
+            }
+        }
     </div>
     <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -81,7 +82,7 @@
                     </div>
                     <h3>Classifieds &amp; Ads</h3>
                     <p class="lead">Buy & Sell Property or Advertise a service at Sundridge</p>
-                    <button asp-action="EventCalender" class="btn-primary"><a class="text-white" asp-action="EventCalander">More Info</a></button>
+                    <button asp-action="EventCalender" class="btn-primary"><a class="text-white" asp-action="Lots">More Info</a></button>
                 </div>
             </div>
             <div class="col-lg-4">
@@ -97,3 +98,8 @@
         </div>
     </div>
 </section>
+
+@section Scripts{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+}

@@ -9,5 +9,9 @@ namespace SunridgeHOA.Models.ViewModels
     {
         public Owner Owner { get; set; }
         public ApplicationUser User { get; set; }
+        public IEnumerable<Lot> Lots { get; set; }
+        public List<int> SelectedLots { get; set; }
+        public List<int> SelectedKeys { get; set; }
+        public IEnumerable<Key> Keys { get; set; }
     }
 }

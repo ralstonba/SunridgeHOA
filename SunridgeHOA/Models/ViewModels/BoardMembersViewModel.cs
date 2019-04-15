@@ -10,5 +10,6 @@ namespace SunridgeHOA.Models.ViewModels
         public BoardMember BoardMember { get; set; }
         public string SelectedApplicationUserID { get; set; }
         public IEnumerable<ApplicationUser> Users { get; set; }
+        public IEnumerable<Owner> Owners { get; set; }
     }
 }

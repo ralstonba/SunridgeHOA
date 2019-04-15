@@ -29,7 +29,15 @@
             </div>
             <div class="form-group">
                 <label asp-for="Input.IsSuperAdmin"></label>
-                <input type="checkbox" asp-for="Input.IsSuperAdmin" class="form-control" />
+                <input type="checkbox" asp-for="Input.IsSuperAdmin" class="checkbox" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.IsAdmin"></label>
+                <input type="checkbox" asp-for="Input.IsAdmin" class="checkbox" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.IsOwner"></label>
+                <input type="checkbox" asp-for="Input.IsOwner" class="checkbox" />
             </div>
             <button type="submit" class="btn btn-default">Register</button>
         </form>

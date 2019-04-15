@@ -63,6 +63,12 @@ namespace SunridgeHOA.Areas.Identity.Pages.Account
 
             [Display(Name = "Super Admin")]
             public bool IsSuperAdmin { get; set; }
+
+            [Display(Name = "Admin")]
+            public bool IsAdmin { get; set; }
+
+            [Display(Name = "Owner")]
+            public bool IsOwner { get; set; }
         }
 
         public void OnGet(string returnUrl = null)
@@ -97,11 +103,18 @@ namespace SunridgeHOA.Areas.Identity.Pages.Account
 
                     if (Input.IsSuperAdmin)
                     {
-                        await _userManager.AddToRoleAsync(user, StaticDetails.OwnerEndUser);
-                        await _userManager.AddToRoleAsync(user, StaticDetails.AdminEndUser);
                         await _userManager.AddToRoleAsync(user, StaticDetails.SuperAdminEndUser);
                     }
 
+                    if (Input.IsAdmin)
+                    {
+                        await _userManager.AddToRoleAsync(user, StaticDetails.AdminEndUser);
+                    }
+
+                    if (Input.IsOwner)
+                    {
+                        await _userManager.AddToRoleAsync(user, StaticDetails.OwnerEndUser);
+                    }
 
                     _logger.LogInformation("User created a new account with password.");
 
@@ -115,7 +128,7 @@ namespace SunridgeHOA.Areas.Identity.Pages.Account
                     await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
                         $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
-                    await _signInManager.SignInAsync(user, isPersistent: false);
+                    //await _signInManager.SignInAsync(user, isPersistent: false);
                     return LocalRedirect(returnUrl);
                 }
                 foreach (var error in result.Errors)
