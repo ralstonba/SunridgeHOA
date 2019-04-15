@@ -7,7 +7,7 @@ namespace SunridgeHOA.Models.ViewModels
 {
     public class MyLotsViewModel
     {
-        public int OwnerID { get; set; }
+        public Owner Owner { get; set; }
         public IEnumerable<Lot> Lots { get; set; }
         public IEnumerable<OwnerHistory> OwnerHistories { get; set; }
     }

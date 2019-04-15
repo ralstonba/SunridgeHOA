@@ -32,10 +32,11 @@ namespace SunridgeHOA.Areas.Owners.Controllers
 
         public IActionResult Index()
         {
-            viewModel.OwnerID = _db.ApplicationUsers.Include(m => m.Owner)
-                .FirstOrDefault(m => m.Id.Equals(_userManager.GetUserId(HttpContext.User))).Owner.ID;
+            viewModel.Owner = _db.ApplicationUsers.Include(m => m.Owner)
+                .FirstOrDefault(m => m.Id.Equals(_userManager.GetUserId(HttpContext.User))).Owner;
 
-            var owner = _db.Owners.Include(m => m.Lots).FirstOrDefault(m => m.ID == viewModel.OwnerID);
+            var owner = _db.Owners.Include(m => m.Lots).ThenInclude(m => m.Address)
+                .FirstOrDefault(m => m.ID == viewModel.Owner.ID);
 
             viewModel.Lots = owner.Lots;
 
