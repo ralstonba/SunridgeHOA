@@ -208,6 +208,23 @@ namespace SunridgeHOA.Data.Migrations
                     b.ToTable("Addresses");
                 });
 
+            modelBuilder.Entity("SunridgeHOA.Models.Banner", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Body");
+
+                    b.Property<string>("Header");
+
+                    b.Property<string>("Image");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Banner");
+                });
+
             modelBuilder.Entity("SunridgeHOA.Models.BoardMember", b =>
                 {
                     b.Property<int>("ID")
@@ -256,6 +273,8 @@ namespace SunridgeHOA.Data.Migrations
                     b.Property<string>("Description");
 
                     b.Property<string>("Email");
+
+                    b.Property<string>("Image");
 
                     b.Property<bool>("IsArchive");
 
@@ -639,6 +658,20 @@ namespace SunridgeHOA.Data.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("ScheduledEvents");
+                });
+
+            modelBuilder.Entity("SunridgeHOA.Models.Service", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("FilePath")
+                        .IsRequired();
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Services");
                 });
 
             modelBuilder.Entity("SunridgeHOA.Models.Transaction", b =>

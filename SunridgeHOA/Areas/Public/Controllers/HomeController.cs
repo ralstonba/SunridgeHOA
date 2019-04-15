@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting.Internal;
@@ -16,15 +17,20 @@ namespace SunridgeHOA.Controllers
     public class HomeController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly ApplicationDbContext _db;
 
-        public HomeController(ApplicationDbContext context)
+        public string WebRootPath { get; set; }
+
+        public HomeController(ApplicationDbContext context, ApplicationDbContext db, HostingEnvironment hostingEnvironment)
         {
             _context = context;
+            _db = db;
+            WebRootPath = hostingEnvironment.WebRootPath;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            return View(await _db.Banner.ToListAsync());
         }
 
         public async Task<IActionResult> BoardMembers()
@@ -43,12 +49,66 @@ namespace SunridgeHOA.Controllers
 
         public async Task<IActionResult> Lots()
         {
+            ApplicationUser temp = _context.ApplicationUsers.FirstOrDefault(m => m.UserName == User.Identity.Name);
+            if (temp != null)
+            {
+                ViewData["OwnerID"] = temp.OwnerID;
+            }
             return View(await _context.ClassifiedListings.Where(m => m.ClassifiedCategory.Name == "Lots").ToListAsync());
+        }
+
+        public async Task<IActionResult> PublicLots(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            ClassifiedViewModel ClassifiedVM = new ClassifiedViewModel();
+
+            ClassifiedVM.Lots = await _db.ClassifiedListings.SingleOrDefaultAsync(m => m.ID == id);
+
+            if (ClassifiedVM.Lots == null)
+            {
+                NotFound();
+            }
+
+            ViewBag.Images = Directory.EnumerateFiles(Path.Combine(WebRootPath, @"img/Lots", ClassifiedVM.Lots.ID.ToString()))
+                .Select(fn => Path.Combine(WebRootPath, @"img/Lots", ClassifiedVM.Lots.ID.ToString()) + Path.GetFileName(fn));
+
+            return View(ClassifiedVM);
         }
 
         public async Task<IActionResult> Cabins()
         {
+            ApplicationUser temp = _context.ApplicationUsers.FirstOrDefault(m => m.UserName == User.Identity.Name);
+            if (temp != null)
+            {
+                ViewData["OwnerID"] = temp.OwnerID;
+            }
             return View(await _context.ClassifiedListings.Where(m => m.ClassifiedCategory.Name == "Cabins").ToListAsync());
+        }
+
+        public async Task<IActionResult> PublicCabins(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            ClassifiedViewModel ClassifiedVM = new ClassifiedViewModel();
+
+            ClassifiedVM.Cabins = await _db.ClassifiedListings.SingleOrDefaultAsync(m => m.ID == id);
+
+            if (ClassifiedVM.Lots == null)
+            {
+                NotFound();
+            }
+
+            ViewBag.Images = Directory.EnumerateFiles(Path.Combine(WebRootPath, @"img/Cabins", ClassifiedVM.Cabins.ID.ToString()))
+                .Select(fn => Path.Combine(WebRootPath, @"img/Cabins", ClassifiedVM.Cabins.ID.ToString()) + Path.GetFileName(fn));
+
+            return View(ClassifiedVM);
         }
 
         public IActionResult OtherServices()
