@@ -13,11 +13,10 @@ namespace SunridgeHOA.Models
         public int ID { get; set; }
         public string Description { get; set; }
         public string Suggestion { get; set; }
-        [NotMapped]
+        [ForeignKey("Owner")]
         public int OwnerID { get; set; }
-        [NotMapped]
         public virtual Owner Owner { get; set; }
-        [NotMapped]
+        [ForeignKey("States")]
         public int StatesID { get; set; }
         public virtual States States { get; set; }
     }
