@@ -8,19 +8,24 @@
   <ItemGroup>
     <Compile Remove="Areas\Admin\Data\**" />
     <Compile Remove="Areas\Admin\Models\**" />
+    <Compile Remove="Areas\Admin\Views\Forms\**" />
     <Compile Remove="Controllers\**" />
     <Content Remove="Areas\Admin\Data\**" />
     <Content Remove="Areas\Admin\Models\**" />
+    <Content Remove="Areas\Admin\Views\Forms\**" />
     <Content Remove="Controllers\**" />
     <EmbeddedResource Remove="Areas\Admin\Data\**" />
     <EmbeddedResource Remove="Areas\Admin\Models\**" />
+    <EmbeddedResource Remove="Areas\Admin\Views\Forms\**" />
     <EmbeddedResource Remove="Controllers\**" />
     <None Remove="Areas\Admin\Data\**" />
     <None Remove="Areas\Admin\Models\**" />
+    <None Remove="Areas\Admin\Views\Forms\**" />
     <None Remove="Controllers\**" />
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="Areas\Admin\Controllers\FormsController.cs" />
     <Compile Remove="Data\Migrations\20190324001310_addSuperUserFlagToUsers.cs" />
     <Compile Remove="Data\Migrations\20190324001310_addSuperUserFlagToUsers.Designer.cs" />
     <Compile Remove="Data\Migrations\20190324005045_removeRedundantPropsFromAppUsers.cs" />
