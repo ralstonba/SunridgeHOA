@@ -7,8 +7,9 @@ namespace SunridgeHOA.Utilities
 {
     public class StaticDetails
     {
-        public static string AdminEndUser = "Admin";
-        public static string OwnerEndUser = "Owner";
-        public static string SuperAdminEndUser = "Super Admin";
+        public const string AdminEndUser = "Admin";
+        public const string OwnerEndUser = "Owner";
+        public const string SuperAdminEndUser = "Super Admin";
+        public const string EventImagesPath = @"images\events";
     }
 }
