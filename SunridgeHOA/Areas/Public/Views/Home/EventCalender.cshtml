@@ -27,11 +27,6 @@
         <link href="~/lib/fullcalendar/fullcalendar.print.css" rel="stylesheet" media="print" />
         <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
 
-        @if (User.IsInRole(StaticData.AdminEndUser))
-        {
-            <a class="nav-link" asp-area="SuperAdmin" asp-controller="ScheduledEvents" asp-action="Index">Edit Events</a>
-        }
-
         <div class="container"><button class="btn-primary mt-4"><a class="text-white" href="mailto:Webmaster@sunridge.info">Contact the Webmaster to publish a new event</a></button></div>
     </div>
 </section>

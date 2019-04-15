@@ -9,11 +9,11 @@ using Microsoft.EntityFrameworkCore;
 using SunridgeHOA.Data;
 using SunridgeHOA.Models;
 using SunridgeHOA.Models.ViewModels;
-using SunridgeHOA.Utility;
+using SunridgeHOA.Utilities;
 
 namespace SunridgeHOA.Areas.Owners.Controllers
 {
-    [Authorize(Roles = StaticData.OwnerEndUser)]
+    [Authorize(Roles = StaticDetails.OwnerEndUser)]
     [Area("Owners")]
     public class MyLotsController : Controller
     {
