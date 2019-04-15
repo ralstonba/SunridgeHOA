@@ -40,71 +40,8 @@
     </environment>
 </head>
 <body style="padding: 0;">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse inline" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item active">
-                    <a class="nav-link" asp-action="Index">Home<span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" asp-area="Admin" asp-controller="Owners" asp-action="Index">Edit Users</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" asp-area="Admin" asp-controller="Members" asp-action="Index">Board Members</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" asp-area="Public" asp-controller="Home" asp-action="EventCalender">Event Calendar</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Classified Ads
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" asp-action="Lots">Lots</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" asp-action="Cabins">Cabins</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" asp-action="OtherServices">Other Services</a>
-                    </div>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Docs &amp; Forms
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" asp-action="Rules">Rules</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" asp-action="Maps">Maps</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" asp-action="Forms">Forms</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" asp-action="FireInfo">Fire Info</a>
-                    </div>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Latest News
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" asp-action="Season2018">2018 Season</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" asp-action="Season2017">2017 Season</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" asp-action="Season2016">2016 Season</a>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" asp-action="PhotoGallery">Photo Gallery</a>
-                </li>
-            </ul>
-            <div>
-                <partial name="_LoginPartial" />
-            </div>
-        </div>
-    </nav>
+
+    <partial name="_NavBar" />
 
     <partial name="_CookieConsentPartial" />
 

@@ -15,7 +15,7 @@
                 <label asp-for="BoardMember.Owner"></label>
             </div>
             <div class="col-5">
-                <select asp-for="@Model.SelectedApplicationUserID" asp-items="Model.Users.ToSelectListItem(Model.SelectedApplicationUserID)" class="form-control"></select>
+                <select asp-for="@Model.BoardMember.OwnerID" asp-items="Model.Owners.ToSelectListItemFullName(Model.BoardMember.OwnerID)" class="form-control selectpicker" data-live-search="true"></select>
             </div>
         </div>
         <div class="form-group row">

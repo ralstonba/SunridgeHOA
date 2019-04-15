@@ -1,10 +1,11 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting.Internal;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SunridgeHOA.Data;
 using SunridgeHOA.Models;
@@ -27,7 +28,9 @@ namespace SunridgeHOA.Areas.Admin.Controllers
 
             OwnerVM = new OwnerViewModel()
             {
-                Owner = new Owner()
+                Owner = new Owner(),
+                Lots = _db.Lots.ToList(),
+                Keys = _db.Keys.ToList()
             };
         }
 
@@ -42,6 +45,12 @@ namespace SunridgeHOA.Areas.Admin.Controllers
         public IActionResult Create(string appUser)
         {
             OwnerVM.User = _db.ApplicationUsers.SingleOrDefault(m => m.Id == appUser);
+
+            ViewBag.Lots = _db.Lots
+                .Select(item => new SelectListItem { Value = item.ID.ToString(), Text = item.LotNumber }).ToList();
+            ViewBag.Keys = _db.Keys
+                .Select(item => new SelectListItem { Value = item.ID.ToString(), Text = item.SerialNumber }).ToList();
+
             return View(OwnerVM);
         }
 
@@ -53,6 +62,24 @@ namespace SunridgeHOA.Areas.Admin.Controllers
             if (!ModelState.IsValid)
             {
                 return View();
+            }
+
+            Address newAddress = new Address();
+            newAddress.City = OwnerVM.Owner.Address.City;
+            newAddress.State = OwnerVM.Owner.Address.State;
+            newAddress.StreetAddress = OwnerVM.Owner.Address.StreetAddress;
+            newAddress.Zip = OwnerVM.Owner.Address.Zip;
+
+            OwnerVM.Owner.Address = newAddress;
+
+            if (OwnerVM.SelectedLots != null && OwnerVM.SelectedLots.Any())
+            {
+                OwnerVM.Owner.Lots = _db.Lots.Where(lot => OwnerVM.SelectedLots.Contains(lot.ID)).ToList();
+            }
+
+            if (OwnerVM.SelectedKeys != null && OwnerVM.SelectedKeys.Any())
+            {
+                OwnerVM.Owner.KeyUnits = _db.Keys.Where(key => OwnerVM.SelectedKeys.Contains(key.ID)).ToList();
             }
 
             OwnerVM.Owner.IsBoardMember = false;
@@ -95,7 +122,12 @@ namespace SunridgeHOA.Areas.Admin.Controllers
         public async Task<IActionResult> Edit (string id)
         {
             OwnerVM.User = _db.ApplicationUsers.SingleOrDefault(m => m.Id == id);
-            OwnerVM.Owner = _db.Owners.SingleOrDefault(m => m.ID == OwnerVM.User.OwnerID);
+            OwnerVM.Owner = _db.Owners.Include(m => m.Address).SingleOrDefault(m => m.ID == OwnerVM.User.OwnerID);
+
+            ViewBag.Lots = _db.Lots
+                .Select(item => new SelectListItem {Value = item.ID.ToString(), Text = item.LotNumber}).ToList();
+            ViewBag.Keys = _db.Keys
+                .Select(item => new SelectListItem {Value = item.ID.ToString(), Text = item.SerialNumber}).ToList();
 
             if (OwnerVM.User == null)
             {
@@ -125,7 +157,10 @@ namespace SunridgeHOA.Areas.Admin.Controllers
                 string webRootPath = _hostingEnvironment.WebRootPath;
                 var files = HttpContext.Request.Form.Files;
 
-                var ownerFromDb = _db.Owners.Where(m => m.ID == OwnerVM.User.OwnerID).FirstOrDefault();
+                var ownerFromDb = _db.Owners
+                    .Include(m => m.Address)
+                    .Include(m => m.Lots)
+                    .FirstOrDefault(m => m.ID == OwnerVM.User.OwnerID);
 
                 if (files.Count > 0 && files[0] != null)
                 {
@@ -157,6 +192,22 @@ namespace SunridgeHOA.Areas.Admin.Controllers
                 ownerFromDb.Birthday = OwnerVM.Owner.Birthday;
                 ownerFromDb.EmergencyContactName = OwnerVM.Owner.EmergencyContactName;
                 ownerFromDb.EmergencyContactPhone = OwnerVM.Owner.EmergencyContactPhone;
+                if (OwnerVM.SelectedLots != null && OwnerVM.SelectedLots.Any())
+                {
+                    ownerFromDb.Lots = _db.Lots.Where(lot => OwnerVM.SelectedLots.Contains(lot.ID)).ToList();
+                }
+
+                if (OwnerVM.SelectedKeys != null && OwnerVM.SelectedKeys.Any())
+                {
+                    ownerFromDb.KeyUnits = _db.Keys.Where(key => OwnerVM.SelectedKeys.Contains(key.ID)).ToList();
+                }
+
+                Address address = ownerFromDb.Address;
+                address.City = OwnerVM.Owner.Address.City;
+                address.State = OwnerVM.Owner.Address.State;
+                address.StreetAddress = OwnerVM.Owner.Address.StreetAddress;
+                address.Zip = OwnerVM.Owner.Address.Zip;
+
                 await _db.SaveChangesAsync();
 
                 return RedirectToAction(nameof(Index));
