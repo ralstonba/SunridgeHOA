@@ -24,10 +24,11 @@ namespace SunridgeHOA.Areas.Admin.Controllers
         [BindProperty]
         public BoardMembersViewModel BoardMembersVM { get; set; }
 
-        public MembersController(ApplicationDbContext db, HostingEnvironment hostingEnvironment)
+        public MembersController(ApplicationDbContext db, HostingEnvironment hostingEnvironment, UserManager<IdentityUser> userManager)
         {
             _db = db;
             _hostingEnvironment = hostingEnvironment;
+            _userManager = userManager;
 
             BoardMembersVM = new BoardMembersViewModel()
             {
