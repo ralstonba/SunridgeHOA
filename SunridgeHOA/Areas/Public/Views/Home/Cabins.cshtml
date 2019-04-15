@@ -99,9 +99,12 @@
                 <div class="card-header">
                     <h4 class="my-0 font-weight-normal">
                         <label style="font-size:23px;color:steelblue;">@cabin.Name</label>
-                        @if (User.IsInRole(SunridgeHOA.Utilities.StaticDetails.AdminEndUser))
+                        @if (ViewData["OwnerID"] != null)
                         {
-                            <span style="float: right"> <partial name="_TableButtonPartialLot" model="cabin.ID" /> </span>
+                            @if (cabin.OwnerID.ToString() == ViewData["OwnerID"].ToString())
+                            {
+                                <span style="float: right"> <partial name="_TableButtonPartialLot" model="cabin.ID" /> </span>
+                            }
                         }
                     </h4>
                 </div>
@@ -112,7 +115,7 @@
                         <div class="btn-group">
                             <label style="font-size:20px; color:#a51313"><b>$@cabin.Price</b></label>
                         </div>
-                        <a asp-area="Admin" asp-controller="Account" asp-action="CabinDetails" btn btn-info" asp-route-id="@cabin.ID"> View Details</a>
+                        <a asp-area="Public" asp-controller="Home" asp-action="PublicCabins" btn btn-info" asp-route-id="@cabin.ID"> View Details</a>
                     </div>
                 </div>
 
