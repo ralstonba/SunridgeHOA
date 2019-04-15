@@ -1,0 +1,85 @@
+﻿@model SunridgeHOA.Models.ComplaintForm
+@using SunridgeHOA.Extensions
+@{
+    ViewData["Title"] = "Complaint Form Edit";
+}
+<br />
+<h2>Complaint Form Edit</h2>
+
+<form method="post" asp-action="ComplaintFormEdit" enctype="multipart/form-data">
+    <div class="p-4 border rounded">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="Owner.ID" />
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="Owner.FirstName"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="Owner.FirstName" class="form-control" />
+            </div>
+            <span asp-validation-for="Owner.FirstName" class="text-danger"></span>
+        </div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="Owner.LastName"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="Owner.LastName" class="form-control" />
+            </div>
+            <span asp-validation-for="Owner.LastName" class="text-danger"></span>
+        </div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="Owner.Lot.LotNumber"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="Owner.Lot.LotNumber" class="form-control" />
+            </div>
+            <span asp-validation-for="Owner.Lot.LotNumber" class="text-danger"></span>
+        </div>
+        @*<div class="form-group row">
+                <div class="col-2">
+                    <label asp-for="Owner.Form.States"></label>
+                </div>
+                <div class="col-5">
+                    <select asp-for="@Model.Owner.Form.StatesID" asp-items="Model.Owner.Form.States.ToSelectListItem(Model.Owner.Form.StatesID)" class="form-control"></select>
+                </div>
+            </div>*@
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="Owner.Phone"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="Owner.Phone" class="form-control" />
+            </div>
+            <span asp-validation-for="Owner.Phone" class="text-danger"></span>
+        </div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="Owner.Form.Description"></label>
+            </div>
+            <div class="col-5">
+                <input type="checkbox" asp-for="Owner.Form.Description" class="form-control" />
+            </div>
+            <span asp-validation-for="Owner.Form.Description" class="text-danger"></span>
+        </div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="Owner.Form.Suggestion"></label>
+            </div>
+            <div class="col-5">
+                <input type="checkbox" asp-for="Owner.Form.Suggestion" class="form-control" />
+            </div>
+            <span asp-validation-for="Owner.Form.Suggestion" class="text-danger"></span>
+        </div>
+        <br />
+        <div class="form-group">
+            <input type="submit" class="btn btn-primary" value="Edit" />
+            <a asp-action="Index" class="btn btn-success">Back to List</a>
+        </div>
+    </div>
+</form>
+
+@section Scripts{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
