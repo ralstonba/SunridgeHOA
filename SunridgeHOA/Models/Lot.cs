@@ -19,6 +19,7 @@ namespace SunridgeHOA.Models
         public bool IsArchive { get; set; }
 
         public DateTime LastModifiedDate { get; set; }
+        public string TaxID { get; set; }
 
         // Navigation Properties
         public int InventoryID { get; set; }
@@ -29,8 +30,9 @@ namespace SunridgeHOA.Models
         public int AddressID { get; set; }
         public virtual Address Address { get; set; }
 
-        [ForeignKey("Owner")]
+        [NotMapped]
         public int OwnerID { get; set; }
+        [NotMapped]
         public virtual Owner Owner { get; set; }
 
     }

@@ -17,5 +17,10 @@ namespace SunridgeHOA.Models
         public bool IsArchive { get; set; }
 
         public DateTime LastModifiedDate { get; set; }
+
+        //Navigation Properties
+        public int? KeyHistoryID { get; set; }
+        [ForeignKey("KeyHistoryID")]
+        public virtual KeyHistory KeyHistory { get; set; }
     }
 }

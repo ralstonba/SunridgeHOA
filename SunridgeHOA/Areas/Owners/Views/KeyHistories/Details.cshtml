@@ -1,0 +1,54 @@
+﻿@model SunridgeHOA.Models.KeyHistory
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>KeyHistory</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DateIssued)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DateIssued)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DateReturned)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DateReturned)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.PaidAmount)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PaidAmount)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IsArchive)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IsArchive)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.LastModifiedDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.LastModifiedDate)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.ID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
